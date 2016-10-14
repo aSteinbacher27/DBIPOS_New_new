@@ -1,7 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -25,22 +25,26 @@ public class HostGUI extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		
+/*
+ * Throw your panes down here home slizzle
+ */
 		BorderPane rootPane = new BorderPane();
 		Pane diningRoomOverviewPane = new Pane();
+		ListView queue = new ListView();
 		Pane porchMapPane = new Pane();
 		Pane bdrMapPane = new Pane();
 		Pane ldrMapPane = new Pane();
 		HBox clockPaneMainMenu = new HBox();
-		HBox diningRooomSwitch = new HBox();
 		rootPane.setTop(clockPaneMainMenu);
 		rootPane.setCenter(diningRoomOverviewPane);
-		Pane newPane = new Pane();
-		
+				
 		//initialize the digital clock to put on the top pane of the main menu
 		DigitalClock mainMenuClock = new DigitalClock();
 		mainMenuClock.setLayoutX(1200);
 		
 		
+			
 /*
  * Stuff for switching dining rooms		
  */
@@ -84,12 +88,6 @@ public class HostGUI extends Application{
 		POSButton k8 = new POSButton(80,80,"8");
 		POSButton k9 = new POSButton(80,80,"9");
 		POSButton k0 = new POSButton(80,80,"0");
-		
-		POSButton changePane = new POSButton(80,80,"change that pane");
-		changePane.relocate(200, 200);
-		changePane.setOnAction(e->{
-			rootPane.setCenter(newPane);
-		});
 		
 		Label keyPadLabel = new Label("");
 		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0);
@@ -160,8 +158,12 @@ public class HostGUI extends Application{
 		
 		//puts children on the correct panes
 		
+		POSButton clockIn = new POSButton(50,150,"Clock In");
+		POSButton clockOut = new POSButton(50,150,"Clock Out");
+		
+		
 		quitPane.getChildren().addAll(quitText,quitYes,quitNo);
-		optionsPane.getChildren().addAll(logInButton,logOutButton,optionsQuit);
+		optionsPane.getChildren().addAll(clockIn,clockOut,optionsQuit);
 		
 /*
  * This part is going to have the overview screen of all 3 dining rooms. 
@@ -271,7 +273,7 @@ public class HostGUI extends Application{
 		p15.relocate(1190, 450);
 		
 		//add all children to the pane
-		porchMapPane.getChildren().addAll(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,changePane);
+		porchMapPane.getChildren().addAll(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15);
 		
 /*
  * This part has all of the bdr table button declarations and configurations
@@ -296,7 +298,7 @@ public class HostGUI extends Application{
 		
 		bdrMapPane.getChildren().addAll(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10);
 		
-		clockPaneMainMenu.getChildren().addAll(mainMenuClock,optionButton);
+		clockPaneMainMenu.getChildren().addAll(mainMenuClock,optionButton,logInButton,logOutButton);
 		clockPaneMainMenu.setSpacing(20);
 		Scene scene = new Scene(rootPane, 1400, 700);
 		primaryStage.setTitle("DBIPOS");
