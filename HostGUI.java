@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,24 +26,20 @@ public class HostGUI extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		BorderPane rootPane = new BorderPane();
+		Pane diningRoomOverviewPane = new Pane();
 		Pane porchMapPane = new Pane();
 		Pane bdrMapPane = new Pane();
 		Pane ldrMapPane = new Pane();
-		Pane clockPaneMainMenu = new Pane();
+		HBox clockPaneMainMenu = new HBox();
 		HBox diningRooomSwitch = new HBox();
 		rootPane.setTop(clockPaneMainMenu);
-		rootPane.setCenter(porchMapPane);
+		rootPane.setCenter(diningRoomOverviewPane);
 		Pane newPane = new Pane();
-		
-		Text testText = new Text("hey this shit works fam");
-		Button testbtn = new Button("click this shit nigga");
 		
 		//initialize the digital clock to put on the top pane of the main menu
 		DigitalClock mainMenuClock = new DigitalClock();
 		mainMenuClock.setLayoutX(1200);
-		clockPaneMainMenu.getChildren().add(mainMenuClock);
 		
-		testText.relocate(600, 600);
 		
 /*
  * Stuff for switching dining rooms		
@@ -91,8 +90,6 @@ public class HostGUI extends Application{
 		changePane.setOnAction(e->{
 			rootPane.setCenter(newPane);
 		});
-		
-		newPane.getChildren().add(testText);
 		
 		Label keyPadLabel = new Label("");
 		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0);
@@ -167,6 +164,51 @@ public class HostGUI extends Application{
 		optionsPane.getChildren().addAll(logInButton,logOutButton,optionsQuit);
 		
 /*
+ * This part is going to have the overview screen of all 3 dining rooms. 
+ * This will be the "screen saver" that will appear before a user logs in 
+ * and is brought to their screen.
+ */
+		
+		Rectangle t2,t3,t5,t6,t7,t8,t9,t11,t12,t13,t14,t15,t16,t17,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32;
+		Circle t1 = new Circle(100,125,30); //round sec 1
+		t2 = new Rectangle(140,70,40,40); //sec 1 window
+		t3 = new Rectangle(140,130,40,40);//sec 1 wall
+		Circle t4 = new Circle(250,70,30); //round sec 2
+		t5 = new Rectangle(205,135,30,30); //2top sec 2
+		t6 = new Rectangle(300,70,40,40); //sec 2 window
+		t7 = new Rectangle(260,130,40,40);//sec 2 wall
+		t8 = new Rectangle(325,135,30,30);//sec 3 2top
+		t9 = new Rectangle(400,70,40,40);//sec 3 window
+		Circle t10 = new Circle(500,70,30); //sec 3 round
+		t11 = new Rectangle(470,130,40,40); //sec 3 wall
+		t12 = new Rectangle(560,70,40,40);//sec 4 near window
+		t13 = new Rectangle(565,135,30,30); //sec 4 2top
+		t14 = new Rectangle(620,70,40,40);//sec4 far window
+		t15 = new Rectangle(620,130,40,40);//sec 4 wall
+		Line line1 = new Line(0,200,730,200);
+		Line line2 = new Line(730,0,730,200);
+		t16 = new Rectangle(100,250,40,40);//sec 5 wall
+		t17 = new Rectangle(200,250,40,40);//sec 5 center
+		Circle t18 = new Circle(325,275,30);//sec 5 round
+		t19 = new Rectangle(325,335,30,30);//sec 6 2top
+		t20 = new Rectangle(200,365,40,40);//sec 6 center
+		t21 = new Rectangle(325,400,40,40);//sec 6 window
+		t22 = new Rectangle(325,480,40,40);//sec 6 wall
+		t23 = new Rectangle(200,480,40,40);//sec 7 back wall
+		t24 = new Rectangle(100,480,40,40);//sec 7 corner
+		t25 = new Rectangle(100,365,40,40);//sec 7 side wall
+		Line line3 = new Line(400,200,400,700);
+		t26 = new Rectangle(30,30,0,0);//sec 8 near
+		t27 = new Rectangle(30,30,0,0);//sec 8 center 
+		t28 = new Rectangle(30,30,0,0);//sec 8 window
+		t29 = new Rectangle(30,30,0,0);//middle table
+		t30 = new Rectangle(30,30,0,0);//sec 9 near
+		t31 = new Rectangle(30,30,0,0);//sec 9 center
+		t32 = new Rectangle(30,30,0,0);//sec 9 window
+		
+		
+		diningRoomOverviewPane.getChildren().addAll(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,line1,line2,line3);
+/*
  * This part has the create new party screen on it
  */
 		
@@ -229,7 +271,7 @@ public class HostGUI extends Application{
 		p15.relocate(1190, 450);
 		
 		//add all children to the pane
-		porchMapPane.getChildren().addAll(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,optionButton,changePane);
+		porchMapPane.getChildren().addAll(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,changePane);
 		
 /*
  * This part has all of the bdr table button declarations and configurations
@@ -252,7 +294,10 @@ public class HostGUI extends Application{
 		POSButton b9 = new POSButton(50,150,"9");
 		POSButton b10 = new POSButton(50,150,"10");
 		
+		bdrMapPane.getChildren().addAll(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10);
 		
+		clockPaneMainMenu.getChildren().addAll(mainMenuClock,optionButton);
+		clockPaneMainMenu.setSpacing(20);
 		Scene scene = new Scene(rootPane, 1400, 700);
 		primaryStage.setTitle("DBIPOS");
 		primaryStage.setScene(scene);
