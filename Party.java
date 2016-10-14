@@ -12,7 +12,7 @@ public class Party {
 	size = this.size;
 	}
 	
-	public sendToKitchen() {
+	public void sendToKitchen() {
 	//eventually will send order (check) information to kitchen server
 	}
 		

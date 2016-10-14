@@ -1,13 +1,15 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ArrayList;
 import java.math.*;
 
 public class Check {
+
+	ArrayList<Integer> checkItems = new ArrayList<Integer>();
 	
-	ArrayList<Int> checkItems = new ArrayList<Int>();
-	BigDecimal subtotal
-	BigDecimal tax;
-	BigDecimal total = 0;
-	
+	BigDecimal subtotal = new BigDecimal(0.0);
+	BigDecimal tax = new BigDecimal(0.0);
+	BigDecimal total = new BigDecimal(0.0);
 	
 	//Check constructor
 	public Check() {
@@ -15,17 +17,19 @@ public class Check {
 	
 	//adding an item to the index array list
 	private void addItem(int index) {
-	checkItems.add(index);
+		checkItems.add(index);
 	}
 	
 	private BigDecimal calcTax() {
+		return null;
 	}
 	
 	private BigDecimal calcTotal() {
+		return null;
 	}
 	
-	private void deleteItem() {
-	checkItems.remove(index);
+	private void deleteItem(int index) {
+	this.checkItems.remove(index);
 	}
 	
 	public void finalize() {
@@ -37,7 +41,7 @@ public class Check {
 	private void receipt(){
 	}
 	
-	private void updateCash(difference BigDecimal) {
+	private void updateCash(BigDecimal difference) {
 	}
 	
 }

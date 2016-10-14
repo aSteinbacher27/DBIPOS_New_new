@@ -12,13 +12,13 @@ Methods List:
 import java.util.ArrayList;
 import java.io.*;
 import java.math.*;
-import java.util.Arryas;
+import java.util.Arrays;
 
 public class Register {
 
 	
 	//Array lists of Employees and Items
-	ArrayList<Employee> employees = new ArrayList<Employee>();
+	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
 	//ArrayList<Item> items = new ArrayList<Item>(); class not created yet
 	
 	
@@ -29,8 +29,7 @@ public class Register {
 	
 	//Payroll (not yet)
 	
-	
-	BigDouble currentCash;
+	BigDecimal curentCash = new BigDecimal(0.0);
 	
 	Register() {
 		//populate employees and items
