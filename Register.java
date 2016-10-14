@@ -23,18 +23,18 @@ public class Register {
 	
 	
 	//Party Array lists
-<<<<<<< HEAD
+
 	private ArrayList<Party> waitingParties = new ArrayList<Party>();
 	private ArrayList<Party> activeParties = new ArrayList<Party>();
-=======
+
 	ArrayList<Party> waitingParties = new ArrayList<Party>();
 	ArrayList<Party> activeParties = new ArrayList<Party>();
->>>>>>> f96eda0e7fc86ed327b9be55c50dffe97bc8200e
+
 	
 	
 	//Payroll (not yet)
 	
-<<<<<<< HEAD
+
 	//BigDecimal curentCash = new BigDecimal(0.0);
 	double currentCash;
 	
@@ -55,7 +55,7 @@ public class Register {
 		
 		waitingParties.add(p);
 	}
-=======
+
 	BigDecimal curentCash = new BigDecimal(0.0);
 	
 	Register() {
@@ -64,7 +64,6 @@ public class Register {
 		
 		
 	}
->>>>>>> f96eda0e7fc86ed327b9be55c50dffe97bc8200e
-		
+
 	
 }
