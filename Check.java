@@ -44,8 +44,8 @@ public class Check {
 	private void updateCash(BigDecimal difference) {
 	}
 	
-<<<<<<< HEAD
+
 }
-=======
+
 }
->>>>>>> f96eda0e7fc86ed327b9be55c50dffe97bc8200e
+
