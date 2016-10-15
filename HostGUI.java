@@ -20,7 +20,15 @@ public class HostGUI extends Application{
 
 	public static void main(String[] args) {
 		Application.launch(args);
+		
+		Register register = new Register();
 	}
+	
+	
+	//components necessary to declare outside of method
+	String keyPadLabelString = "";
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -69,9 +77,7 @@ public class HostGUI extends Application{
 		
 		
 /*
- * _______________________________________________________________________________
  * Keypad stuff
- * _______________________________________________________________________________
  */
 		
 		Stage keyPadStage = new Stage();
@@ -89,8 +95,49 @@ public class HostGUI extends Application{
 		POSButton k9 = new POSButton(80,80,"9");
 		POSButton k0 = new POSButton(80,80,"0");
 		
-		Label keyPadLabel = new Label("");
-		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0);
+		
+		Label keyPadLabel = new Label(keyPadLabelString);
+		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0,keyPadLabel);
+		
+		//action listeners for all buttons		
+		k1.setOnAction(e -> {
+			keyPadLabelString += "1";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k2.setOnAction(e -> {
+			keyPadLabelString += "2";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k3.setOnAction(e -> {
+			keyPadLabelString += "3";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k4.setOnAction(e -> {
+			keyPadLabelString += "4";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k5.setOnAction(e -> {
+			keyPadLabelString += "5";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k6.setOnAction(e -> {
+			keyPadLabelString += "6";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k7.setOnAction(e -> {
+			keyPadLabelString += "7";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k8.setOnAction(e -> {
+			keyPadLabelString += "8";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k9.setOnAction(e -> {
+			keyPadLabelString += "9";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		
+		
 		
 /*
  * Everything for the login/logout/quit screen goes here
@@ -305,4 +352,5 @@ public class HostGUI extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
 }
