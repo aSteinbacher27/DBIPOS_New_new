@@ -74,7 +74,142 @@ public class HostGUI extends Application{
 		LDRSwitch.setOnAction(e->{
 			rootPane.setCenter(ldrMapPane);
 		});
+/*
+ * _______________________________________________________________________________
+ * Create New Party Pop-up
+ * _______________________________________________________________________________
+ */		
+
+
+		Stage newPartyStage = new Stage();
+		Pane newPartyPane = new Pane();
+		Scene newPartyScene = new Scene(newPartyPane,500,370);
+		newPartyStage.setScene(newPartyScene);
+
+		Label newPartyLabel = new Label("Create a New Party: ");
+		newPartyLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold");
+		newPartyLabel.setLayoutX(5);
+		newPartyLabel.setLayoutY(5);
+		Label newPartyNameLabel = new Label("Name: ");
+		newPartyNameLabel.setStyle("-fx-font-size: 16px");
+		newPartyNameLabel.setLayoutX(20);
+		newPartyNameLabel.setLayoutY(30);
+		TextField newPartyNameField = new TextField ();
+		newPartyNameField.setStyle("-fx-font-size: 16px");
+		newPartyNameField.setLayoutX(20);
+		newPartyNameField.setLayoutY(50);
+		Label newPartySizeLabel = new Label("Size: ");
+		newPartySizeLabel.setStyle("-fx-font-size: 16px");
+		newPartySizeLabel.setLayoutX(20);
+		newPartySizeLabel.setLayoutY(90);
+		TextField newPartySizeField = new TextField ();
+		newPartySizeField.setStyle("-fx-font-size: 16px");
+		newPartySizeField.setMaxWidth(50);
+		newPartySizeField.setLayoutX(20);
+		newPartySizeField.setLayoutY(110);
 		
+		// breakfast and lunch radio buttons
+		RadioButton rb1 = new RadioButton("Breakfast");
+		rb1.setStyle("-fx-font-size: 16px");
+		rb1.setLayoutX(20);
+		rb1.setLayoutY(155);
+		RadioButton rb2 = new RadioButton("Lunch/Dinner");
+		rb2.setStyle("-fx-font-size: 16px");
+		rb2.setLayoutX(150);
+		rb2.setLayoutY(155);
+		
+		// meal buttons
+		POSButton ageAdultButton = new POSButton(40,100,"Adult");
+		ageAdultButton.setStyle("-fx-font-size: 16px");
+		ageAdultButton.setLayoutX(20);
+		ageAdultButton.setLayoutY(190);
+		POSButton ageFreeButton = new POSButton(40,100,"Age 0-3");
+		ageFreeButton.setStyle("-fx-font-size: 16px");
+		ageFreeButton.setLayoutX(140);
+		ageFreeButton.setLayoutY(190);
+		POSButton ageFourButton = new POSButton(40,100,"Age 4-5");
+		ageFourButton.setStyle("-fx-font-size: 16px");
+		ageFourButton.setLayoutX(20);
+		ageFourButton.setLayoutY(250);
+		POSButton ageSixButton = new POSButton(40,100,"Age 6-8");
+		ageSixButton.setStyle("-fx-font-size: 16px");
+		ageSixButton.setLayoutX(140);
+		ageSixButton.setLayoutY(250);
+		POSButton ageNineButton = new POSButton(40,100,"Age 9-11");
+		ageNineButton.setStyle("-fx-font-size: 16px");
+		ageNineButton.setLayoutX(20);
+		ageNineButton.setLayoutY(310);
+		
+		// create list of items
+		ListView<String> list = new ListView<String>();
+		ObservableList<String> items = FXCollections.observableArrayList (
+		    "Single", "Double", "Suite", "Family App");
+		list.setStyle("-fx-font-size: 16px");
+		list.setItems(items);
+		list.setLayoutX(300);
+		list.setLayoutY(20);
+		list.setPrefWidth(180);
+		list.setPrefHeight(300);
+		
+		//delete and create button
+		POSButton deleteButton = new POSButton(40,100,"Delete");
+		deleteButton.setStyle("-fx-font-size: 16px");
+		deleteButton.setLayoutX(285);
+		deleteButton.setLayoutY(330);
+		POSButton createButton = new POSButton(40,100,"Create");
+		createButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		createButton.setLayoutX(390);
+		createButton.setLayoutY(330);
+		
+		// add everything to pane
+		newPartyPane.getChildren().addAll(list, newPartyLabel, newPartyNameLabel, newPartySizeLabel, newPartyNameField, newPartySizeField, rb1, rb2,ageAdultButton, ageFreeButton, ageFourButton, ageSixButton, ageNineButton, deleteButton, createButton);
+
+		newPartyStage.show();
+		
+/*
+ * _______________________________________________________________________________
+ * Seat Party Pop-up
+ * _______________________________________________________________________________
+ */		
+
+
+		Stage seatPartyStage = new Stage();
+		Pane seatPartyPane = new Pane();
+		Scene seatPartyScene = new Scene(seatPartyPane,200,220);
+		seatPartyStage.setScene(seatPartyScene);
+
+		Label seatPartyLabel = new Label("Seat Party ");
+		seatPartyLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold");
+		seatPartyLabel.setLayoutX(5);
+		seatPartyLabel.setLayoutY(5);
+		Label seatPartyServerLabel = new Label("Name: ");
+		seatPartyServerLabel.setStyle("-fx-font-size: 16px");
+		seatPartyServerLabel.setLayoutX(20);
+		seatPartyServerLabel.setLayoutY(30);
+		ChoiceBox serverChoice = new ChoiceBox();
+		serverChoice.setItems(FXCollections.observableArrayList("Kayla", "Anissa", "Spencer"));
+		serverChoice.setStyle("-fx-font-size: 16px");
+		serverChoice.setLayoutX(20);
+		serverChoice.setLayoutY(50);
+		Label seatPartyTableLabel = new Label("Table: ");
+		seatPartyTableLabel.setStyle("-fx-font-size: 16px");
+		seatPartyTableLabel.setLayoutX(20);
+		seatPartyTableLabel.setLayoutY(90);
+		ChoiceBox tableChoice = new ChoiceBox();
+		tableChoice.setItems(FXCollections.observableArrayList("1", "3","4","5","11","21"));
+		tableChoice.setStyle("-fx-font-size: 16px");
+		tableChoice.setLayoutX(20);
+		tableChoice.setLayoutY(110);
+		POSButton seatButton = new POSButton(40,100,"Seat Party");
+		seatButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		seatButton.setLayoutX(20);
+		seatButton.setLayoutY(160);
+		
+		// add everything to pane
+		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel, serverChoice, tableChoice);
+
+		seatPartyStage.show();
+
 		
 /*
  * Keypad stuff
