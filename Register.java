@@ -18,15 +18,11 @@ public class Register {
 
 	
 	//Array lists of Employees and Items
-	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
-	//ArrayList<Item> items = new ArrayList<Item>(); class not created yet
+	//ArrayList<Employee> employees = new ArrayList<Employee>();
+	//ArrayList<Item> items = new ArrayList<Item>(); classes not created yet
 	
 	
 	//Party Array lists
-
-	private ArrayList<Party> waitingParties = new ArrayList<Party>();
-	private ArrayList<Party> activeParties = new ArrayList<Party>();
-
 	ArrayList<Party> waitingParties = new ArrayList<Party>();
 	ArrayList<Party> activeParties = new ArrayList<Party>();
 
@@ -38,13 +34,13 @@ public class Register {
 	//BigDecimal curentCash = new BigDecimal(0.0);
 	double currentCash;
 	
-	public Register() {
+	
+	Register() {
 		//populate employees and items
 		
 		//dummy party
 		Party testParty = new Party("test", 3);
-		activeParties.add(testParty);
-		
+		this.activeParties.add(testParty);
 		
 	}
 	
@@ -53,16 +49,7 @@ public class Register {
 	 */
 	public void addWaitingParty(Party p){
 		
-		waitingParties.add(p);
-	}
-
-	BigDecimal curentCash = new BigDecimal(0.0);
-	
-	Register() {
-		//populate employees and items
-		
-		
-		
+		this.waitingParties.add(p);
 	}
 
 	

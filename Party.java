@@ -5,7 +5,7 @@ public class Party {
 	int size;
 	
 	
-	public Party(String name, int size, Check check) {
+	public Party(String name, int size) {
 	//party class constructer
 	check = this.check;
 	name = this.name;
