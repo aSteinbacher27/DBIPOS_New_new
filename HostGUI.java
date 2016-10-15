@@ -1,3 +1,5 @@
+import java.awt.Font;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,12 +9,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -25,7 +29,7 @@ public class HostGUI extends Application{
 	public static void main(String[] args) {
 		Application.launch(args);
 		
-		Register register = new Register();
+		//Register register = new Register();
 	}
 	
 	
@@ -43,13 +47,14 @@ public class HostGUI extends Application{
  */
 		BorderPane rootPane = new BorderPane();
 		Pane diningRoomOverviewPane = new Pane();
-		ListView queue = new ListView();
 		Pane porchMapPane = new Pane();
 		Pane bdrMapPane = new Pane();
 		Pane ldrMapPane = new Pane();
 		HBox clockPaneMainMenu = new HBox();
+		VBox queuePane = new VBox();
 		rootPane.setTop(clockPaneMainMenu);
 		rootPane.setCenter(diningRoomOverviewPane);
+		rootPane.setRight(queuePane);
 				
 		//initialize the digital clock to put on the top pane of the main menu
 		DigitalClock mainMenuClock = new DigitalClock();
@@ -57,27 +62,8 @@ public class HostGUI extends Application{
 		
 		
 			
-/*
- * Stuff for switching dining rooms		
- */
-		//declare the buttons
-		POSButton porchSwitch,BDRSwitch,LDRSwitch;
-		porchSwitch = new POSButton(50,150,"Porch");
-		BDRSwitch = new POSButton(50,150,"BDR");
-		LDRSwitch = new POSButton(50,150,"LDR");
+
 		
-		//set their actions. The pressing of the buttons merely switches the center setting
-		//of the root pane (a border pane) to the new selection. The top and bottom panes stay
-		//as they are.
-		porchSwitch.setOnAction(e->{
-			rootPane.setCenter(porchMapPane);
-		});
-		BDRSwitch.setOnAction(e->{
-			rootPane.setCenter(bdrMapPane);
-		});
-		LDRSwitch.setOnAction(e->{
-			rootPane.setCenter(ldrMapPane);
-		});
 /*
  * _______________________________________________________________________________
  * Create New Party Pop-up
@@ -121,6 +107,10 @@ public class HostGUI extends Application{
 		rb2.setStyle("-fx-font-size: 16px");
 		rb2.setLayoutX(150);
 		rb2.setLayoutY(155);
+		
+		ToggleGroup breakfastLunch = new ToggleGroup();
+		rb1.setToggleGroup(breakfastLunch);
+		rb2.setToggleGroup(breakfastLunch);
 		
 		// meal buttons
 		POSButton ageAdultButton = new POSButton(40,100,"Adult");
@@ -168,7 +158,7 @@ public class HostGUI extends Application{
 		// add everything to pane
 		newPartyPane.getChildren().addAll(list, newPartyLabel, newPartyNameLabel, newPartySizeLabel, newPartyNameField, newPartySizeField, rb1, rb2,ageAdultButton, ageFreeButton, ageFourButton, ageSixButton, ageNineButton, deleteButton, createButton);
 
-		newPartyStage.show();
+		//newPartyStage.show();
 		
 /*
  * _______________________________________________________________________________
@@ -212,7 +202,7 @@ public class HostGUI extends Application{
 		// add everything to pane
 		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel, serverChoice, tableChoice);
 
-		seatPartyStage.show();
+		//seatPartyStage.show();
 
 		
 /*
@@ -276,6 +266,34 @@ public class HostGUI extends Application{
 			keyPadLabel.setText(keyPadLabelString);
 		});
 		
+		
+		
+/*
+* stuff for the queue pane		
+*/
+				
+		//list stuff
+		ListView<String> queue = new ListView<String>();
+		ObservableList<String> parties = FXCollections.observableArrayList(
+					"Yeah","ok","sure","maybe");		
+			queue.setItems(parties);
+						
+			//buttons
+			POSButton createNewParty = new POSButton(50,150,"Create New Party");
+			POSButton seatParty = new POSButton(50,150,"Seat Party");
+						
+						
+			createNewParty.setOnAction(e->{
+				newPartyStage.show();
+			});
+			seatParty.setOnAction(e->{
+				seatPartyStage.show();
+			});
+						
+						
+			queuePane.getChildren().addAll(queue,createNewParty,seatParty);
+				
+						
 		
 		
 /*
@@ -358,44 +376,84 @@ public class HostGUI extends Application{
  */
 		
 		Rectangle t2,t3,t5,t6,t7,t8,t9,t11,t12,t13,t14,t15,t16,t17,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32;
+		Label l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27,l28,l29,l30,l31,l32;
+		
 		Circle t1 = new Circle(100,125,30); //round sec 1
+		l1 = new Label("1");
+		l1.relocate(100, 125);
+		l1.toFront();
+		l1.setStyle("-fx-text: white;");
+		t1.setFill(Color.BLUE);
 		t2 = new Rectangle(140,70,40,40); //sec 1 window
+		t2.setFill(Color.BLUE);
 		t3 = new Rectangle(140,130,40,40);//sec 1 wall
+		t3.setFill(Color.BLUE);
 		Circle t4 = new Circle(250,70,30); //round sec 2
+		t4.setFill(Color.BLUE);
 		t5 = new Rectangle(205,135,30,30); //2top sec 2
+		t5.setFill(Color.BLUE);
 		t6 = new Rectangle(300,70,40,40); //sec 2 window
+		t6.setFill(Color.BLUE);
 		t7 = new Rectangle(260,130,40,40);//sec 2 wall
+		t7.setFill(Color.BLUE);
 		t8 = new Rectangle(325,135,30,30);//sec 3 2top
+		t8.setFill(Color.BLUE);
 		t9 = new Rectangle(400,70,40,40);//sec 3 window
+		t9.setFill(Color.BLUE);
 		Circle t10 = new Circle(500,70,30); //sec 3 round
+		t10.setFill(Color.BLUE);
 		t11 = new Rectangle(470,130,40,40); //sec 3 wall
+		t11.setFill(Color.BLUE);
 		t12 = new Rectangle(560,70,40,40);//sec 4 near window
+		t12.setFill(Color.BLUE);
 		t13 = new Rectangle(565,135,30,30); //sec 4 2top
+		t13.setFill(Color.BLUE);
 		t14 = new Rectangle(620,70,40,40);//sec4 far window
+		t14.setFill(Color.BLUE);
 		t15 = new Rectangle(620,130,40,40);//sec 4 wall
+		t15.setFill(Color.BLUE);
 		Line line1 = new Line(0,200,730,200);
 		Line line2 = new Line(730,0,730,200);
 		t16 = new Rectangle(100,250,40,40);//sec 5 wall
+		t16.setFill(Color.BLUE);
 		t17 = new Rectangle(200,250,40,40);//sec 5 center
+		t17.setFill(Color.BLUE);
 		Circle t18 = new Circle(325,275,30);//sec 5 round
+		t18.setFill(Color.BLUE);
 		t19 = new Rectangle(325,335,30,30);//sec 6 2top
+		t19.setFill(Color.BLUE);
 		t20 = new Rectangle(200,365,40,40);//sec 6 center
+		t20.setFill(Color.BLUE);
 		t21 = new Rectangle(325,400,40,40);//sec 6 window
+		t21.setFill(Color.BLUE);
 		t22 = new Rectangle(325,480,40,40);//sec 6 wall
+		t22.setFill(Color.BLUE);
 		t23 = new Rectangle(200,480,40,40);//sec 7 back wall
+		t23.setFill(Color.BLUE);
 		t24 = new Rectangle(100,480,40,40);//sec 7 corner
+		t24.setFill(Color.BLUE);
 		t25 = new Rectangle(100,365,40,40);//sec 7 side wall
+		t25.setFill(Color.BLUE);
 		Line line3 = new Line(400,200,400,700);
-		t26 = new Rectangle(30,30,0,0);//sec 8 near
-		t27 = new Rectangle(30,30,0,0);//sec 8 center 
-		t28 = new Rectangle(30,30,0,0);//sec 8 window
-		t29 = new Rectangle(30,30,0,0);//middle table
-		t30 = new Rectangle(30,30,0,0);//sec 9 near
-		t31 = new Rectangle(30,30,0,0);//sec 9 center
-		t32 = new Rectangle(30,30,0,0);//sec 9 window
+		t26 = new Rectangle(435,480,40,40);//sec 8 near
+		t26.setFill(Color.BLUE);
+		t27 = new Rectangle(435,400,40,40);//sec 8 center 
+		t27.setFill(Color.BLUE);
+		t28 = new Rectangle(435,320,40,40);//sec 8 window
+		t28.setFill(Color.BLUE);
+		t29 = new Rectangle(515,340,50,160);//middle table
+		t29.setFill(Color.BLUE);
+		t30 = new Rectangle(610,480,40,40);//sec 9 near
+		t30.setFill(Color.BLUE);
+		t31 = new Rectangle(610,400,40,40);//sec 9 center
+		t31.setFill(Color.BLUE);
+		t32 = new Rectangle(610,320,40,40);//sec 9 window
+		t32.setFill(Color.BLUE);
+		Line line4 = new Line(730,200,730,800);
 		
 		
-		diningRoomOverviewPane.getChildren().addAll(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,line1,line2,line3);
+		diningRoomOverviewPane.getChildren().addAll(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,line1,line2,line3,line4,
+				l1);
 /*
  * This part has the create new party screen on it
  */
