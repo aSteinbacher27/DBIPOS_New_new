@@ -1,6 +1,4 @@
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -22,7 +20,15 @@ public class HostGUI extends Application{
 
 	public static void main(String[] args) {
 		Application.launch(args);
+		
+		Register register = new Register();
 	}
+	
+	
+	//components necessary to declare outside of method
+	String keyPadLabelString = "";
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -32,19 +38,14 @@ public class HostGUI extends Application{
  * Throw your panes down here home slizzle
  */
 		BorderPane rootPane = new BorderPane();
-		
-		VBox queuePane = new VBox();
-		
 		Pane diningRoomOverviewPane = new Pane();
+		ListView queue = new ListView();
 		Pane porchMapPane = new Pane();
 		Pane bdrMapPane = new Pane();
 		Pane ldrMapPane = new Pane();
-		
 		HBox clockPaneMainMenu = new HBox();
-		
 		rootPane.setTop(clockPaneMainMenu);
 		rootPane.setCenter(diningRoomOverviewPane);
-		rootPane.setRight(queuePane);
 				
 		//initialize the digital clock to put on the top pane of the main menu
 		DigitalClock mainMenuClock = new DigitalClock();
@@ -74,37 +75,9 @@ public class HostGUI extends Application{
 			rootPane.setCenter(ldrMapPane);
 		});
 		
-/*
- * This part has the queue pane in it
- */
-		
-		
-		//list stuff
-		ListView<String> queue = new ListView<String>();
-		ObservableList<String> parties = FXCollections.observableArrayList(
-				"Yeah","ok","sure","maybe");		
-		queue.setItems(parties);
-		
-		//buttons
-		POSButton createNewParty = new POSButton(50,150,"Create New Party");
-		POSButton seatParty = new POSButton(50,150,"Seat Party");
-		
-		
-		createNewParty.setOnAction(e->{
-			//newPartyStage.show();
-		});
-		seatParty.setOnAction(e->{
-			//seatPartyStage.show();
-		});
-		
-		
-		queuePane.getChildren().addAll(queue,createNewParty,seatParty);
-		
 		
 /*
- * _______________________________________________________________________________
  * Keypad stuff
- * _______________________________________________________________________________
  */
 		
 		Stage keyPadStage = new Stage();
@@ -122,8 +95,49 @@ public class HostGUI extends Application{
 		POSButton k9 = new POSButton(80,80,"9");
 		POSButton k0 = new POSButton(80,80,"0");
 		
-		Label keyPadLabel = new Label("");
-		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0);
+		
+		Label keyPadLabel = new Label(keyPadLabelString);
+		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0,keyPadLabel);
+		
+		//action listeners for all buttons		
+		k1.setOnAction(e -> {
+			keyPadLabelString += "1";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k2.setOnAction(e -> {
+			keyPadLabelString += "2";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k3.setOnAction(e -> {
+			keyPadLabelString += "3";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k4.setOnAction(e -> {
+			keyPadLabelString += "4";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k5.setOnAction(e -> {
+			keyPadLabelString += "5";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k6.setOnAction(e -> {
+			keyPadLabelString += "6";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k7.setOnAction(e -> {
+			keyPadLabelString += "7";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k8.setOnAction(e -> {
+			keyPadLabelString += "8";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		k9.setOnAction(e -> {
+			keyPadLabelString += "9";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		
+		
 		
 /*
  * Everything for the login/logout/quit screen goes here
@@ -338,4 +352,5 @@ public class HostGUI extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
 }
