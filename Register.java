@@ -18,39 +18,42 @@ public class Register {
 
 	
 	//Array lists of Employees and Items
-	//ArrayList<Employee> employees = new ArrayList<Employee>();
-	//ArrayList<Item> items = new ArrayList<Item>(); classes not created yet
+	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
+	static ArrayList<Item> items = new ArrayList<Item>();
 	
 	
 	//Party Array lists
 	ArrayList<Party> waitingParties = new ArrayList<Party>();
 	ArrayList<Party> activeParties = new ArrayList<Party>();
-
 	
 	
 	//Payroll (not yet)
 	
-
 	//BigDecimal curentCash = new BigDecimal(0.0);
 	double currentCash;
 	
-	
 	Register() {
 		//populate employees and items
+		//dummy items
+		Item testItem = new Item("toy", 10.03);
+		items.add(testItem);
 		
 		//dummy party
 		Party testParty = new Party("test", 3);
-		this.activeParties.add(testParty);
+		activeParties.add(testParty);
 		
 	}
 	
-	/*
-	 * 
-	 */
-	public void addWaitingParty(Party p){
+	static public double getItemPrice(int id){
+		double price = items.get(id).getPrice();
+		return price;
 		
-		this.waitingParties.add(p);
 	}
-
+	
+	static public String getItemName(int id){
+		String name = items.get(id).getName();
+		return name;
+	}
+		
 	
 }

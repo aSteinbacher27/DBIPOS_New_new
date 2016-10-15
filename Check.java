@@ -17,7 +17,14 @@ public class Check {
 	
 	//Check constructor
 	public Check() {
+		//System.out.println("party made a check");
+		
+		//testing. adding dummy item to check always
+		addItem(0);
+		
+		//receipt();
 	}
+	
 	
 	//adding an item to the index array list
 	private void addItem(int index) {
@@ -43,6 +50,9 @@ public class Check {
 	}
 	
 	private void receipt(){
+		
+		//this works!!!!!!
+		System.out.println(Register.getItemPrice(checkItems.get(0)));
 	}
 	
 	private void updateCash(double difference) {
