@@ -204,29 +204,78 @@ public class HostGUI extends Application{
 
 		//seatPartyStage.show();
 
-		
 /*
  * Keypad stuff
  */
 		
 		Stage keyPadStage = new Stage();
-		FlowPane keyPadGridPane = new FlowPane();
-		Scene keyPadScene = new Scene(keyPadGridPane,240,320);
+		Pane keyPadGridPane = new Pane();
+		Scene keyPadScene = new Scene(keyPadGridPane,240,525);
 		keyPadStage.setScene(keyPadScene);
-		POSButton k1 = new POSButton(80,80,"1");
-		POSButton k2 = new POSButton(80,80,"2");
-		POSButton k3 = new POSButton(80,80,"3");
-		POSButton k4 = new POSButton(80,80,"4");
-		POSButton k5 = new POSButton(80,80,"5");
-		POSButton k6 = new POSButton(80,80,"6");
-		POSButton k7 = new POSButton(80,80,"7");
-		POSButton k8 = new POSButton(80,80,"8");
-		POSButton k9 = new POSButton(80,80,"9");
-		POSButton k0 = new POSButton(80,80,"0");
 		
-		
+		Label EnterIDLabel = new Label("Enter ID:");
+		EnterIDLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		EnterIDLabel.setLayoutX(20);
+		EnterIDLabel.setLayoutY(20);
 		Label keyPadLabel = new Label(keyPadLabelString);
-		keyPadGridPane.getChildren().addAll(k1,k2,k3,k4,k5,k6,k7,k8,k9,k0,keyPadLabel);
+		keyPadLabel.setStyle("-fx-font-size: 16px; -fx-border-color:black;");
+		keyPadLabel.setLayoutX(50);
+		keyPadLabel.setLayoutY(60);
+		keyPadLabel.setMinWidth(100);
+		POSButton backspaceButton = new POSButton(20,40,"<-");
+		backspaceButton.setStyle("-fx-font-size: 16px");
+		backspaceButton.setLayoutX(150);
+		backspaceButton.setLayoutY(55);
+		
+		
+		POSButton k1 = new POSButton(80,80,"1");
+		k1.setStyle("-fx-font-size: 16px");
+		k1.setLayoutX(0);
+		k1.setLayoutY(130);
+		POSButton k2 = new POSButton(80,80,"2");
+		k2.setStyle("-fx-font-size: 16px");
+		k2.setLayoutX(80);
+		k2.setLayoutY(130);
+		POSButton k3 = new POSButton(80,80,"3");
+		k3.setStyle("-fx-font-size: 16px");
+		k3.setLayoutX(160);
+		k3.setLayoutY(130);
+		POSButton k4 = new POSButton(80,80,"4");
+		k4.setStyle("-fx-font-size: 16px");
+		k4.setLayoutX(0);
+		k4.setLayoutY(210);
+		POSButton k5 = new POSButton(80,80,"5");
+		k5.setStyle("-fx-font-size: 16px");
+		k5.setLayoutX(80);
+		k5.setLayoutY(210);
+		POSButton k6 = new POSButton(80,80,"6");
+		k6.setStyle("-fx-font-size: 16px");
+		k6.setLayoutX(160);
+		k6.setLayoutY(210);
+		POSButton k7 = new POSButton(80,80,"7");
+		k7.setStyle("-fx-font-size: 16px");
+		k7.setLayoutX(0);
+		k7.setLayoutY(290);
+		POSButton k8 = new POSButton(80,80,"8");
+		k8.setStyle("-fx-font-size: 16px");
+		k8.setLayoutX(80);
+		k8.setLayoutY(290);
+		POSButton k9 = new POSButton(80,80,"9");
+		k9.setStyle("-fx-font-size: 16px");
+		k9.setLayoutX(160);
+		k9.setLayoutY(290);
+		POSButton k0 = new POSButton(80,80,"0");
+		k0.setStyle("-fx-font-size: 16px");
+		k0.setLayoutX(80);
+		k0.setLayoutY(370);
+		POSButton submitButton = new POSButton(40,100,"Submit");
+		submitButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		submitButton.setLayoutX(70);
+		submitButton.setLayoutY(460);
+		
+		
+		
+		keyPadGridPane.getChildren().addAll(submitButton,EnterIDLabel, backspaceButton,k1,k2,k3,k4,k5,k6,k7,k8,k9,k0,keyPadLabel);
 		
 		//action listeners for all buttons		
 		k1.setOnAction(e -> {
@@ -264,6 +313,18 @@ public class HostGUI extends Application{
 		k9.setOnAction(e -> {
 			keyPadLabelString += "9";
 			keyPadLabel.setText(keyPadLabelString);
+		});
+		k0.setOnAction(e -> {
+			keyPadLabelString += "0";
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		backspaceButton.setOnAction(e -> {
+			keyPadLabelString = keyPadLabelString.substring(0,keyPadLabelString.length()-1);
+			keyPadLabel.setText(keyPadLabelString);
+		});
+		submitButton.setOnAction(e -> {
+			//do something
+			keyPadStage.close();
 		});
 		
 		
