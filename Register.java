@@ -32,7 +32,7 @@ public class Register {
 	
 	//finding the Employee and Items files
 	String itemFileString = new String("items.txt");
-	String employeeFileString = new String("employeeFile.txt");
+	String employeeFileString = new String("employees.txt");
 	
 
 	double currentCash;
@@ -42,12 +42,12 @@ public class Register {
 		popItems(itemFileString);
 		popEmployees(employeeFileString);
 		//dummy items
-		Item testItem = new Item("toy", 10.03);
-		items.add(testItem);
+		//Item testItem = new Item("toy", 10.03);
+		//items.add(testItem);
 		
 		//dummy party
-		Party testParty = new Party("test", 3);
-		activeParties.add(testParty);
+		//Party testParty = new Party("test", 3);
+		//activeParties.add(testParty);
 		
 	}
 	
@@ -62,6 +62,8 @@ public class Register {
 		return name;
 	}
 	
+	
+	//method to populate the Items array. 
 	private void popItems(String fileName){
 		try{
 			//set up file and scanner
@@ -87,7 +89,7 @@ public class Register {
 			}
 			
 			//testing
-			System.out.println(this.items.get(1).getName());
+			//System.out.println(this.items.get(1).getName());
 			
 			
 		} catch(IOException e) {
@@ -98,6 +100,7 @@ public class Register {
 		
 	}
 	
+	//populating the employee array. non-functional but compile-able for sprint 1
 	private void popEmployees(String fileName){
 		try{
 			//set up file and scanner
