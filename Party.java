@@ -19,13 +19,12 @@ public class Party {
 	// [created, sat, check given, finalized]
 	String[] progressTimes = new String[4];
 	
-	
-	public Party(String name, int size) {
 	//party class constructer
-	this.name = name;
-	this.size = size;
+	public Party(String name, int size) {
+		this.name = name;
+		this.size = size;
 	
-	//System.out.println(this.name);
+		//System.out.println(this.name);
 	}
 	
 	public void sendToKitchen() {

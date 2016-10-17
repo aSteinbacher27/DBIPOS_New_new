@@ -23,6 +23,7 @@ public class Check {
 		addItem(0);
 		
 		//receipt();
+		System.out.println(calcTotal());
 	}
 	
 	
@@ -36,7 +37,15 @@ public class Check {
 	}
 	
 	private double calcTotal() {
-		return 0.0;
+		double total = 0.0;
+		int i; //counter var
+		
+		//run for length of checkItems arrayList
+		for(i = 0; i < checkItems.size(); i++){
+			total += Register.getItemPrice(checkItems.get(i));
+		}
+		
+		return total;
 	}
 	
 	private void deleteItem(int index) {
@@ -51,8 +60,6 @@ public class Check {
 	
 	private void receipt(){
 		
-		//this works!!!!!!
-		System.out.println(Register.getItemPrice(checkItems.get(0)));
 	}
 	
 	private void updateCash(double difference) {

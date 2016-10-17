@@ -41,13 +41,14 @@ public class Register {
 		//populate employees and items
 		popItems(itemFileString);
 		popEmployees(employeeFileString);
+		
 		//dummy items
 		//Item testItem = new Item("toy", 10.03);
 		//items.add(testItem);
 		
 		//dummy party
-		//Party testParty = new Party("test", 3);
-		//activeParties.add(testParty);
+		Party testParty = new Party("test", 3);
+		activeParties.add(testParty);
 		
 	}
 	
