@@ -437,7 +437,11 @@ public class HostGUI extends Application{
 		quitText.setStyle("-fx-font-size: 16px");
 		
 		//puts children on the correct panes
-		
+		POSButton serverGUI=new POSButton(50,150,"Server GUI");
+		serverGUI.setOnAction(e->{
+			ServerGUI serverObject=new ServerGUI();
+			serverObject.GUI(primaryStage);
+		});
 		POSButton clockIn = new POSButton(50,150,"Clock In");
 		clockIn.setStyle("-fx-font-size: 16px");
 		POSButton clockOut = new POSButton(50,150,"Clock Out");
@@ -660,7 +664,7 @@ public class HostGUI extends Application{
 		
 		bdrMapPane.getChildren().addAll(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10);
 		
-		clockPaneMainMenu.getChildren().addAll(mainMenuClock,optionButton,logInButton,logOutButton);
+		clockPaneMainMenu.getChildren().addAll(mainMenuClock,optionButton,logInButton,logOutButton,serverGUI);
 		clockPaneMainMenu.setSpacing(20);
 		Scene scene = new Scene(rootPane, 1400, 700);
 		primaryStage.setTitle("DBIPOS");
