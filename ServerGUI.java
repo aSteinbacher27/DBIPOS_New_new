@@ -29,8 +29,10 @@ import javafx.stage.Stage;
 public class ServerGUI extends Application {
 
 	public static void main(String[] args) {
+		Register r = new Register();
 		launch(args);
 
+		
 	}
 	public void start(Stage primaryStage) throws Exception {
 		GUI(primaryStage);
@@ -43,29 +45,32 @@ public class ServerGUI extends Application {
 			    "Table1", "Table2", "Table3")
 			);
 		
-		ListView<String> newItemList = new ListView<String>();
-		ObservableList<String> newitems =FXCollections.observableArrayList (
-		    "Item1", "Item2", "Item3", "Item4");
+		ListView<String> inventory = new ListView<String>();
+		ObservableList<String> inventoryItems =FXCollections.observableArrayList (Register.menuItemNames);
+		ListView<String> inventoryP = new ListView<String>();
+		ObservableList<String> inventoryPrices =FXCollections.observableArrayList (Register.menuItemPrices);
 		
-		ListView<String> existingItemList = new ListView<String>();
-		ObservableList<String> existingitems =FXCollections.observableArrayList (
-				"Item1", "Item2", "Item3", "Item4");
+		ListView<String> customerCheck = new ListView<String>();
+		ObservableList<String> customerCheckItems =FXCollections.observableArrayList ();
 		
 		ListView<String> prices = new ListView<String>();
-		ObservableList<String> itemPrices =FXCollections.observableArrayList (
-				"Price1", "Price2", "Price3", "Price4");
-		newItemList.setItems(newitems);
-		existingItemList.setItems(existingitems);
+		ObservableList<String> itemPrices =FXCollections.observableArrayList ();
+		inventory.setItems(inventoryItems);
+		inventoryP.setItems(inventoryPrices);
+		customerCheck.setItems(customerCheckItems);
 		prices.setItems(itemPrices);
 		
 		POSButton quitButton=new POSButton(40,60,"Close");
 		POSButton addItem=new POSButton(100,100,"Add Item");
 		POSButton removeItem=new POSButton(60,90,"Remove Item");
 		Pane pane = new Pane();
-		newItemList.relocate(50,150);
-		existingItemList.relocate(700, 150);
-		existingItemList.setPrefWidth(150);
-		existingItemList.setPrefHeight(400);
+		inventory.relocate(50,150);
+		inventory.setPrefWidth(150);
+		inventory.setPrefHeight(400);
+		inventoryP.relocate(200,150);
+		customerCheck.relocate(700, 150);
+		customerCheck.setPrefWidth(150);
+		customerCheck.setPrefHeight(400);
 		prices.relocate(850, 150);
 		prices.setPrefWidth(150);
 		prices.setPrefHeight(400);
@@ -74,7 +79,7 @@ public class ServerGUI extends Application {
 		tableList.relocate(800,100);
 		addItem.relocate(450, 300);
 		removeItem.relocate(800,550);
-		pane.getChildren().addAll(newItemList,existingItemList,prices,quitButton,itemList,tableList,addItem,removeItem);
+		pane.getChildren().addAll(inventory,inventoryP,customerCheck,prices,quitButton,itemList,tableList,addItem,removeItem);
 
 		
 		
@@ -89,20 +94,56 @@ public class ServerGUI extends Application {
 		quitButton.setOnAction(e -> {
 			stage.close();
 		});
-		addItem.setOnAction(e -> {
-		     String selectedItems = newItemList.getSelectionModel()
-		             .getSelectedItem();
-		         if (selectedItems != null) {
-		           newItemList.getSelectionModel().clearSelection();
-		           existingitems.add(selectedItems);
-		         }
+		
+		// Handle ListView selection changes.
+		inventory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+		    System.out.println("Selection changed");
+		    int index = inventory.getSelectionModel().getSelectedIndex();
+		    inventoryP.getSelectionModel().select(index);
 		});
+		
+		inventoryP.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+		    System.out.println("Selection changed");
+		    int index = inventoryP.getSelectionModel().getSelectedIndex();
+		    inventory.getSelectionModel().select(index);
+		});
+		
+		addItem.setOnAction(e -> {
+		     String selectedItems = inventory.getSelectionModel().getSelectedItem();
+		     int index = inventory.getSelectionModel().getSelectedIndex();
+		     System.out.println(index);
+		         if (selectedItems != null) {
+		           inventory.getSelectionModel().clearSelection();
+		           customerCheckItems.add(selectedItems);
+		           String selectedName = inventoryPrices.get(index);
+			         if (selectedName != null) {
+				           inventoryP.getSelectionModel().clearSelection();
+				           itemPrices.add(selectedName);
+				     }
+		         }
+		         else {
+		        	 String selectedPrices = inventoryP.getSelectionModel().getSelectedItem();
+				     int indexP = inventoryP.getSelectionModel().getSelectedIndex();
+				     System.out.println(indexP);
+				     if (selectedPrices != null) {
+				           inventoryP.getSelectionModel().clearSelection();
+				           customerCheckItems.add(selectedPrices);
+				           String selectedName = inventoryPrices.get(index);
+					         if (selectedName != null) {
+						           inventory.getSelectionModel().clearSelection();
+						           itemPrices.add(selectedName);
+						     }
+		         }
+		   
+		         }});
+		
+		
 		removeItem.setOnAction(e -> {
-		     String selectedItems = existingItemList.getSelectionModel()
+		     String selectedItems = customerCheck.getSelectionModel()
 		             .getSelectedItem();
 		         if (selectedItems != null) {
-		           existingItemList.getSelectionModel().clearSelection();
-		           existingitems.remove(selectedItems);
+		           customerCheck.getSelectionModel().clearSelection();
+		           customerCheckItems.remove(selectedItems);
 		         }
 		});
 	}
