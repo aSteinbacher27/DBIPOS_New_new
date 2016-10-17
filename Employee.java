@@ -11,7 +11,7 @@ public class Employee{
 	double shiftHours;
 	
 	//constructor
-	Item(String name int ID, double wage, int phone, String address, String email, int SSN, int clearance) {
+	Employee(String name, int ID, double wage, int phone, String address, String email, int SSN, int clearance) {
 		this.name = name;
 		this.ID = ID;
 		this.wage = wage;
