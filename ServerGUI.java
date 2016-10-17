@@ -68,6 +68,8 @@ public class ServerGUI extends Application {
 		inventory.setPrefWidth(150);
 		inventory.setPrefHeight(400);
 		inventoryP.relocate(200,150);
+		inventoryP.setPrefWidth(150);
+		inventoryP.setPrefHeight(400);
 		customerCheck.relocate(700, 150);
 		customerCheck.setPrefWidth(150);
 		customerCheck.setPrefHeight(400);
