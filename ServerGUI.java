@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -38,27 +39,71 @@ public class ServerGUI extends Application {
 		GUI(primaryStage);
 	}
 	public static void GUI(Stage primaryStage){
-		ChoiceBox itemList = new ChoiceBox(FXCollections.observableArrayList(
-			    "Drinks", "Desserts", "Meals")
+		ComboBox itemList = new ComboBox(FXCollections.observableArrayList(
+			    "Menu Items", "Drink Items", "Dessert Items","Gift Shop Items")
 			);
-		ChoiceBox tableList = new ChoiceBox(FXCollections.observableArrayList(
+		ComboBox tableList = new ComboBox(FXCollections.observableArrayList(
 			    "Table1", "Table2", "Table3")
 			);
 		
 		ListView<String> inventory = new ListView<String>();
-		ObservableList<String> inventoryItems =FXCollections.observableArrayList (Register.menuItemNames);
 		ListView<String> inventoryP = new ListView<String>();
-		ObservableList<String> inventoryPrices =FXCollections.observableArrayList (Register.menuItemPrices);
+		ObservableList<String> inventoryItems=FXCollections.observableArrayList();
+		ObservableList<String> inventoryPrices=FXCollections.observableArrayList();
+		
+		
+		// When category (comboBox) selection is changed, listView updates with appropriate items
+		itemList.setOnAction(e -> {
+			if (itemList.getSelectionModel().getSelectedItem().toString() == "Menu Items") {
+				
+				inventoryItems.addAll(Register.menuItemNames);
+				inventory.setItems(inventoryItems);
+				
+				inventoryPrices.addAll(Register.menuItemPrices);
+				inventoryP.setItems(inventoryPrices);
+			}
+			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Drink Items") {
+				inventoryItems.addAll(Register.drinkItemNames);
+				inventory.setItems(inventoryItems);
+				
+				inventoryPrices.addAll(Register.drinkItemPrices);
+				inventoryP.setItems(inventoryPrices);
+			}
+			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Dessert Items") {
+				inventoryItems.addAll(Register.dessertItemNames);
+				inventory.setItems(inventoryItems);
+				
+				inventoryPrices.addAll(Register.dessertItemPrices);
+				inventoryP.setItems(inventoryPrices);
+			}
+			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Gift Shop Items") {
+				inventoryItems.addAll(Register.giftItemNames);
+				inventory.setItems(inventoryItems);
+				
+				inventoryPrices.addAll(Register.giftItemPrices);
+				inventoryP.setItems(inventoryPrices);
+			}
+		});
+		
+		
+//		DO NOT DELETE.. NEEDED FOR TESTING & DEBUGGING
+//		ListView<String> inventory = new ListView<String>();
+//		ObservableList<String> inventoryItems =FXCollections.observableArrayList (Register.menuItemNames);
+//		ObservableList<String> inventory.setItems(inventoryItems);
+//		
+//		ListView<String> inventoryP = new ListView<String>();
+//		ObservableList<String> inventoryPrices =FXCollections.observableArrayList (Register.menuItemPrices);
+//		ObservableList<String> inventoryP.setItems(inventoryPrices);
+		
 		
 		ListView<String> customerCheck = new ListView<String>();
 		ObservableList<String> customerCheckItems =FXCollections.observableArrayList ();
+		customerCheck.setItems(customerCheckItems);
 		
 		ListView<String> prices = new ListView<String>();
 		ObservableList<String> itemPrices =FXCollections.observableArrayList ();
-		inventory.setItems(inventoryItems);
-		inventoryP.setItems(inventoryPrices);
-		customerCheck.setItems(customerCheckItems);
 		prices.setItems(itemPrices);
+		
 		
 		POSButton quitButton=new POSButton(40,60,"Close");
 		POSButton addItem=new POSButton(100,100,"Add Item");
@@ -67,9 +112,9 @@ public class ServerGUI extends Application {
 		inventory.relocate(50,150);
 		inventory.setPrefWidth(150);
 		inventory.setPrefHeight(400);
-		inventoryP.relocate(200,150);
 		inventoryP.setPrefWidth(150);
 		inventoryP.setPrefHeight(400);
+		inventoryP.relocate(200,150);
 		customerCheck.relocate(700, 150);
 		customerCheck.setPrefWidth(150);
 		customerCheck.setPrefHeight(400);
@@ -97,23 +142,34 @@ public class ServerGUI extends Application {
 			stage.close();
 		});
 		
-		// Handle ListView selection changes.
+		// Listener for inventory. When item in inventory is selected, the corresponding price is also selected
 		inventory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-		    System.out.println("Selection changed");
 		    int index = inventory.getSelectionModel().getSelectedIndex();
 		    inventoryP.getSelectionModel().select(index);
 		});
 		
+		// Listener for inventoryP. When item in inventory price is selected, the corresponding price is also selected
 		inventoryP.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-		    System.out.println("Selection changed");
 		    int index = inventoryP.getSelectionModel().getSelectedIndex();
 		    inventory.getSelectionModel().select(index);
 		});
 		
+		// Listener for inventory. When item in inventory is selected, the corresponding price is also selected
+		customerCheck.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			int index = customerCheck.getSelectionModel().getSelectedIndex();
+			prices.getSelectionModel().select(index);
+		});
+				
+		// Listener for inventoryP. When item in inventory price is selected, the corresponding price is also selected
+		prices.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			int index = prices.getSelectionModel().getSelectedIndex();
+			customerCheck.getSelectionModel().select(index);
+		});
+		
+		// add item to customers check
 		addItem.setOnAction(e -> {
 		     String selectedItems = inventory.getSelectionModel().getSelectedItem();
 		     int index = inventory.getSelectionModel().getSelectedIndex();
-		     System.out.println(index);
 		         if (selectedItems != null) {
 		           inventory.getSelectionModel().clearSelection();
 		           customerCheckItems.add(selectedItems);
@@ -126,7 +182,6 @@ public class ServerGUI extends Application {
 		         else {
 		        	 String selectedPrices = inventoryP.getSelectionModel().getSelectedItem();
 				     int indexP = inventoryP.getSelectionModel().getSelectedIndex();
-				     System.out.println(indexP);
 				     if (selectedPrices != null) {
 				           inventoryP.getSelectionModel().clearSelection();
 				           customerCheckItems.add(selectedPrices);
@@ -140,13 +195,32 @@ public class ServerGUI extends Application {
 		         }});
 		
 		
+		// remove item from customers check
 		removeItem.setOnAction(e -> {
-		     String selectedItems = customerCheck.getSelectionModel()
-		             .getSelectedItem();
+			 String selectedItems = customerCheck.getSelectionModel().getSelectedItem();
+		     int index = customerCheck.getSelectionModel().getSelectedIndex();
 		         if (selectedItems != null) {
 		           customerCheck.getSelectionModel().clearSelection();
 		           customerCheckItems.remove(selectedItems);
+		           String selectedName = itemPrices.get(index);
+			         if (selectedName != null) {
+				           prices.getSelectionModel().clearSelection();
+				           itemPrices.remove(selectedName);
+				     }
 		         }
-		});
+		         else {
+		        	 String selectedPrices = prices.getSelectionModel().getSelectedItem();
+				     int indexP = prices.getSelectionModel().getSelectedIndex();
+				     if (selectedPrices != null) {
+				    	 prices.getSelectionModel().clearSelection();
+				           itemPrices.remove(selectedPrices);
+				           String selectedName = itemPrices.get(index);
+					         if (selectedName != null) {
+						           customerCheck.getSelectionModel().clearSelection();
+						           customerCheckItems.remove(selectedName);
+						     }
+		         }
+		   
+		         }});
 	}
 }
