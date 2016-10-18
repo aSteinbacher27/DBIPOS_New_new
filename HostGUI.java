@@ -501,10 +501,10 @@ public class HostGUI extends Application{
 		t1stack.getChildren().addAll(t1,l1);
 		l1.relocate(100, 125);
 		l1.setTextFill(Color.WHITE);
-		t1.setFill(Color.BLUE);
+		t1.setFill(Color.GREEN);
 		
 		t2 = new Rectangle(140,70,40,40); //sec 1 window
-		t2.setFill(Color.BLUE);
+		t2.setFill(Color.GREEN);
 		l2 = new Label("2");
 		StackPane t2stack = new StackPane();
 		t2stack.getChildren().addAll(t2,l2);
@@ -512,7 +512,7 @@ public class HostGUI extends Application{
 		l2.setTextFill(Color.WHITE);
 		
 		t3 = new Rectangle(140,130,40,40);//sec 1 wall
-		t3.setFill(Color.BLUE);
+		t3.setFill(Color.GREEN);
 		l3 = new Label("3");
 		StackPane t3stack = new StackPane();
 		t3stack.getChildren().addAll(t3,l3);
@@ -520,7 +520,7 @@ public class HostGUI extends Application{
 		l3.setTextFill(Color.WHITE);
 		
 		Circle t4 = new Circle(250,70,30); //round sec 2
-		t4.setFill(Color.BLUE);
+		t4.setFill(Color.GREEN);
 		l4 = new Label("4");
 		StackPane t4stack = new StackPane();
 		t4stack.getChildren().addAll(t4,l4);
@@ -528,7 +528,7 @@ public class HostGUI extends Application{
 		l4.setTextFill(Color.WHITE);
 		
 		t5 = new Rectangle(205,135,30,30); //2top sec 2
-		t5.setFill(Color.BLUE);
+		t5.setFill(Color.GREEN);
 		l5 = new Label("5");
 		StackPane t5stack = new StackPane();
 		t5stack.getChildren().addAll(t5,l5);
@@ -536,7 +536,7 @@ public class HostGUI extends Application{
 		l5.setTextFill(Color.WHITE);
 		
 		t6 = new Rectangle(300,70,40,40); //sec 2 window
-		t6.setFill(Color.BLUE);
+		t6.setFill(Color.GREEN);
 		l6 = new Label("6");
 		StackPane t6stack = new StackPane();
 		t6stack.getChildren().addAll(t6,l6);
@@ -544,7 +544,7 @@ public class HostGUI extends Application{
 		l6.setTextFill(Color.WHITE);
 		
 		t7 = new Rectangle(260,130,40,40);//sec 2 wall
-		t7.setFill(Color.BLUE);
+		t7.setFill(Color.GREEN);
 		l7 = new Label("7");
 		StackPane t7stack = new StackPane();
 		t7stack.getChildren().addAll(t7,l7);
@@ -552,7 +552,7 @@ public class HostGUI extends Application{
 		l7.setTextFill(Color.WHITE);
 		
 		t8 = new Rectangle(325,135,30,30);//sec 3 2top
-		t8.setFill(Color.BLUE);
+		t8.setFill(Color.GREEN);
 		l8 = new Label("8");
 		StackPane t8stack = new StackPane();
 		t8stack.getChildren().addAll(t8,l8);
@@ -560,7 +560,7 @@ public class HostGUI extends Application{
 		l8.setTextFill(Color.WHITE);
 		
 		t9 = new Rectangle(400,70,40,40);//sec 3 window
-		t9.setFill(Color.BLUE);
+		t9.setFill(Color.GREEN);
 		l9 = new Label("9");
 		StackPane t9stack = new StackPane();
 		t9stack.getChildren().addAll(t9,l9);
@@ -568,7 +568,7 @@ public class HostGUI extends Application{
 		l9.setTextFill(Color.WHITE);
 		
 		Circle t10 = new Circle(500,70,30); //sec 3 round
-		t10.setFill(Color.BLUE);
+		t10.setFill(Color.GREEN);
 		l10 = new Label("10");
 		StackPane t10stack = new StackPane();
 		t10stack.getChildren().addAll(t10,l10);
@@ -576,7 +576,7 @@ public class HostGUI extends Application{
 		l10.setTextFill(Color.WHITE);
 		
 		t11 = new Rectangle(470,130,40,40); //sec 3 wall
-		t11.setFill(Color.BLUE);
+		t11.setFill(Color.GREEN);
 		l11 = new Label("11");
 		StackPane t11stack = new StackPane();
 		t11stack.getChildren().addAll(t11,l11);
@@ -584,7 +584,7 @@ public class HostGUI extends Application{
 		l11.setTextFill(Color.WHITE);
 		
 		t12 = new Rectangle(560,70,40,40);//sec 4 near window
-		t12.setFill(Color.BLUE);
+		t12.setFill(Color.GREEN);
 		l12 = new Label("12");
 		StackPane t12stack = new StackPane();
 		t12stack.getChildren().addAll(t12,l12);
@@ -592,7 +592,7 @@ public class HostGUI extends Application{
 		l12.setTextFill(Color.WHITE);
 		
 		t13 = new Rectangle(565,135,30,30); //sec 4 2top
-		t13.setFill(Color.BLUE);
+		t13.setFill(Color.GREEN);
 		l13 = new Label("13");
 		StackPane t13stack = new StackPane();
 		t13stack.getChildren().addAll(t13,l13);
@@ -600,7 +600,7 @@ public class HostGUI extends Application{
 		l13.setTextFill(Color.WHITE);
 		
 		t14 = new Rectangle(620,70,40,40);//sec4 far window
-		t14.setFill(Color.BLUE);
+		t14.setFill(Color.GREEN);
 		l14 = new Label("14");
 		StackPane t14stack = new StackPane();
 		t14stack.getChildren().addAll(t14,l14);
@@ -608,7 +608,7 @@ public class HostGUI extends Application{
 		l14.setTextFill(Color.WHITE);
 		
 		t15 = new Rectangle(620,130,40,40);//sec 4 wall
-		t15.setFill(Color.BLUE);
+		t15.setFill(Color.GREEN);
 		l15 = new Label("15");
 		StackPane t15stack = new StackPane();
 		t15stack.getChildren().addAll(t15,l15);
@@ -619,7 +619,7 @@ public class HostGUI extends Application{
 		Line line2 = new Line(730,0,730,200);
 		
 		t16 = new Rectangle(100,250,40,40);//sec 5 wall
-		t16.setFill(Color.BLUE);
+		t16.setFill(Color.GREEN);
 		l16 = new Label("16");
 		StackPane t16stack = new StackPane();
 		t16stack.getChildren().addAll(t16,l16);
@@ -627,7 +627,7 @@ public class HostGUI extends Application{
 		l16.setTextFill(Color.WHITE);
 		
 		t17 = new Rectangle(200,250,40,40);//sec 5 center
-		t17.setFill(Color.BLUE);
+		t17.setFill(Color.GREEN);
 		l17 = new Label("17");
 		StackPane t17stack = new StackPane();
 		t17stack.getChildren().addAll(t17,l17);
@@ -635,7 +635,7 @@ public class HostGUI extends Application{
 		l17.setTextFill(Color.WHITE);
 		
 		Circle t18 = new Circle(325,275,30);//sec 5 round
-		t18.setFill(Color.BLUE);
+		t18.setFill(Color.GREEN);
 		l18 = new Label("18");
 		StackPane t18stack = new StackPane();
 		t18stack.getChildren().addAll(t18,l18);
@@ -643,7 +643,7 @@ public class HostGUI extends Application{
 		l18.setTextFill(Color.WHITE);
 		
 		t19 = new Rectangle(325,335,30,30);//sec 6 2top
-		t19.setFill(Color.BLUE);
+		t19.setFill(Color.GREEN);
 		l19 = new Label("19");
 		StackPane t19stack = new StackPane();
 		t19stack.getChildren().addAll(t19,l19);
@@ -651,7 +651,7 @@ public class HostGUI extends Application{
 		l19.setTextFill(Color.WHITE);
 		
 		t20 = new Rectangle(200,365,40,40);//sec 6 center
-		t20.setFill(Color.BLUE);
+		t20.setFill(Color.GREEN);
 		l20 = new Label("20");
 		StackPane t20stack = new StackPane();
 		t20stack.getChildren().addAll(t20,l20);
@@ -659,7 +659,7 @@ public class HostGUI extends Application{
 		l20.setTextFill(Color.WHITE);
 		
 		t21 = new Rectangle(325,400,40,40);//sec 6 window
-		t21.setFill(Color.BLUE);
+		t21.setFill(Color.GREEN);
 		l21 = new Label("21");
 		StackPane t21stack = new StackPane();
 		t21stack.getChildren().addAll(t21,l21);
@@ -667,7 +667,7 @@ public class HostGUI extends Application{
 		l21.setTextFill(Color.WHITE);
 		
 		t22 = new Rectangle(325,480,40,40);//sec 6 wall
-		t22.setFill(Color.BLUE);
+		t22.setFill(Color.GREEN);
 		l22 = new Label("22");
 		StackPane t22stack = new StackPane();
 		t22stack.getChildren().addAll(t22,l22);
@@ -675,7 +675,7 @@ public class HostGUI extends Application{
 		l22.setTextFill(Color.WHITE);
 		
 		t23 = new Rectangle(200,480,40,40);//sec 7 back wall
-		t23.setFill(Color.BLUE);
+		t23.setFill(Color.GREEN);
 		l23 = new Label("23");
 		StackPane t23stack = new StackPane();
 		t23stack.getChildren().addAll(t23,l23);
@@ -683,7 +683,7 @@ public class HostGUI extends Application{
 		l23.setTextFill(Color.WHITE);
 		
 		t24 = new Rectangle(100,480,40,40);//sec 7 corner
-		t24.setFill(Color.BLUE);
+		t24.setFill(Color.GREEN);
 		l24 = new Label("24");
 		StackPane t24stack = new StackPane();
 		t24stack.getChildren().addAll(t24,l24);
@@ -691,7 +691,7 @@ public class HostGUI extends Application{
 		l24.setTextFill(Color.WHITE);
 		
 		t25 = new Rectangle(100,365,40,40);//sec 7 side wall
-		t25.setFill(Color.BLUE);
+		t25.setFill(Color.GREEN);
 		l25 = new Label("25");
 		StackPane t25stack = new StackPane();
 		t25stack.getChildren().addAll(t25,l25);
@@ -701,7 +701,7 @@ public class HostGUI extends Application{
 		Line line3 = new Line(400,200,400,700);
 		
 		t26 = new Rectangle(435,480,40,40);//sec 8 near
-		t26.setFill(Color.BLUE);
+		t26.setFill(Color.GREEN);
 		l26 = new Label("26");
 		StackPane t26stack = new StackPane();
 		t26stack.getChildren().addAll(t26,l26);
@@ -709,7 +709,7 @@ public class HostGUI extends Application{
 		l26.setTextFill(Color.WHITE);
 		
 		t27 = new Rectangle(435,400,40,40);//sec 8 center 
-		t27.setFill(Color.BLUE);
+		t27.setFill(Color.GREEN);
 		l27 = new Label("27");
 		StackPane t27stack = new StackPane();
 		t27stack.getChildren().addAll(t27,l27);
@@ -717,7 +717,7 @@ public class HostGUI extends Application{
 		l27.setTextFill(Color.WHITE);
 		
 		t28 = new Rectangle(435,320,40,40);//sec 8 window
-		t28.setFill(Color.BLUE);
+		t28.setFill(Color.GREEN);
 		l28 = new Label("28");
 		StackPane t28stack = new StackPane();
 		t28stack.getChildren().addAll(t28,l28);
@@ -725,7 +725,7 @@ public class HostGUI extends Application{
 		l28.setTextFill(Color.WHITE);
 		
 		t29 = new Rectangle(515,340,50,160);//middle table
-		t29.setFill(Color.BLUE);
+		t29.setFill(Color.GREEN);
 		l29 = new Label("29");
 		StackPane t29stack = new StackPane();
 		t29stack.getChildren().addAll(t29,l29);
@@ -733,7 +733,7 @@ public class HostGUI extends Application{
 		l29.setTextFill(Color.WHITE);
 		
 		t30 = new Rectangle(610,480,40,40);//sec 9 near
-		t30.setFill(Color.BLUE);
+		t30.setFill(Color.GREEN);
 		l30 = new Label("30");
 		StackPane t30stack = new StackPane();
 		t30stack.getChildren().addAll(t30,l30);
@@ -741,7 +741,7 @@ public class HostGUI extends Application{
 		l30.setTextFill(Color.WHITE);
 		
 		t31 = new Rectangle(610,400,40,40);//sec 9 center
-		t31.setFill(Color.BLUE);
+		t31.setFill(Color.GREEN);
 		l31 = new Label("31");
 		StackPane t31stack = new StackPane();
 		t31stack.getChildren().addAll(t31,l31);
@@ -749,7 +749,7 @@ public class HostGUI extends Application{
 		l31.setTextFill(Color.WHITE);
 		
 		t32 = new Rectangle(610,320,40,40);//sec 9 window
-		t32.setFill(Color.BLUE);
+		t32.setFill(Color.GREEN);
 		l32 = new Label("32");
 		StackPane t32stack = new StackPane();
 		t32stack.getChildren().addAll(t32,l32);
