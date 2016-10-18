@@ -58,6 +58,7 @@ public class Register {
 		Party testParty = new Party("test", 3);
 		activeParties.add(testParty);
 		
+		this.currentCash = 200.0; //generic starting cash amount. figure out in sprint 2
 	}
 	
 	static public double getItemPrice(int id){
@@ -154,6 +155,10 @@ public class Register {
 			System.out.println("popEmployees has horribly failed with file IO");
 		}
 		
+	}
+	
+	private void updateCash(double difference) {
+		this.currentCash += difference;
 	}
 		
 	
