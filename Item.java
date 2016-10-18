@@ -3,10 +3,12 @@ public class Item {
 	
 	String name;
 	double price;
+	String type;
 	
 	//constructor
-	Item(String name, double price) {
+	Item(String name, String type, double price) {
 		this.name = name;
+		this.type = type;
 		this.price = price;
 	}
 	
