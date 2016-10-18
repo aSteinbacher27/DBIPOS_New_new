@@ -17,6 +17,14 @@ import java.util.Scanner;
 
 public class Register {
 
+	static ArrayList<String> menuItemNames = new ArrayList<String>();
+	static ArrayList<String> giftItemNames = new ArrayList<String>();
+	static ArrayList<String> drinkItemNames = new ArrayList<String>();
+	static ArrayList<String> dessertItemNames = new ArrayList<String>();
+	static ArrayList<String> menuItemPrices = new ArrayList<String>();
+	static ArrayList<String> giftItemPrices = new ArrayList<String>();
+	static ArrayList<String> drinkItemPrices = new ArrayList<String>();
+	static ArrayList<String> dessertItemPrices = new ArrayList<String>();
 	
 	//Array lists of Employees and Items
 	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
@@ -67,20 +75,29 @@ public class Register {
 	//method to populate the Items array. 
 	private void popItems(String fileName){
 		try{
+			
 			//set up file and scanner
 			File itemFile = new File(fileName);
 			Scanner input = new Scanner(itemFile);
+			
+		
 			
 			//read file until empty
 			while(input.hasNextLine()) {
 				
 				//preps temp variables for new object creation
 				String name = new String();
-				double price;
+				Double price;
 				
 				//reads values from txt file
 				name = input.next();
 				price = input.nextDouble();
+				
+				//create new list of item names
+				menuItemNames.add(name);
+				menuItemPrices.add(price.toString());
+				System.out.println(menuItemNames);
+				System.out.println(menuItemPrices);
 				
 				//creates an object to add to the item array
 				Item newItem = new Item(name, price);
