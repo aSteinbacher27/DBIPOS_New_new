@@ -80,31 +80,47 @@ public class Register {
 			File itemFile = new File(fileName);
 			Scanner input = new Scanner(itemFile);
 			
-		
+			input.useDelimiter(",");
 			
 			//read file until empty
-			while(input.hasNextLine()) {
+			while(input.hasNext()) {
 				
 				//preps temp variables for new object creation
 				String name = new String();
+				String type = new String();
 				Double price;
 				
 				//reads values from txt file
 				name = input.next();
+				type = input.next();
 				price = input.nextDouble();
 				
-				//create new list of item names
-				menuItemNames.add(name);
-				menuItemPrices.add(price.toString());
-				System.out.println(menuItemNames);
-				System.out.println(menuItemPrices);
+				//sorts the items into appropriate arrays
+				switch(type) {
+				case "gift":	giftItemNames.add(name);
+								giftItemPrices.add(price.toString());
+								break;
+								
+				case "meal":	menuItemNames.add(name);
+								menuItemPrices.add(price.toString());
+								break;
+								
+				case "drink":	drinkItemNames.add(name);
+								drinkItemPrices.add(price.toString());
+								break;
+								
+				case "dessert":	dessertItemNames.add(name);
+								dessertItemPrices.add(price.toString());
+								break;
+				}
 				
 				//creates an object to add to the item array
-				Item newItem = new Item(name, price);
+				Item newItem = new Item(name, type, price);
 				
 				//adds new item to items array
 				this.items.add(newItem);
 			}
+			input.close();
 			
 			//testing
 			//System.out.println(this.items.get(1).getName());
@@ -113,6 +129,7 @@ public class Register {
 		} catch(IOException e) {
 			//fail case
 			System.out.println("popItems has horribly failed with file IO");
+			e.printStackTrace();
 		
 		}
 		
