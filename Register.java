@@ -157,7 +157,7 @@ public class Register {
 		
 	}
 	
-	private void updateCash(double difference) {
+	public void updateCash(double difference) {
 		this.currentCash += difference;
 	}
 		
