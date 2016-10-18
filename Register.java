@@ -43,7 +43,7 @@ public class Register {
 	String employeeFileString = new String("employees.txt");
 	
 
-	double currentCash;
+	static double currentCash;
 	
 	Register() {
 		//populate employees and items
@@ -157,8 +157,8 @@ public class Register {
 		
 	}
 	
-	public void updateCash(double difference) {
-		this.currentCash += difference;
+	public static void updateCash(double difference) {
+		currentCash += difference;
 	}
 		
 	
