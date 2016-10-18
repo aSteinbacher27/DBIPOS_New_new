@@ -16,7 +16,7 @@ public class Check {
 	
 	
 	double subtotal;
-	double tax = 0.045; //NC standard (??)
+	double tax = 0.0675; //NC standard (??)
 	double total;
 	
 	//Check constructor
@@ -29,7 +29,7 @@ public class Check {
 		
 		//receipt();
 		//System.out.println(calcTotal());
-		finalize();
+		//finalize();
 	}
 	
 	
@@ -131,6 +131,7 @@ public class Check {
 	}
 	
 	private void updateCash(double difference) {
+		Register.updateCash(difference);
 	}
 	
 
