@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class Register {
 
+	
 	static ArrayList<String> menuItemNames = new ArrayList<String>();
 	static ArrayList<String> giftItemNames = new ArrayList<String>();
 	static ArrayList<String> drinkItemNames = new ArrayList<String>();
@@ -61,6 +62,12 @@ public class Register {
 		this.currentCash = 200.0; //generic starting cash amount. figure out in sprint 2
 	}
 	
+	/**
+	 * This method gets the price attribute associated with an item object stored in Register in the items arraylist
+	 * 
+	 * @param id index of the indicated item as an integer
+	 * @return the price of the indicated Item
+	 */
 	static public double getItemPrice(int id){
 		double price = items.get(id).getPrice();
 		return price;
