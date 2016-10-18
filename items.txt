@@ -1,3 +1,4 @@
-bear	12.95
-jam		3.60
-jelly	2.95
+A,meal,12.50,
+bear,gift,12.95,
+jam,gift,3.60,
+jelly,gift,2.95,
