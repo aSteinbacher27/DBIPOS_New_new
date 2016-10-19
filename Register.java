@@ -33,8 +33,8 @@ public class Register {
 	
 	
 	//Party Array lists
-	ArrayList<Party> waitingParties = new ArrayList<Party>();
-	ArrayList<Party> activeParties = new ArrayList<Party>();
+	static ArrayList<Party> waitingParties = new ArrayList<Party>();
+	static ArrayList<Party> activeParties = new ArrayList<Party>();
 	
 	
 	//Payroll (not yet)

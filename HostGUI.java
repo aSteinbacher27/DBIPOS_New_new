@@ -28,6 +28,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 
 public class HostGUI extends Application{
@@ -226,6 +227,37 @@ public class HostGUI extends Application{
 				System.out.println("Create Party!");
 				System.out.println("Party Name: " + partyName);		
 				System.out.println("Party Size: " + partySize);
+
+				//Create a new Party object to waitingParties array in Register Class.
+				Register.waitingParties.add(new Party(partyName, partySize, isBreakfast));
+
+				for(String s: orderListItems){
+					System.out.print(s);
+					switch (s){
+						case "Adult": Register.waitingParties.get(Register.waitingParties.size()-1).getCheck().addItem(0);
+								break;
+						case "Age 0-3": Register.waitingParties.get(Register.waitingParties.size()-1).getCheck().addItem(1);
+								break;
+						case "Age 4-5": Register.waitingParties.get(Register.waitingParties.size()-1).getCheck().addItem(2);
+								break;
+						case "Age 6-8": Register.waitingParties.get(Register.waitingParties.size()-1).getCheck().addItem(3);
+								break;
+						case "Age 9-11": Register.waitingParties.get(Register.waitingParties.size()-1).getCheck().addItem(4);
+								break;		
+					}
+
+					
+				}
+				
+				newPartyStage.close();
+
+				// //Print Statements strictly for debugging
+				// for(Party p: Register.waitingParties){
+				// 	System.out.println("The name of the new party added is: " + p.getPartyName());
+				// 	System.out.println("The size of the new party added is: " + p.getPartySize());
+				// 	System.out.println("Is the party getting breakfast? " + p.isBreakfast());
+
+				// }
 
 			}
 
