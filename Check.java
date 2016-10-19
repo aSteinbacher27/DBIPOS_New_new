@@ -24,7 +24,7 @@ public class Check {
 		//System.out.println("party made a check");
 		
 		//testing. adding dummy item to check always
-		addItem(0);
+		
 		//addItem(1);
 		
 		//receipt();
@@ -34,8 +34,12 @@ public class Check {
 	
 	
 	//adding an item to the index array list
-	private void addItem(int index) {
+	public void addItem(int index) {
 		checkItems.add(index);
+
+		//Print when a check item is added.
+		// for(Integer i: checkItems)
+		// System.out.println(i);
 	}
 	
 	

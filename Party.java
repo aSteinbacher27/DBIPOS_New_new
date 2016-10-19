@@ -6,23 +6,26 @@ import java.util.List;
 
 public class Party {
 	
-	Check check = new Check();
+	private Check check;
 	
-	String name;
-	int size;
-	Boolean isBreakfast;
-	int serverID;
-	int table;
+	private String name;
+	private int size;
+	private Boolean isBreakfast;
+	private int serverID;
+	private int table;
 	
 	
 	//progress times saved as formatted date strings in format:
 	// [created, sat, check given, finalized]
-	String[] progressTimes = new String[4];
+	private String[] progressTimes = new String[4];
 	
 	//party class constructer
-	public Party(String name, int size) {
+	public Party(String name, int size, boolean isBreakfast) {
 		this.name = name;
 		this.size = size;
+		this.isBreakfast = isBreakfast;
+
+		check = new Check();
 	
 		//System.out.println(this.name);
 	}
@@ -55,6 +58,26 @@ public class Party {
 				this.progressTimes[index] = formattedDate;
 				break;
 		}
+	}
+
+	public String getPartyName(){
+
+		return name;
+	}
+
+	public int getPartySize(){
+
+		return size;
+	}
+
+	public boolean isBreakfast(){
+
+		return isBreakfast;
+	}
+
+	public Check getCheck(){
+
+		return check;
 	}
 	
 	
