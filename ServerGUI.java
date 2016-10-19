@@ -38,30 +38,48 @@ public class ServerGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		GUI(primaryStage);
 	}
+	
 	public static void GUI(Stage primaryStage){
+		
+		//create drop down menu for item categories
 		ComboBox itemList = new ComboBox(FXCollections.observableArrayList(
 			    "Menu Items", "Drink Items", "Dessert Items","Gift Shop Items")
 			);
+		
+		//create drop down menu for available tables
 		ComboBox tableList = new ComboBox(FXCollections.observableArrayList(
 			    "Table1", "Table2", "Table3")
 			);
 		
+		//create listView for inventory items and prices (left side)
 		ListView<String> inventory = new ListView<String>();
 		ListView<String> inventoryP = new ListView<String>();
-		ObservableList<String> inventoryItems=FXCollections.observableArrayList();
-		ObservableList<String> inventoryPrices=FXCollections.observableArrayList();
+		ObservableList<String> inventoryItems=FXCollections.observableArrayList(Register.menuItemNames);
+		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(Register.menuItemPrices);
+		inventory.setItems(inventoryItems);
+		inventoryP.setItems(inventoryPrices);
+		
+		//initiate category drop down to menu items
+		itemList.getSelectionModel().selectFirst();
 		
 		
-		// When category (comboBox) selection is changed, listView updates with appropriate items
+		// When category selection is changed, listView updates with appropriate items
 		itemList.setOnAction(e -> {
+			inventoryItems.clear();
+			inventory.setItems(inventoryItems);
+			inventoryPrices.clear();
+			inventoryP.setItems(inventoryPrices);
+			
+			//changed to "Menu Items"
 			if (itemList.getSelectionModel().getSelectedItem().toString() == "Menu Items") {
-				
 				inventoryItems.addAll(Register.menuItemNames);
 				inventory.setItems(inventoryItems);
 				
 				inventoryPrices.addAll(Register.menuItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
+			
+			//changed to "Drink Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Drink Items") {
 				inventoryItems.addAll(Register.drinkItemNames);
 				inventory.setItems(inventoryItems);
@@ -69,6 +87,8 @@ public class ServerGUI extends Application {
 				inventoryPrices.addAll(Register.drinkItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
+			
+			//changed to "Dessert Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Dessert Items") {
 				inventoryItems.addAll(Register.dessertItemNames);
 				inventory.setItems(inventoryItems);
@@ -76,6 +96,8 @@ public class ServerGUI extends Application {
 				inventoryPrices.addAll(Register.dessertItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
+			
+			//chagned to "Gift Shop Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Gift Shop Items") {
 				inventoryItems.addAll(Register.giftItemNames);
 				inventory.setItems(inventoryItems);
@@ -85,30 +107,21 @@ public class ServerGUI extends Application {
 			}
 		});
 		
-		
-//		DO NOT DELETE.. NEEDED FOR TESTING & DEBUGGING
-//		ListView<String> inventory = new ListView<String>();
-//		ObservableList<String> inventoryItems =FXCollections.observableArrayList (Register.menuItemNames);
-//		ObservableList<String> inventory.setItems(inventoryItems);
-//		
-//		ListView<String> inventoryP = new ListView<String>();
-//		ObservableList<String> inventoryPrices =FXCollections.observableArrayList (Register.menuItemPrices);
-//		ObservableList<String> inventoryP.setItems(inventoryPrices);
-		
-		
+		//create listView for customer check and prices (right side)
 		ListView<String> customerCheck = new ListView<String>();
 		ObservableList<String> customerCheckItems =FXCollections.observableArrayList ();
 		customerCheck.setItems(customerCheckItems);
-		
 		ListView<String> prices = new ListView<String>();
 		ObservableList<String> itemPrices =FXCollections.observableArrayList ();
 		prices.setItems(itemPrices);
 		
-		
+		//add buttons
 		POSButton quitButton=new POSButton(40,60,"Close");
 		POSButton addItem=new POSButton(100,100,"Add Item");
 		POSButton removeItem=new POSButton(60,90,"Remove Item");
 		Pane pane = new Pane();
+		
+		//set locations and sizes for items within the GUI
 		inventory.relocate(50,150);
 		inventory.setPrefWidth(150);
 		inventory.setPrefHeight(400);
@@ -126,21 +139,16 @@ public class ServerGUI extends Application {
 		tableList.relocate(800,100);
 		addItem.relocate(450, 300);
 		removeItem.relocate(800,550);
+		
+		//add everything to the GUI
 		pane.getChildren().addAll(inventory,inventoryP,customerCheck,prices,quitButton,itemList,tableList,addItem,removeItem);
-
-		
-		
-		// Create and display said the aforementioned pane in a new stage 	
 		Scene scene = new Scene(pane, 1000, 600);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("Server GUI");
 		stage.setResizable(false);
 		stage.show();
-		
-		quitButton.setOnAction(e -> {
-			stage.close();
-		});
+
 		
 		// Listener for inventory. When item in inventory is selected, the corresponding price is also selected
 		inventory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -154,19 +162,25 @@ public class ServerGUI extends Application {
 		    inventory.getSelectionModel().select(index);
 		});
 		
-		// Listener for inventory. When item in inventory is selected, the corresponding price is also selected
+		// Listener for customerChekc. When item in customerCheck is selected, the corresponding price is also selected
 		customerCheck.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			int index = customerCheck.getSelectionModel().getSelectedIndex();
 			prices.getSelectionModel().select(index);
 		});
 				
-		// Listener for inventoryP. When item in inventory price is selected, the corresponding price is also selected
+		// Listener for prices. When price is selected, the corresponding item is also selected
 		prices.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			int index = prices.getSelectionModel().getSelectedIndex();
 			customerCheck.getSelectionModel().select(index);
 		});
 		
-		// add item to customers check
+		
+		//when "Quit" button is pressed, close window
+		quitButton.setOnAction(e -> {
+			stage.close();
+		});
+		
+		// when "Add Item" button is pressed, add item & price from inventory to customers check
 		addItem.setOnAction(e -> {
 		     String selectedItems = inventory.getSelectionModel().getSelectedItem();
 		     int index = inventory.getSelectionModel().getSelectedIndex();
@@ -195,7 +209,7 @@ public class ServerGUI extends Application {
 		         }});
 		
 		
-		// remove item from customers check
+		//when "Remove Item" button is pressed, remove item and price from customers check
 		removeItem.setOnAction(e -> {
 			 String selectedItems = customerCheck.getSelectionModel().getSelectedItem();
 		     int index = customerCheck.getSelectionModel().getSelectedIndex();
