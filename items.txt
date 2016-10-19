@@ -1,4 +1,11 @@
-A,meal,12.50,
+Adult,meal,12.50,
 bear,gift,12.95,
 jam,gift,3.60,
 jelly,gift,2.95,
+Juice,drink,1.25
+Milk,drink,1.25
+Water,drink,0.00
+Cake,dessert,5.50
+Pie,dessert,4.00
+Cookies,dessert,2.75
+Age 9-11,meal,9.50
