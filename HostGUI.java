@@ -6,6 +6,8 @@ import java.io.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -80,6 +82,17 @@ public class HostGUI extends Application{
 		Scene newPartyScene = new Scene(newPartyPane,500,370);
 		newPartyStage.setScene(newPartyScene);
 
+		// create list of items
+		ListView<String> addPartiesOrderListView = new ListView<String>();
+		ObservableList<String> orderListItems = FXCollections.observableArrayList ();
+		addPartiesOrderListView.setStyle("-fx-font-size: 16px");
+		addPartiesOrderListView.setItems(orderListItems);
+		addPartiesOrderListView.setLayoutX(300);
+		addPartiesOrderListView.setLayoutY(20);
+		addPartiesOrderListView.setPrefWidth(180);
+		addPartiesOrderListView.setPrefHeight(300);
+
+
 		Label newPartyLabel = new Label("Create a New Party: ");
 		newPartyLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold");
 		newPartyLabel.setLayoutX(5);
@@ -103,64 +116,130 @@ public class HostGUI extends Application{
 		newPartySizeField.setLayoutY(110);
 		
 		// breakfast and lunch radio buttons
-		RadioButton rb1 = new RadioButton("Breakfast");
-		rb1.setStyle("-fx-font-size: 16px");
-		rb1.setLayoutX(20);
-		rb1.setLayoutY(155);
-		RadioButton rb2 = new RadioButton("Lunch/Dinner");
-		rb2.setStyle("-fx-font-size: 16px");
-		rb2.setLayoutX(150);
-		rb2.setLayoutY(155);
-		
+		RadioButton isBreakfastRadioButton = new RadioButton("Breakfast");
+		isBreakfastRadioButton.setStyle("-fx-font-size: 16px");
+		isBreakfastRadioButton.setLayoutX(20);
+		isBreakfastRadioButton.setLayoutY(155);
+		RadioButton isLunchDinnerRadioButton = new RadioButton("Lunch/Dinner");
+		isLunchDinnerRadioButton.setStyle("-fx-font-size: 16px");
+		isLunchDinnerRadioButton.setLayoutX(150);
+		isLunchDinnerRadioButton.setLayoutY(155);
+
 		ToggleGroup breakfastLunch = new ToggleGroup();
-		rb1.setToggleGroup(breakfastLunch);
-		rb2.setToggleGroup(breakfastLunch);
-		
+		isBreakfastRadioButton.setToggleGroup(breakfastLunch);
+		isLunchDinnerRadioButton.setToggleGroup(breakfastLunch);
+
 		// meal buttons
 		POSButton ageAdultButton = new POSButton(40,100,"Adult");
 		ageAdultButton.setStyle("-fx-font-size: 16px");
 		ageAdultButton.setLayoutX(20);
 		ageAdultButton.setLayoutY(190);
+		ageAdultButton.setOnAction(e -> {
+
+			System.out.println("Add Age Adult to List");
+
+			orderListItems.add("Adult");
+
+		});
 		POSButton ageFreeButton = new POSButton(40,100,"Age 0-3");
 		ageFreeButton.setStyle("-fx-font-size: 16px");
 		ageFreeButton.setLayoutX(140);
 		ageFreeButton.setLayoutY(190);
+		ageFreeButton.setOnAction(e -> {
+
+			System.out.println("Add Age Free to List");
+			orderListItems.add("Age 0-3");
+
+		});
 		POSButton ageFourButton = new POSButton(40,100,"Age 4-5");
 		ageFourButton.setStyle("-fx-font-size: 16px");
 		ageFourButton.setLayoutX(20);
 		ageFourButton.setLayoutY(250);
+		ageFourButton.setOnAction(e -> {
+
+			System.out.println("Add Age Four to List");
+			orderListItems.add("Age 4-5");
+
+		});
 		POSButton ageSixButton = new POSButton(40,100,"Age 6-8");
 		ageSixButton.setStyle("-fx-font-size: 16px");
 		ageSixButton.setLayoutX(140);
 		ageSixButton.setLayoutY(250);
+		ageSixButton.setOnAction(e -> {
+
+			System.out.println("Add Age Six to List");
+			orderListItems.add("Age 6-8");
+
+		});
 		POSButton ageNineButton = new POSButton(40,100,"Age 9-11");
 		ageNineButton.setStyle("-fx-font-size: 16px");
 		ageNineButton.setLayoutX(20);
 		ageNineButton.setLayoutY(310);
-		
-		// create list of items
-		ListView<String> list = new ListView<String>();
-		ObservableList<String> items = FXCollections.observableArrayList (
-		    "Single", "Double", "Suite", "Family App");
-		list.setStyle("-fx-font-size: 16px");
-		list.setItems(items);
-		list.setLayoutX(300);
-		list.setLayoutY(20);
-		list.setPrefWidth(180);
-		list.setPrefHeight(300);
-		
+		ageNineButton.setOnAction(e -> {
+
+			System.out.println("Add Age Nine to List");
+			orderListItems.add("Age 9-11");
+		});
+
+
 		//delete and create button
 		POSButton deleteButton = new POSButton(40,100,"Delete");
 		deleteButton.setStyle("-fx-font-size: 16px");
 		deleteButton.setLayoutX(285);
 		deleteButton.setLayoutY(330);
+
+		//deleteButton onClickAction Listener
+		//Removes selected party from items ObservableList and updates view.
+		deleteButton.setOnAction(e -> {
+
+			System.out.println("Delete Item!");
+			System.out.println("Index of selected item: " + addPartiesOrderListView.getSelectionModel().getSelectedIndex());
+
+			if(addPartiesOrderListView.getSelectionModel().getSelectedIndex() != -1){
+
+				orderListItems.remove(addPartiesOrderListView.getSelectionModel().getSelectedIndex());
+				//Display items again.
+				addPartiesOrderListView.setItems(orderListItems);
+			}
+
+		});
+
 		POSButton createButton = new POSButton(40,100,"Create");
 		createButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 		createButton.setLayoutX(390);
 		createButton.setLayoutY(330);
+		createButton.setOnAction(e -> {
+
+			String partyName = newPartyNameField.getText();
+			int partySize = Integer.parseInt(newPartySizeField.getText());
+			boolean isBreakfast = isBreakfastRadioButton.isSelected();
 		
+			System.out.println("Is it breakfast: " + isBreakfast);
+
+			if(partyName.contentEquals("") || partyName.contentEquals(" ")){
+
+				System.err.println("Empty Name");
+				
+				
+			}else{
+
+				System.out.println("Create Party!");
+				System.out.println("Party Name: " + partyName);		
+				System.out.println("Party Size: " + partySize);
+
+			}
+
+
+
+
+		});
+
+
+
+
+
 		// add everything to pane
-		newPartyPane.getChildren().addAll(list, newPartyLabel, newPartyNameLabel, newPartySizeLabel, newPartyNameField, newPartySizeField, rb1, rb2,ageAdultButton, ageFreeButton, ageFourButton, ageSixButton, ageNineButton, deleteButton, createButton);
+		newPartyPane.getChildren().addAll(addPartiesOrderListView, newPartyLabel, newPartyNameLabel, newPartySizeLabel, newPartyNameField, newPartySizeField, isBreakfastRadioButton, isLunchDinnerRadioButton,ageAdultButton, ageFreeButton, ageFourButton, ageSixButton, ageNineButton, deleteButton, createButton);
 
 		//newPartyStage.show();
 		
@@ -448,6 +527,34 @@ public class HostGUI extends Application{
 		clockOut.setStyle("-fx-font-size: 16px");
 		
 		//Disables the clock out function while you haven't clocked in yet, and saves clock in/clock out times for the file
+		clockOut.setDisable(true);
+		clockIn.setOnAction(e -> {
+			SimpleDateFormat ddMMyyyyhhmmss = new SimpleDateFormat("dd/MM/yyyy_hh:mm:ss");
+			String clockInDate;
+			Date createdTime = new Date();
+			clockInDate = new String(ddMMyyyyhhmmss.format(createdTime));
+			System.out.println(clockInDate);
+			try {
+				BufferedWriter inverseBucket = new BufferedWriter(new FileWriter("clockinclockoutdata.txt",true));
+				inverseBucket.write(String.format("%n%s				",clockInDate));
+				inverseBucket.close();
+				clockIn.setDisable(true);
+				clockOut.setDisable(false);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		clockOut.setOnAction(e -> {
+			SimpleDateFormat ddMMyyyyhhmmss = new SimpleDateFormat("dd/MM/yyyy_hh:mm:ss");
+			String clockOutDate;
+			Date createdTime = new Date();
+			clockOutDate = new String(ddMMyyyyhhmmss.format(createdTime));
+			System.out.println(clockOutDate);
+			try {
+				BufferedWriter inverseBucket = new BufferedWriter(new FileWriter("clockinclockoutdata.txt",true));
+				inverseBucket.write(String.format("%s",clockOutDate));
+				inverseBucket.close();
+				clockIn.setDisable(false);
 				clockOut.setDisable(true);
 				clockIn.setOnAction(e -> {
 					SimpleDateFormat ddMMyyyyhhmmss = new SimpleDateFormat("dd/MM/yyyy_hh:mm:ss");
