@@ -56,7 +56,7 @@ public class Register {
 		//items.add(testItem);
 		
 		//dummy party
-		Party testParty = new Party("test", 3);
+		Party testParty = new Party("test", 3, false);
 		activeParties.add(testParty);
 		
 		this.currentCash = 200.0; //generic starting cash amount. figure out in sprint 2
@@ -81,66 +81,90 @@ public class Register {
 	
 	
 	//method to populate the Items array. 
-	private void popItems(String fileName){
-		try{
-			
-			//set up file and scanner
-			File itemFile = new File(fileName);
-			Scanner input = new Scanner(itemFile);
-			
-			input.useDelimiter(",");
-			
-			//read file until empty
-			while(input.hasNext()) {
-				
-				//preps temp variables for new object creation
+	private void popItems(String fileName) {
+
+		// set up file and scanner
+		File itemFile = new File(fileName);
+
+		String[] toSplit = new String[3];
+
+		BufferedReader br = null;
+		String line = new String("");
+		String cvsSplitBy = ",";
+
+		try {
+			br = new BufferedReader(new FileReader(fileName));
+
+			while ((line = br.readLine()) != null) {
+				// preps temp variables for new object creation
 				String name = new String();
 				String type = new String();
-				Double price;
-				
-				//reads values from txt file
-				name = input.next();
-				type = input.next();
-				price = input.nextDouble();
-				
-				//sorts the items into appropriate arrays
-				switch(type) {
-				case "gift":	giftItemNames.add(name);
-								giftItemPrices.add(price.toString());
-								break;
-								
-				case "meal":	menuItemNames.add(name);
-								menuItemPrices.add(price.toString());
-								break;
-								
-				case "drink":	drinkItemNames.add(name);
-								drinkItemPrices.add(price.toString());
-								break;
-								
-				case "dessert":	dessertItemNames.add(name);
-								dessertItemPrices.add(price.toString());
-								break;
+				String priceString = new String();
+				double price;
+
+				// use comma as separator
+				toSplit = line.split(cvsSplitBy);
+
+				name = toSplit[0];
+				type = toSplit[1];
+				priceString = toSplit[2];
+
+				// parse double for price from priceString
+				price = Double.parseDouble(priceString);
+
+				// sorts the items into appropriate arrays
+				switch (type) {
+				case "gift":
+					giftItemNames.add(name);
+					giftItemPrices.add(priceString);
+					break;
+
+				case "meal":
+					menuItemNames.add(name);
+					menuItemPrices.add(priceString);
+					break;
+
+				case "drink":
+					drinkItemNames.add(name);
+					drinkItemPrices.add(priceString);
+					break;
+
+				case "dessert":
+					dessertItemNames.add(name);
+					dessertItemPrices.add(priceString);
+					break;
 				}
 				
-				//creates an object to add to the item array
-				Item newItem = new Item(name, type, price);
+				//System.out.println(giftItemNames);
+				//System.out.println(name);
+				//System.out.println(type);
+				//System.out.println(price);
 				
-				//adds new item to items array
+				// creates an object to add to the item array
+				Item newItem = new Item(name, type, price);
+
+				// adds new item to items array
 				this.items.add(newItem);
 			}
-			input.close();
-			
-			//testing
-			//System.out.println(this.items.get(1).getName());
-			
-			
-		} catch(IOException e) {
-			//fail case
+
+			// testing
+			// System.out.println(this.items.get(1).getName());
+
+		} catch (IOException e) {
+			// fail case
 			System.out.println("popItems has horribly failed with file IO");
 			e.printStackTrace();
-		
+
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
+
 	}
 	
 	//populating the employee array. non-functional but compile-able for sprint 1
