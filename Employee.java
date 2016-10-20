@@ -1,3 +1,10 @@
+/**
+ * @author
+ * 
+ * @version 1.0
+ * 
+ *This class generates an employee with all attributes needed
+ */
 public class Employee{
 	String name;
 	double price;
@@ -25,6 +32,11 @@ public class Employee{
 	
 	public String getName(){
 		return this.name;
+	}
+
+	public int getID(){
+	
+		return ID;
 	}
 	
 
