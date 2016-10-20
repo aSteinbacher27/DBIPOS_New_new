@@ -47,7 +47,10 @@ public class ServerGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 	}
-	
+	/**GUI method allows you to create the GUI given a stage and a register
+	 * @param primaryStage : The stage to create the GUI on
+	 * @param r : The register that will be referenced for values
+	 */
 	public static void GUI(Stage primaryStage, Register r){
 		
 		
