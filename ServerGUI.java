@@ -35,7 +35,7 @@ public class ServerGUI extends Application {
 		
 	}
 	public void start(Stage primaryStage) throws Exception {
-		GUI(primaryStage);
+		
 	}
 	
 	public static void GUI(Stage primaryStage, Register r){
