@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+/**The party class creates a party with a check, name, size, type, serverID, and table
+ * @author
+ */
 public class Party {
 	
 	private Check check;
