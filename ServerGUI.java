@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 public class ServerGUI extends Application {
 
 	public static void main(String[] args) {
-		Register r = new Register();
+		//Register r = new Register();
 		launch(args);
 
 		
@@ -38,7 +38,8 @@ public class ServerGUI extends Application {
 		GUI(primaryStage);
 	}
 	
-	public static void GUI(Stage primaryStage){
+	public static void GUI(Stage primaryStage, Register r){
+		
 		
 		//create drop down menu for item categories
 		ComboBox itemList = new ComboBox(FXCollections.observableArrayList(
@@ -55,8 +56,8 @@ public class ServerGUI extends Application {
 		//create listView for inventory items and prices (left side)
 		ListView<String> inventory = new ListView<String>();
 		ListView<String> inventoryP = new ListView<String>();
-		ObservableList<String> inventoryItems=FXCollections.observableArrayList(Register.menuItemNames);
-		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(Register.menuItemPrices);
+		ObservableList<String> inventoryItems=FXCollections.observableArrayList(r.menuItemNames);
+		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(r.menuItemPrices);
 		inventory.setItems(inventoryItems);
 		inventoryP.setItems(inventoryPrices);
 		
@@ -73,37 +74,37 @@ public class ServerGUI extends Application {
 			
 			//changed to "Menu Items"
 			if (itemList.getSelectionModel().getSelectedItem().toString() == "Menu Items") {
-				inventoryItems.addAll(Register.menuItemNames);
+				inventoryItems.addAll(r.menuItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.menuItemPrices);
+				inventoryPrices.addAll(r.menuItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//changed to "Drink Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Drink Items") {
-				inventoryItems.addAll(Register.drinkItemNames);
+				inventoryItems.addAll(r.drinkItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.drinkItemPrices);
+				inventoryPrices.addAll(r.drinkItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//changed to "Dessert Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Dessert Items") {
-				inventoryItems.addAll(Register.dessertItemNames);
+				inventoryItems.addAll(r.dessertItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.dessertItemPrices);
+				inventoryPrices.addAll(r.dessertItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//chagned to "Gift Shop Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Gift Shop Items") {
-				inventoryItems.addAll(Register.giftItemNames);
+				inventoryItems.addAll(r.giftItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.giftItemPrices);
+				inventoryPrices.addAll(r.giftItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 		});
@@ -260,3 +261,4 @@ public class ServerGUI extends Application {
 		         }});
 	}
 }
+
