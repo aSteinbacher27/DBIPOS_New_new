@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -30,6 +31,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
+/**
+ * @author Brian Jaury
+ * @author Spencer Mowrey
+ * @author Alex Steinbacher
+ * @author Anissa Zacharias
+ * @author Kayla Wilson
+ * 
+ * @version 1.0
+ * 
+ * The HostGUI class creates tables and a party list along with several other buttons
+ */
 public class HostGUI extends Application {
 
 	public static void main(String[] args) {
@@ -91,6 +103,11 @@ public class HostGUI extends Application {
 		createNewParty.relocate(150, 550);
 		seatParty.relocate(300, 550);
 		queuePane.setPrefWidth(600);
+
+
+
+
+	
 
 		queuePane.getChildren().addAll(queue, createNewParty, seatParty, waitingLabel, totalWaitingLabel,
 				mainMenuClock);
@@ -308,7 +325,7 @@ public class HostGUI extends Application {
 				}
 				
 				//TESTING
-				Register.waitingParties.get(0).getCheck().finalize();
+				//Register.waitingParties.get(0).getCheck().finalize();
 				
 				// add new party to waiting list
 				waitingParties.clear();
@@ -374,8 +391,9 @@ public class HostGUI extends Application {
 		seatPartyServerLabel.setStyle("-fx-font-size: 16px");
 		seatPartyServerLabel.setLayoutX(20);
 		seatPartyServerLabel.setLayoutY(30);
-		ChoiceBox serverChoice = new ChoiceBox();
-		serverChoice.setItems(FXCollections.observableArrayList("Kayla", "Anissa", "Spencer"));
+		ComboBox serverChoice = new ComboBox();
+		ObservableList<String> serverChoiceItems = FXCollections.observableArrayList(Register.employees);
+		serverChoice.setItems(serverChoiceItems);
 		serverChoice.setStyle("-fx-font-size: 16px");
 		serverChoice.setLayoutX(20);
 		serverChoice.setLayoutY(50);
@@ -383,8 +401,9 @@ public class HostGUI extends Application {
 		seatPartyTableLabel.setStyle("-fx-font-size: 16px");
 		seatPartyTableLabel.setLayoutX(20);
 		seatPartyTableLabel.setLayoutY(90);
-		ChoiceBox tableChoice = new ChoiceBox();
-		tableChoice.setItems(FXCollections.observableArrayList("1", "3", "4", "5", "11", "21"));
+		ComboBox tableChoice = new ComboBox();
+		ObservableList<Integer> tableChoiceItems = FXCollections.observableArrayList(Register.getAvailableTables());
+		tableChoice.setItems(tableChoiceItems);
 		tableChoice.setStyle("-fx-font-size: 16px");
 		tableChoice.setLayoutX(20);
 		tableChoice.setLayoutY(110);
@@ -393,11 +412,68 @@ public class HostGUI extends Application {
 		seatButton.setLayoutX(20);
 		seatButton.setLayoutY(160);
 
+
+		//Seating party inside pop-up: Transfers party from waiting to seated.
+		seatButton.setOnAction(e ->{
+
+			System.out.println("Seating party");
+			
+			
+			//Adding Party from waiting party to active party
+			Register.activeParties.add(Register.waitingParties.get(queue.getSelectionModel().getSelectedIndex()));
+	
+			
+
+			totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
+
+			
+			int tableNumber = (int) (tableChoice.getSelectionModel().getSelectedItem()) + 1;
+			
+			int selectedPartyIndex = queue.getSelectionModel().getSelectedIndex();
+			System.out.println("selectedPartyIndex = " + selectedPartyIndex);
+			System.out.println("taleNumber = " +tableNumber);
+			Register.waitingParties.get(selectedPartyIndex).setTable(tableNumber);
+
+
+System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
+
+			//System.out.println("Table Number: "+ tableNumber);
+
+			seatPartyStage.close();
+			
+			//Removing Party from waiting party
+			Register.waitingParties.remove(queue.getSelectionModel().getSelectedIndex());
+			System.out.println("Removed party from waiting parties");
+			
+			Register.seatParty(tableNumber);
+			//!!!!!!!
+			//Register.activeParties.get(selectedPartyIndex).setServerID();
+
+			
+			
+			//Refreshing List:
+			//add new party to waiting list
+			waitingParties.clear();
+			for(int i = 0; i < Register.waitingParties.size(); i++){
+					waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t" + Register.waitingParties.get(i).getPartyName());
+					System.out.println(waitingParties);
+				}
+
+			
+				parties.clear();
+				parties.addAll(waitingParties);
+				queue.setItems(parties);	
+				for(Party p: Register.activeParties){
+				System.out.println("Party Name:" + p.getPartyName());
+			}
+//End of Refreshing
+
+		});
+
 		// add everything to pane
 		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel,
 				serverChoice, tableChoice);
 
-		// seatPartyStage.show();
 
 		/*
 		 * When create new party, or seat party button is pushed, show pop-up
@@ -406,7 +482,14 @@ public class HostGUI extends Application {
 		createNewParty.setOnAction(e -> {
 			newPartyStage.show();
 		});
+
+		
 		seatParty.setOnAction(e -> {
+			//Button for seat party on HostGUI
+			System.out.println("Populating list of avaliable tables on seatParty screen.");
+			tableChoiceItems.clear();
+			tableChoiceItems.addAll(Register.getAvailableTables());
+			tableChoice.setItems(tableChoiceItems);
 			seatPartyStage.show();
 		});
 
