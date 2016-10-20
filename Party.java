@@ -76,7 +76,6 @@ public class Party {
 	}
 
 	public Check getCheck(){
-
 		return check;
 	}
 	
@@ -84,6 +83,10 @@ public class Party {
 		this.table = tableNumber;
 	}
 	
+	
+	public int getTableNumber() {
+		return this.table;
+	}
 	
 		
 }
