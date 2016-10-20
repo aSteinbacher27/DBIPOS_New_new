@@ -30,6 +30,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
+/**
+ * @author Brian Jaury
+ * @author Spencer Mowrey
+ * @author Alex Steinbacher
+ * @author Anissa Zacharias
+ * @author Kayla Wilson
+ * 
+ * @version 1.0
+ * 
+ * The HostGUI class creates tables and a party list along with several other buttons
+ */
 public class HostGUI extends Application {
 
 	public static void main(String[] args) {
