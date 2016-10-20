@@ -17,9 +17,9 @@ public class Check {
 	ArrayList<Double> checkPrices = new ArrayList<Double>();
 	
 	
-	double subtotal;
-	double tax = 0.0675; //NC standard (??)
-	double total;
+	private double subtotal;
+	private double tax = 0.0675; //NC standard (??)
+	private double total;
 	
 	//Check constructor
 	public Check() {
@@ -47,6 +47,10 @@ public class Check {
 		//Print when a check item is added.
 		// for(Integer i: checkItems)
 		// System.out.println(i);
+		
+		System.out.println(checkItems);
+		
+		calcTotal();
 	}
 	
 	
@@ -73,11 +77,13 @@ public class Check {
 		return total;
 	}
 	
-	private void deleteItem(String name) {
+	public void deleteItem(String name) {
 		int removeable = checkItems.indexOf(name);
 		checkItems.remove(removeable);
 		checkPricesString.remove(removeable);
 		checkPrices.remove(removeable);
+		
+		calcTotal();
 	
 	}
 	
@@ -151,5 +157,17 @@ public class Check {
 		Register.updateCash(difference);
 	}
 	
+	
+	public double getSubtotal() {
+		return this.subtotal;
+	}
+	
+	public double getTotal() {
+		return this.total;
+	}
+	
+	public double getTax() {
+		return this.tax;
+	}
 
 }
