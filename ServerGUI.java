@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -42,6 +44,10 @@ public class ServerGUI extends Application {
 
 	static ObservableList<Integer> seatedTablesList = FXCollections.observableArrayList();
 	static ComboBox tableList;
+	
+	static Label subtotalLabel = new Label();
+	static Label taxLabel = new Label();
+	static Label totalLabel = new Label();
 
 	@SuppressWarnings("unchecked")
 	public static void GUI(Stage primaryStage, Register r) {
@@ -56,13 +62,42 @@ public class ServerGUI extends Application {
 		tableList = new ComboBox(FXCollections.observableArrayList(seatedTablesList));
 		tableList.setStyle("-fx-font-size: 16px");
 
-		// When table selection is changed, listView updates with appropriate
-		// items
+		
+		
+		// create listView for customer check and prices (right side)
+		ListView<String> customerCheck = new ListView<String>();
+		ObservableList<String> customerCheckItems = FXCollections.observableArrayList();
+		customerCheck.setItems(customerCheckItems);
+		ListView<String> prices = new ListView<String>();
+		ObservableList<String> itemPrices = FXCollections.observableArrayList();
+		prices.setItems(itemPrices);
+		
+		
+		// When table selection is changed, listView updates with appropriate items
 		tableList.getSelectionModel().selectFirst();
+		
 		tableList.setOnAction(e -> {
+			int partyIndex2 = -99;
+			customerCheckItems.clear();
+			itemPrices.clear();
 			// seatedTablesList.clear();
 			// seatedTablesList.addAll(Register.getSeatedTables());
 			// tableList.setItems(seatedTablesList);
+			// add to check
+			for (int i = 0; i < Register.activeParties.size(); i++) {
+				
+				if ((Register.activeParties.get(i).getTableNumber() == (int) tableList.getSelectionModel().getSelectedItem()) && (partyIndex2 == -99)) {
+					partyIndex2 = i;
+				}
+			}
+			
+		
+			customerCheckItems.addAll(Register.activeParties.get(partyIndex2).getCheck().checkItems);
+			customerCheck.setItems(customerCheckItems);
+			itemPrices.addAll(Register.activeParties.get(partyIndex2).getCheck().checkPricesString);
+			prices.setItems(itemPrices);
+			
+			updateTotalLabels(partyIndex2);
 
 		});
 
@@ -122,13 +157,7 @@ public class ServerGUI extends Application {
 			}
 		});
 
-		// create listView for customer check and prices (right side)
-		ListView<String> customerCheck = new ListView<String>();
-		ObservableList<String> customerCheckItems = FXCollections.observableArrayList();
-		customerCheck.setItems(customerCheckItems);
-		ListView<String> prices = new ListView<String>();
-		ObservableList<String> itemPrices = FXCollections.observableArrayList();
-		prices.setItems(itemPrices);
+		
 
 		// add buttons
 		POSButton quitButton = new POSButton(40, 100, "Close");
@@ -137,6 +166,7 @@ public class ServerGUI extends Application {
 		Pane pane = new Pane();
 
 		// add labels
+		POSButton finalizeButton = new POSButton(40, 120, "Print Receipt");
 		Label inventoryItemLabel = new Label("Item");
 		inventoryItemLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 		inventoryItemLabel.relocate(50, 125);
@@ -149,8 +179,16 @@ public class ServerGUI extends Application {
 		Label checkPriceLabel = new Label("Price");
 		checkPriceLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 		checkPriceLabel.relocate(900, 125);
+		Label tableLabel = new Label("Table ");
+		Label categoryLabel = new Label("Category ");
 
 		// set locations and sizes for items within the GUI
+		subtotalLabel.relocate(850, 450);
+		subtotalLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		taxLabel.relocate(850, 475);
+		taxLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		totalLabel.relocate(850,500);
+		totalLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 		inventory.relocate(50, 150);
 		inventory.setPrefWidth(200);
 		inventory.setPrefHeight(400);
@@ -161,24 +199,30 @@ public class ServerGUI extends Application {
 		inventoryP.setStyle("-fx-font-size: 16px");
 		customerCheck.relocate(700, 150);
 		customerCheck.setPrefWidth(200);
-		customerCheck.setPrefHeight(400);
+		customerCheck.setPrefHeight(300);
 		customerCheck.setStyle("-fx-font-size: 16px");
 		prices.relocate(900, 150);
 		prices.setPrefWidth(100);
-		prices.setPrefHeight(400);
+		prices.setPrefHeight(300);
 		prices.setStyle("-fx-font-size: 16px");
 		quitButton.relocate(0, 0);
 		quitButton.setStyle("-fx-font-size: 16px");
-		itemList.relocate(50, 75);
-		tableList.relocate(700, 75);
+		itemList.relocate(127, 75);
+		tableList.relocate(755, 75);
 		addItem.relocate(475, 300);
 		addItem.setStyle("-fx-font-size: 16px");
-		removeItem.relocate(800, 550);
+		removeItem.relocate(740, 550);
 		removeItem.setStyle("-fx-font-size: 16px");
+		finalizeButton.relocate(860, 550);
+		finalizeButton.setStyle("-fx-font-size: 16px");
+		tableLabel.relocate(700, 80);
+		tableLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		categoryLabel.relocate(50, 80);
+		categoryLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 
 		// add everything to the GUI
 		pane.getChildren().addAll(inventory, inventoryP, customerCheck, prices, quitButton, itemList, tableList,
-				addItem, removeItem, inventoryItemLabel, inventoryPriceLabel, checkItemLabel, checkPriceLabel);
+				addItem, removeItem, inventoryItemLabel, inventoryPriceLabel, checkItemLabel, checkPriceLabel, subtotalLabel, taxLabel, totalLabel,finalizeButton,tableLabel,categoryLabel);
 		Scene scene = new Scene(pane, 1000, 600);
 		Stage stage = new Stage();
 		stage.setScene(scene);
@@ -234,16 +278,17 @@ public class ServerGUI extends Application {
 				}
 
 				// add to check
-				int partyIndex = -99;
+				int partyIndexForCheck = -99; //set to impossible
 				for (int i = 1; i < Register.activeParties.size(); i++) {
 					if ((Register.activeParties.get(i)
 							.getTableNumber() == (int) tableList.getSelectionModel().getSelectedItem())
-							&& (partyIndex == -99)) {
-						partyIndex = i;
+							&& (partyIndexForCheck == -99)) {
+						partyIndexForCheck = i;
 					}
 				}
 
-				Register.activeParties.get(partyIndex).getCheck().addItem(customerCheckItems.get(index), itemPrices.get(index));
+				Register.activeParties.get(partyIndexForCheck).getCheck().addItem(inventoryItems.get(index), inventoryPrices.get(index));
+				updateTotalLabels(partyIndexForCheck);
 				
 			} else {
 				String selectedPrices = inventoryP.getSelectionModel().getSelectedItem();
@@ -258,19 +303,22 @@ public class ServerGUI extends Application {
 					}
 
 					// add to check
-					int partyIndex = -99;
+					int partyIndexForCheck = -99;
 					for (int i = 1; i < Register.activeParties.size(); i++) {
 						if ((Register.activeParties.get(i)
 								.getTableNumber() == (int) tableList.getSelectionModel().getSelectedItem())
-								&& (partyIndex == -99)) {
-							partyIndex = i;
+								&& (partyIndexForCheck == -99)) {
+							partyIndexForCheck = i;
 						}
 					}
 
-					Register.activeParties.get(partyIndex).getCheck().addItem(customerCheckItems.get(indexP), itemPrices.get(indexP));
+					Register.activeParties.get(partyIndexForCheck).getCheck().addItem(inventoryItems.get(indexP), inventoryPrices.get(indexP));
+					updateTotalLabels(partyIndexForCheck);
 				}
 
 			}
+			
+			
 		});
 
 		// when "Remove Item" button is pressed, remove item and price from
@@ -286,6 +334,19 @@ public class ServerGUI extends Application {
 					prices.getSelectionModel().clearSelection();
 					itemPrices.remove(selectedName);
 				}
+				// add to check
+				int partyIndexForCheck = -99;
+				for (int i = 1; i < Register.activeParties.size(); i++) {
+					if ((Register.activeParties.get(i)
+							.getTableNumber() == (int) tableList.getSelectionModel().getSelectedItem())
+							&& (partyIndexForCheck == -99)) {
+						partyIndexForCheck = i;
+					}
+				}
+
+				Register.activeParties.get(partyIndexForCheck).getCheck().deleteItem(inventoryItems.get(index));
+				updateTotalLabels(partyIndexForCheck);
+			
 			} else {
 				String selectedPrices = prices.getSelectionModel().getSelectedItem();
 				int indexP = prices.getSelectionModel().getSelectedIndex();
@@ -297,9 +358,50 @@ public class ServerGUI extends Application {
 						customerCheck.getSelectionModel().clearSelection();
 						customerCheckItems.remove(selectedName);
 					}
+					// add to check
+					int partyIndexForCheck = -99;
+					for (int i = 1; i < Register.activeParties.size(); i++) {
+						if ((Register.activeParties.get(i)
+								.getTableNumber() == (int) tableList.getSelectionModel().getSelectedItem())
+								&& (partyIndexForCheck == -99)) {
+							partyIndexForCheck = i;
+						}
+					}
+
+					Register.activeParties.get(partyIndexForCheck).getCheck().deleteItem(inventoryItems.get(indexP));
+					updateTotalLabels(partyIndexForCheck);
 				}
 
 			}
 		});
+		
+		finalizeButton.setOnAction(e ->{
+			int partyIndexForCheck = -99;
+			for (int i = 1; i < Register.activeParties.size(); i++) {
+				if ((Register.activeParties.get(i)
+						.getTableNumber() == (int) tableList.getSelectionModel().getSelectedItem())
+						&& (partyIndexForCheck == -99)) {
+					partyIndexForCheck = i;
+				}
+			}
+			
+			Register.activeParties.get(partyIndexForCheck).getCheck().finalize();
+			
+			//music
+			try {
+				AudioClip registerSound = new AudioClip("http://sep800.mine.nu/files/sounds/cashregister.wav");
+				registerSound.play();
+			} catch(Exception ex) {
+				//nothing
+			}
+		});
+	}
+	
+	private static void updateTotalLabels(int partyIndex) {
+		DecimalFormat formatter = new DecimalFormat("#0.00");
+		
+		subtotalLabel.setText	("Subtotal:     $" + formatter.format(Register.activeParties.get(partyIndex).getCheck().getSubtotal()));
+		taxLabel.setText		("Tax Added:   $" + formatter.format(Register.activeParties.get(partyIndex).getCheck().getTax() * Register.activeParties.get(partyIndex).getCheck().getSubtotal()));
+		totalLabel.setText		("Total:          $" + formatter.format(Register.activeParties.get(partyIndex).getCheck().getTotal()));
 	}
 }
