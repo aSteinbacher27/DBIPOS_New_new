@@ -3,9 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-/**The party class creates a party with a check, name, size, type, serverID, and table
- * @author
- */
+
 public class Party {
 	
 	private Check check;
@@ -82,24 +80,10 @@ public class Party {
 		return check;
 	}
 	
-	public void setTable(int tableID){
-
-		table = tableID;
+	public void setTable(int tableNumber) {
+		this.table = tableNumber;
 	}
 	
-	public int getTable(){
-		
-		return table;
-	}
-
-	public void setServerID(int serverID){
-
-		this.serverID = serverID;
-	}
-
-	public int getServerID(){
-		
-		return serverID;
-	}
+	
 		
 }
