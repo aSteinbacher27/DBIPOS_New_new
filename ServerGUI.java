@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -26,16 +27,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-/**
- * @author Brian Jaury
- * @author Spencer Mowrey
- * @author Alex Steinbacher
- * @author Anissa Zacharias
- * @author Kayla Wilson
- * 
- * @version 1.0
- * The Server GUI class creates a GUI that includes a way to add items to the check
- */
 public class ServerGUI extends Application {
 
 	public static void main(String[] args) {
@@ -45,12 +36,10 @@ public class ServerGUI extends Application {
 		
 	}
 	public void start(Stage primaryStage) throws Exception {
-		
+
 	}
-	/**GUI method allows you to create the GUI given a stage and a register
-	 * @param primaryStage : The stage to create the GUI on
-	 * @param r : The register that will be referenced for values
-	 */
+	
+	@SuppressWarnings("unchecked")
 	public static void GUI(Stage primaryStage, Register r){
 		
 		
@@ -61,16 +50,26 @@ public class ServerGUI extends Application {
 		itemList.setStyle("-fx-font-size: 16px");
 		
 		//create drop down menu for available tables
-		ComboBox tableList = new ComboBox(FXCollections.observableArrayList(
-			    "Table1", "Table2", "Table3")
-			);
+		ObservableList<Integer> seatedTablesList=FXCollections.observableArrayList(Register.getSeatedTables());
+		ComboBox tableList = new ComboBox(FXCollections.observableArrayList(seatedTablesList));
 		tableList.setStyle("-fx-font-size: 16px");
+		
+		
+		// When table selection is changed, listView updates with appropriate items
+		tableList.getSelectionModel().selectFirst();
+		tableList.setOnAction(e -> {
+//			seatedTablesList.clear();
+//			seatedTablesList.addAll(Register.getSeatedTables());
+//			tableList.setItems(seatedTablesList);
+			
+			
+		});
 		
 		//create listView for inventory items and prices (left side)
 		ListView<String> inventory = new ListView<String>();
 		ListView<String> inventoryP = new ListView<String>();
-		ObservableList<String> inventoryItems=FXCollections.observableArrayList(r.menuItemNames);
-		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(r.menuItemPrices);
+		ObservableList<String> inventoryItems=FXCollections.observableArrayList(Register.menuItemNames);
+		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(Register.menuItemPrices);
 		inventory.setItems(inventoryItems);
 		inventoryP.setItems(inventoryPrices);
 		
@@ -87,37 +86,37 @@ public class ServerGUI extends Application {
 			
 			//changed to "Menu Items"
 			if (itemList.getSelectionModel().getSelectedItem().toString() == "Menu Items") {
-				inventoryItems.addAll(r.menuItemNames);
+				inventoryItems.addAll(Register.menuItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(r.menuItemPrices);
+				inventoryPrices.addAll(Register.menuItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//changed to "Drink Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Drink Items") {
-				inventoryItems.addAll(r.drinkItemNames);
+				inventoryItems.addAll(Register.drinkItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(r.drinkItemPrices);
+				inventoryPrices.addAll(Register.drinkItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//changed to "Dessert Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Dessert Items") {
-				inventoryItems.addAll(r.dessertItemNames);
+				inventoryItems.addAll(Register.dessertItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(r.dessertItemPrices);
+				inventoryPrices.addAll(Register.dessertItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//chagned to "Gift Shop Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Gift Shop Items") {
-				inventoryItems.addAll(r.giftItemNames);
+				inventoryItems.addAll(Register.giftItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(r.giftItemPrices);
+				inventoryPrices.addAll(Register.giftItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 		});
