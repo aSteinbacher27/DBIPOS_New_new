@@ -198,6 +198,17 @@ public class Register {
 	public static void updateCash(double difference) {
 		currentCash += difference;
 	}
+	
+	public static ArrayList<Integer> getAvailableTables(){
+		ArrayList<Integer> availableTables = new ArrayList<Integer>();
+		for(int i =0; i < table.length; i++){
+			if(table[i] == 0){
+				availableTables.add(i+1);
+			}
+		}
+		
+		return availableTables;
+	}
 		
 	
 }
