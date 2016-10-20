@@ -36,10 +36,10 @@ public class HostGUI extends Application{
 	public static void main(String[] args) {
 		Application.launch(args);
 		
-		//Register register = new Register();
+		
 		
 	}
-	
+	Register register = new Register();
 	ArrayList<String> waitingParties = new ArrayList<String>();
 	//components necessary to declare outside of method
 	String keyPadLabelString = "";
@@ -581,7 +581,7 @@ public class HostGUI extends Application{
 		POSButton serverGUI=new POSButton(50,150,"Server GUI");
 		serverGUI.setOnAction(e->{
 			ServerGUI serverObject=new ServerGUI();
-			serverObject.GUI(primaryStage);
+			serverObject.GUI(primaryStage,register);
 		});
 		POSButton clockIn = new POSButton(50,150,"Clock In");
 		clockIn.setStyle("-fx-font-size: 16px");
