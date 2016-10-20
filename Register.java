@@ -30,7 +30,13 @@ public class Register {
 	static int[] table = new int[32];
 	
 	//Array lists of Employees and Items
-	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
+	ArrayList<Employee> employees = new ArrayList<Employee>();
+	
+	(String name, int ID, double wage, int phone, String address, String email, int SSN, int clearance)
+
+	//Test Employees
+	employees.add(new Employee("Brian", 212323, 100.60, 555555, "Address", "email", 8394949, 222), new Employee("Gilbert", 435643, 100.60, 55555, "Address", "email", 8394949, 222));
+
 	static ArrayList<Item> items = new ArrayList<Item>();
 	
 	
@@ -66,7 +72,11 @@ public class Register {
 		for(int i : table) {
 			i = 0;
 		}
-		//System.out.println(Arrays.toString(table));
+		
+		//TESTING
+		table[10] = 2;
+		table[11] = 2;
+		System.out.println(Arrays.toString(table));
 	}
 	
 	/**
@@ -198,6 +208,30 @@ public class Register {
 	public static void updateCash(double difference) {
 		currentCash += difference;
 	}
-		
+	
+	public static ArrayList<Integer> getAvailableTables(){
+		ArrayList<Integer> availableTables = new ArrayList<Integer>();
+		for(int i = 0; i < table.length; i++){
+			if(table[i] == 0){
+				availableTables.add(i+1);
+			}
+		}
+		return availableTables;
+	}
+	
+	public static ArrayList<Integer> getSeatedTables(){
+		ArrayList<Integer> seatedTables = new ArrayList<Integer>();
+		for(int i = 0; i < table.length; i++){
+			if(table[i] == 2){
+				seatedTables.add(i+1);
+			}
+		}
+		return seatedTables;
+	}
+	
+	public static void seatParty(int tableNumber) {
+		table[tableNumber - 1] = 2;
+	}
+
 	
 }
