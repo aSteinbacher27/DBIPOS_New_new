@@ -80,24 +80,15 @@ public class Party {
 		return check;
 	}
 	
-	public void setTable(int tableID){
-
-		table = tableID;
-	}
-	
-	public int getTable(){
-		
-		return table;
+	public void setTable(int tableNumber) {
+		this.table = tableNumber;
 	}
 
 	public void setServerID(int serverID){
-
+		
 		this.serverID = serverID;
 	}
-
-	public int getServerID(){
-		
-		return serverID;
-	}
+	
+	
 		
 }
