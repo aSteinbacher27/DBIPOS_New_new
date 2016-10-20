@@ -67,10 +67,6 @@ public class Register {
 			i = 0;
 		}
 		
-		//TESTING
-		table[10] = 2;
-		table[11] = 2;
-		System.out.println(Arrays.toString(table));
 	}
 	
 	/**
