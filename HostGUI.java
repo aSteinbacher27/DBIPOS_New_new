@@ -288,6 +288,9 @@ public class HostGUI extends Application{
 					waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t" + Register.waitingParties.get(i).getPartyName());
 					System.out.println(waitingParties);
 				}
+
+				
+
 				parties.clear();
 				parties.addAll(waitingParties);
 				queue.setItems(parties);	
@@ -362,6 +365,38 @@ public class HostGUI extends Application{
 		seatButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 		seatButton.setLayoutX(20);
 		seatButton.setLayoutY(160);
+
+		//Seating party: Transfers party from waiting to seated.
+		seatButton.setOnAction(e ->{
+
+			System.out.println("Seating party");
+
+			//Adding Party from waiting party to active party
+			Register.activeParties.add(Register.waitingParties.get(queue.getSelectionModel().getSelectedIndex()));
+			//Removing Party from waiting party
+			Register.waitingParties.remove(queue.getSelectionModel().getSelectedIndex());
+			System.out.println("Removed party from waiting parties");
+
+//Refreshing List:
+			//add new party to waiting list
+			waitingParties.clear();
+			for(int i = 0; i < Register.waitingParties.size(); i++){
+					waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t" + Register.waitingParties.get(i).getPartyName());
+					System.out.println(waitingParties);
+				}
+
+			
+				parties.clear();
+				parties.addAll(waitingParties);
+				queue.setItems(parties);	
+				for(Party p: Register.activeParties){
+				System.out.println("Party Name:" + p.getPartyName());
+			}
+//End of Refreshing
+
+			seatPartyStage.close();
+
+		});
 		
 		// add everything to pane
 		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel, serverChoice, tableChoice);
@@ -376,6 +411,7 @@ public class HostGUI extends Application{
 		});
 		seatParty.setOnAction(e->{
 			seatPartyStage.show();
+			
 		});
 
 /*
