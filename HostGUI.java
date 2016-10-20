@@ -30,6 +30,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
+
 public class HostGUI extends Application{
 
 	public static void main(String[] args) {
@@ -62,23 +63,24 @@ public class HostGUI extends Application{
 		rootPane.setTop(clockPaneMainMenu);
 		rootPane.setCenter(diningRoomOverviewPane);
 		rootPane.setRight(queuePane);
-				
-		//initialize the digital clock to put on the top pane of the main menu
-		DigitalClock mainMenuClock = new DigitalClock();
-		mainMenuClock.setLayoutX(1200);
-		
-		
-		//list stuff
-		ListView<String> queue = new ListView<String>();
-		queue.setStyle("-fx-font-size: 16px");
-				
-		ObservableList<String> parties = FXCollections.observableArrayList();		
-		queue.setItems(parties);	
 		
 		
 /*
 * stuff for the queue pane		
 */
+		
+		//initialize the digital clock to put on the top pane of the main menu
+		DigitalClock mainMenuClock = new DigitalClock();
+		mainMenuClock.relocate(500, 610);
+		mainMenuClock.setStyle("-fx-font-size: 16px; -fx-border-color: black");
+		
+		
+		//list stuff
+		ListView<String> queue = new ListView<String>();
+		queue.setStyle("-fx-font-size: 16px");
+		ObservableList<String> parties = FXCollections.observableArrayList();		
+		queue.setItems(parties);	
+				
 						
 			//buttons
 			Label waitingLabel = new Label("Size:\t\t\tName:");
@@ -90,7 +92,7 @@ public class HostGUI extends Application{
 			POSButton seatParty = new POSButton(50,150,"Seat Party");
 			seatParty.setStyle("-fx-font-size: 16px");
 			waitingLabel.relocate(150, 0);
-			totalWaitingLabel.relocate(260, 500);
+			totalWaitingLabel.relocate(260, 510);
 			queue.relocate(150, 25);
 			queue.setPrefHeight(475);
 			queue.setPrefWidth(300);
@@ -99,7 +101,7 @@ public class HostGUI extends Application{
 			queuePane.setPrefWidth(600);
 		
 						
-			queuePane.getChildren().addAll(queue,createNewParty,seatParty,waitingLabel,totalWaitingLabel);
+			queuePane.getChildren().addAll(queue,createNewParty,seatParty,waitingLabel,totalWaitingLabel,mainMenuClock);
 				
 						
 
@@ -1018,7 +1020,7 @@ public class HostGUI extends Application{
 		
 		bdrMapPane.getChildren().addAll(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10);
 		
-		clockPaneMainMenu.getChildren().addAll(mainMenuClock,optionButton,logInButton,logOutButton,serverGUI);
+		clockPaneMainMenu.getChildren().addAll(optionButton,logInButton,logOutButton,serverGUI);
 		clockPaneMainMenu.setSpacing(20);
 		Scene scene = new Scene(rootPane, 1400, 700);
 		primaryStage.setTitle("DBIPOS");
