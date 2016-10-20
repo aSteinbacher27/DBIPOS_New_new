@@ -37,9 +37,10 @@ public class HostGUI extends Application{
 		Application.launch(args);
 		
 		//Register register = new Register();
+		
 	}
 	
-	
+	ArrayList<String> waitingParties = new ArrayList<String>();
 	//components necessary to declare outside of method
 	String keyPadLabelString = "";
 
@@ -58,7 +59,7 @@ public class HostGUI extends Application{
 		Pane bdrMapPane = new Pane();
 		Pane ldrMapPane = new Pane();
 		HBox clockPaneMainMenu = new HBox();
-		VBox queuePane = new VBox();
+		Pane queuePane = new Pane();
 		rootPane.setTop(clockPaneMainMenu);
 		rootPane.setCenter(diningRoomOverviewPane);
 		rootPane.setRight(queuePane);
@@ -68,7 +69,40 @@ public class HostGUI extends Application{
 		mainMenuClock.setLayoutX(1200);
 		
 		
-			
+		//list stuff
+		ListView<String> queue = new ListView<String>();
+		queue.setStyle("-fx-font-size: 16px");
+				
+		ObservableList<String> parties = FXCollections.observableArrayList();		
+		queue.setItems(parties);	
+		
+		
+/*
+* stuff for the queue pane		
+*/
+						
+			//buttons
+			Label waitingLabel = new Label("Size:\t\t\tName:");
+			waitingLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+			Label totalWaitingLabel = new Label("Total Parties Waiting: 0");
+			totalWaitingLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+			POSButton createNewParty = new POSButton(50,150,"Create New Party");
+			createNewParty.setStyle("-fx-font-size: 16px");
+			POSButton seatParty = new POSButton(50,150,"Seat Party");
+			seatParty.setStyle("-fx-font-size: 16px");
+			waitingLabel.relocate(150, 0);
+			totalWaitingLabel.relocate(260, 500);
+			queue.relocate(150, 25);
+			queue.setPrefHeight(475);
+			queue.setPrefWidth(300);
+			createNewParty.relocate(150, 550);
+			seatParty.relocate(300, 550);
+			queuePane.setPrefWidth(600);
+		
+						
+			queuePane.getChildren().addAll(queue,createNewParty,seatParty,waitingLabel,totalWaitingLabel);
+				
+						
 
 		
 /*
@@ -138,7 +172,6 @@ public class HostGUI extends Application{
 		ageAdultButton.setOnAction(e -> {
 
 			System.out.println("Add Age Adult to List");
-
 			orderListItems.add("Adult");
 
 		});
@@ -248,8 +281,30 @@ public class HostGUI extends Application{
 
 					
 				}
+				//add new party to waiting list
+				waitingParties.clear();
+				for(int i = 0; i < Register.waitingParties.size(); i++){
+					waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t" + Register.waitingParties.get(i).getPartyName());
+					System.out.println(waitingParties);
+				}
+				parties.clear();
+				parties.addAll(waitingParties);
+				queue.setItems(parties);	
 				
+				//update number of parties waiting
+				totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
+				
+				//close window
 				newPartyStage.close();
+				
+				//reset all fields
+				isBreakfastRadioButton.setSelected(false);
+				isLunchDinnerRadioButton.setSelected(false);
+				newPartyNameField.clear();
+				newPartySizeField.clear();
+				orderListItems.clear();
+				addPartiesOrderListView.setItems(orderListItems);
+				
 
 				// //Print Statements strictly for debugging
 				// for(Party p: Register.waitingParties){
@@ -261,19 +316,12 @@ public class HostGUI extends Application{
 
 			}
 
-
-
-
 		});
-
-
-
 
 
 		// add everything to pane
 		newPartyPane.getChildren().addAll(addPartiesOrderListView, newPartyLabel, newPartyNameLabel, newPartySizeLabel, newPartyNameField, newPartySizeField, isBreakfastRadioButton, isLunchDinnerRadioButton,ageAdultButton, ageFreeButton, ageFourButton, ageSixButton, ageNineButton, deleteButton, createButton);
-
-		//newPartyStage.show();
+		
 		
 /*
  * _______________________________________________________________________________
@@ -318,6 +366,16 @@ public class HostGUI extends Application{
 		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel, serverChoice, tableChoice);
 
 		//seatPartyStage.show();
+
+/*
+ * When create new party, or seat party button is pushed, show pop-up window
+*/
+		createNewParty.setOnAction(e->{
+			newPartyStage.show();
+		});
+		seatParty.setOnAction(e->{
+			seatPartyStage.show();
+		});
 
 /*
  * Keypad stuff
@@ -443,36 +501,7 @@ public class HostGUI extends Application{
 		});
 		
 		
-		
-/*
-* stuff for the queue pane		
-*/
-				
-		//list stuff
-		ListView<String> queue = new ListView<String>();
-		queue.setStyle("-fx-font-size: 16px");
-		ObservableList<String> parties = FXCollections.observableArrayList(
-					"Yeah","ok","sure","maybe");		
-			queue.setItems(parties);
-						
-			//buttons
-			POSButton createNewParty = new POSButton(50,150,"Create New Party");
-			createNewParty.setStyle("-fx-font-size: 16px");
-			POSButton seatParty = new POSButton(50,150,"Seat Party");
-			seatParty.setStyle("-fx-font-size: 16px");
 
-						
-			createNewParty.setOnAction(e->{
-				newPartyStage.show();
-			});
-			seatParty.setOnAction(e->{
-				seatPartyStage.show();
-			});
-						
-						
-			queuePane.getChildren().addAll(queue,createNewParty,seatParty);
-				
-						
 		
 		
 /*
