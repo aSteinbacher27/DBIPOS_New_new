@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat;
 
 public class Check {
 
-	ArrayList<Integer> checkItems = new ArrayList<Integer>();
+	ArrayList<String> checkItems = new ArrayList<String>();
+	ArrayList<String> checkPricesString = new ArrayList<String>();
+	ArrayList<Double> checkPrices = new ArrayList<Double>();
 	
 	
 	double subtotal;
@@ -25,7 +27,7 @@ public class Check {
 		
 		//testing. adding dummy item to check always
 		
-		//addItem(1);
+		//addItem("something", "0.01");
 		
 		//receipt();
 		//System.out.println(calcTotal());
@@ -34,13 +36,20 @@ public class Check {
 	
 	
 	//adding an item to the index array list
-	public void addItem(int index) {
-		checkItems.add(index);
+	public void addItem(String name, String priceS) {
+		checkItems.add(name);
+		checkPricesString.add(priceS);
+		
+		
+		//parse string price to double
+		checkPrices.add(Double.parseDouble(priceS));
 
 		//Print when a check item is added.
 		// for(Integer i: checkItems)
 		// System.out.println(i);
 	}
+	
+	
 	
 	
 	private double calcTotal() {
@@ -49,8 +58,8 @@ public class Check {
 		int i; //counter var
 		
 		//run for length of checkItems arrayList
-		for(i = 0; i < checkItems.size(); i++){
-			subtotal += Register.getItemPrice(checkItems.get(i));
+		for(i = 0; i < checkPrices.size(); i++){
+			subtotal += checkPrices.get(i);
 		}
 		
 		//calc tax
@@ -64,8 +73,12 @@ public class Check {
 		return total;
 	}
 	
-	private void deleteItem(int index) {
-		this.checkItems.remove(index);
+	private void deleteItem(String name) {
+		int removeable = checkItems.indexOf(name);
+		checkItems.remove(removeable);
+		checkPricesString.remove(removeable);
+		checkPrices.remove(removeable);
+	
 	}
 	
 	public void finalize() {
@@ -109,14 +122,14 @@ public class Check {
 			
 			//print check
 			for(i = 0; i < checkItems.size(); i++) {
-				bw.write("(1) " + Register.getItemName(checkItems.get(i)) + "\t" + "$" + formatter.format(Register.getItemPrice(checkItems.get(i))));
+				bw.write("(1) " + checkItems.get(i) + "\t" + "$" + formatter.format(checkPrices.get(i)));
 				bw.newLine();
 				
 			}
 			
 			//print total
 			bw.newLine();
-			bw.write("Subtotal = \t$" + this.subtotal);
+			bw.write("Subtotal = \t$" + formatter.format(this.subtotal));
 			bw.newLine();
 			bw.write("Tax added = \t$" + formatter.format(this.subtotal*this.tax));
 			bw.newLine();
