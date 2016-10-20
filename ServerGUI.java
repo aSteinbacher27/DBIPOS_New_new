@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +29,7 @@ import javafx.stage.Stage;
 public class ServerGUI extends Application {
 
 	public static void main(String[] args) {
-		Register r = new Register();
+		//Register r = new Register();
 		launch(args);
 
 		
@@ -39,23 +38,26 @@ public class ServerGUI extends Application {
 		GUI(primaryStage);
 	}
 	
-	public static void GUI(Stage primaryStage){
+	public static void GUI(Stage primaryStage, Register r){
+		
 		
 		//create drop down menu for item categories
 		ComboBox itemList = new ComboBox(FXCollections.observableArrayList(
 			    "Menu Items", "Drink Items", "Dessert Items","Gift Shop Items")
 			);
+		itemList.setStyle("-fx-font-size: 16px");
 		
 		//create drop down menu for available tables
 		ComboBox tableList = new ComboBox(FXCollections.observableArrayList(
 			    "Table1", "Table2", "Table3")
 			);
+		tableList.setStyle("-fx-font-size: 16px");
 		
 		//create listView for inventory items and prices (left side)
 		ListView<String> inventory = new ListView<String>();
 		ListView<String> inventoryP = new ListView<String>();
-		ObservableList<String> inventoryItems=FXCollections.observableArrayList(Register.menuItemNames);
-		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(Register.menuItemPrices);
+		ObservableList<String> inventoryItems=FXCollections.observableArrayList(r.menuItemNames);
+		ObservableList<String> inventoryPrices=FXCollections.observableArrayList(r.menuItemPrices);
 		inventory.setItems(inventoryItems);
 		inventoryP.setItems(inventoryPrices);
 		
@@ -72,37 +74,37 @@ public class ServerGUI extends Application {
 			
 			//changed to "Menu Items"
 			if (itemList.getSelectionModel().getSelectedItem().toString() == "Menu Items") {
-				inventoryItems.addAll(Register.menuItemNames);
+				inventoryItems.addAll(r.menuItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.menuItemPrices);
+				inventoryPrices.addAll(r.menuItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//changed to "Drink Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Drink Items") {
-				inventoryItems.addAll(Register.drinkItemNames);
+				inventoryItems.addAll(r.drinkItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.drinkItemPrices);
+				inventoryPrices.addAll(r.drinkItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//changed to "Dessert Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Dessert Items") {
-				inventoryItems.addAll(Register.dessertItemNames);
+				inventoryItems.addAll(r.dessertItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.dessertItemPrices);
+				inventoryPrices.addAll(r.dessertItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 			
 			//chagned to "Gift Shop Items"
 			else if (itemList.getSelectionModel().getSelectedItem().toString() == "Gift Shop Items") {
-				inventoryItems.addAll(Register.giftItemNames);
+				inventoryItems.addAll(r.giftItemNames);
 				inventory.setItems(inventoryItems);
 				
-				inventoryPrices.addAll(Register.giftItemPrices);
+				inventoryPrices.addAll(r.giftItemPrices);
 				inventoryP.setItems(inventoryPrices);
 			}
 		});
@@ -116,32 +118,53 @@ public class ServerGUI extends Application {
 		prices.setItems(itemPrices);
 		
 		//add buttons
-		POSButton quitButton=new POSButton(40,60,"Close");
+		POSButton quitButton=new POSButton(40,100,"Close");
 		POSButton addItem=new POSButton(100,100,"Add Item");
-		POSButton removeItem=new POSButton(60,90,"Remove Item");
+		POSButton removeItem=new POSButton(40,120,"Remove Item");
 		Pane pane = new Pane();
+		
+		//add labels
+		Label inventoryItemLabel = new Label("Item");
+		inventoryItemLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		inventoryItemLabel.relocate(50,125);
+		Label inventoryPriceLabel = new Label("Price");
+		inventoryPriceLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		inventoryPriceLabel.relocate(250,125);
+		Label checkItemLabel = new Label("Item");
+		checkItemLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		checkItemLabel.relocate(700,125);
+		Label checkPriceLabel = new Label("Price");
+		checkPriceLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		checkPriceLabel.relocate(900,125);
 		
 		//set locations and sizes for items within the GUI
 		inventory.relocate(50,150);
-		inventory.setPrefWidth(150);
+		inventory.setPrefWidth(200);
 		inventory.setPrefHeight(400);
-		inventoryP.setPrefWidth(150);
+		inventory.setStyle("-fx-font-size: 16px");
+		inventoryP.setPrefWidth(100);
 		inventoryP.setPrefHeight(400);
-		inventoryP.relocate(200,150);
+		inventoryP.relocate(250,150);
+		inventoryP.setStyle("-fx-font-size: 16px");
 		customerCheck.relocate(700, 150);
-		customerCheck.setPrefWidth(150);
+		customerCheck.setPrefWidth(200);
 		customerCheck.setPrefHeight(400);
-		prices.relocate(850, 150);
-		prices.setPrefWidth(150);
+		customerCheck.setStyle("-fx-font-size: 16px");
+		prices.relocate(900, 150);
+		prices.setPrefWidth(100);
 		prices.setPrefHeight(400);
+		prices.setStyle("-fx-font-size: 16px");
 		quitButton.relocate(0,0);
-		itemList.relocate(50, 100);
-		tableList.relocate(800,100);
-		addItem.relocate(450, 300);
+		quitButton.setStyle("-fx-font-size: 16px");
+		itemList.relocate(50, 75);
+		tableList.relocate(700,75);
+		addItem.relocate(475, 300);
+		addItem.setStyle("-fx-font-size: 16px");
 		removeItem.relocate(800,550);
+		removeItem.setStyle("-fx-font-size: 16px");
 		
 		//add everything to the GUI
-		pane.getChildren().addAll(inventory,inventoryP,customerCheck,prices,quitButton,itemList,tableList,addItem,removeItem);
+		pane.getChildren().addAll(inventory,inventoryP,customerCheck,prices,quitButton,itemList,tableList,addItem,removeItem,inventoryItemLabel,inventoryPriceLabel,checkItemLabel,checkPriceLabel);
 		Scene scene = new Scene(pane, 1000, 600);
 		Stage stage = new Stage();
 		stage.setScene(scene);
@@ -162,7 +185,7 @@ public class ServerGUI extends Application {
 		    inventory.getSelectionModel().select(index);
 		});
 		
-		// Listener for customerChekc. When item in customerCheck is selected, the corresponding price is also selected
+		// Listener for customerCheck. When item in customerCheck is selected, the corresponding price is also selected
 		customerCheck.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			int index = customerCheck.getSelectionModel().getSelectedIndex();
 			prices.getSelectionModel().select(index);
@@ -199,7 +222,7 @@ public class ServerGUI extends Application {
 				     if (selectedPrices != null) {
 				           inventoryP.getSelectionModel().clearSelection();
 				           customerCheckItems.add(selectedPrices);
-				           String selectedName = inventoryPrices.get(index);
+				           String selectedName = inventoryPrices.get(indexP);
 					         if (selectedName != null) {
 						           inventory.getSelectionModel().clearSelection();
 						           itemPrices.add(selectedName);
@@ -228,7 +251,7 @@ public class ServerGUI extends Application {
 				     if (selectedPrices != null) {
 				    	 prices.getSelectionModel().clearSelection();
 				           itemPrices.remove(selectedPrices);
-				           String selectedName = itemPrices.get(index);
+				           String selectedName = itemPrices.get(indexP);
 					         if (selectedName != null) {
 						           customerCheck.getSelectionModel().clearSelection();
 						           customerCheckItems.remove(selectedName);
@@ -238,3 +261,4 @@ public class ServerGUI extends Application {
 		         }});
 	}
 }
+
