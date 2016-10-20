@@ -26,6 +26,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+/**
+ * @author Brian Jaury
+ * @author Spencer Mowrey
+ * @author Alex Steinbacher
+ * @author Anissa Zacharias
+ * @author Kayla Wilson
+ * 
+ * @version 1.0
+ * The Server GUI class creates a GUI that includes a way to add items to the check
+ */
 public class ServerGUI extends Application {
 
 	public static void main(String[] args) {
