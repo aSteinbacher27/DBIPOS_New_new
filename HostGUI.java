@@ -107,13 +107,7 @@ public class HostGUI extends Application {
 
 
 
-		seatParty.setOnAction(e -> {
-			//Button for seat party on HostGUI
-			System.out.println("Populating list of avaliable tables on seatParty screen.");
-			tableChoice.clear();
-			tableChoice.addAll(Register.getAvailableTables());
-
-		});
+	
 
 		queuePane.getChildren().addAll(queue, createNewParty, seatParty, waitingLabel, totalWaitingLabel,
 				mainMenuClock);
@@ -407,7 +401,8 @@ public class HostGUI extends Application {
 		seatPartyTableLabel.setLayoutX(20);
 		seatPartyTableLabel.setLayoutY(90);
 		ComboBox tableChoice = new ComboBox();
-		tableChoice.setItems(FXCollections.observableArrayList(Register.getAvailableTables()));
+		ObservableList<Integer> tableChoiceItems = FXCollections.observableArrayList(Register.getAvailableTables());
+		tableChoice.setItems(tableChoiceItems);
 		tableChoice.setStyle("-fx-font-size: 16px");
 		tableChoice.setLayoutX(20);
 		tableChoice.setLayoutY(110);
@@ -417,18 +412,41 @@ public class HostGUI extends Application {
 		seatButton.setLayoutY(160);
 
 
-		//Seating party: Transfers party from waiting to seated.
+		//Seating party inside pop-up: Transfers party from waiting to seated.
 		seatButton.setOnAction(e ->{
 
 			System.out.println("Seating party");
-
+			
+			
 			//Adding Party from waiting party to active party
 			Register.activeParties.add(Register.waitingParties.get(queue.getSelectionModel().getSelectedIndex()));
+	
+			
+
+			totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
+
+			
+			int tableNumber = (int) (tableChoice.getSelectionModel().getSelectedItem()) + 1;
+			
+			int selectedPartyIndex = queue.getSelectionModel().getSelectedIndex();
+			System.out.println("selectedPartyIndex = " + selectedPartyIndex);
+			System.out.println("taleNumber = " +tableNumber);
+			Register.waitingParties.get(selectedPartyIndex).setTable(tableNumber);
+
+
+System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
+
+			//System.out.println("Table Number: "+ tableNumber);
+
+			seatPartyStage.close();
+			
 			//Removing Party from waiting party
 			Register.waitingParties.remove(queue.getSelectionModel().getSelectedIndex());
 			System.out.println("Removed party from waiting parties");
-
-//Refreshing List:
+			
+			Register.seatParty(tableNumber);
+			
+			//Refreshing List:
 			//add new party to waiting list
 			waitingParties.clear();
 			for(int i = 0; i < Register.waitingParties.size(); i++){
@@ -445,23 +463,12 @@ public class HostGUI extends Application {
 			}
 //End of Refreshing
 
-			totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
-
-			 //tableNumber = tableChoice.getSelectionModel().getSelectedItem();
-
-System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
-
-			//System.out.println("Table Number: "+ tableNumber);
-
-			seatPartyStage.close();
-
 		});
 
 		// add everything to pane
 		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel,
 				serverChoice, tableChoice);
 
-		// seatPartyStage.show();
 
 		/*
 		 * When create new party, or seat party button is pushed, show pop-up
@@ -470,7 +477,14 @@ System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
 		createNewParty.setOnAction(e -> {
 			newPartyStage.show();
 		});
+
+		
 		seatParty.setOnAction(e -> {
+			//Button for seat party on HostGUI
+			System.out.println("Populating list of avaliable tables on seatParty screen.");
+			tableChoiceItems.clear();
+			tableChoiceItems.addAll(Register.getAvailableTables());
+			tableChoice.setItems(tableChoiceItems);
 			seatPartyStage.show();
 		});
 
