@@ -1,4 +1,10 @@
 
+/**Item class creates an item with a name, price, and type
+ * 
+ * @author 
+ * @version 1.0
+ *
+ */
 public class Item {
 	
 	String name;
