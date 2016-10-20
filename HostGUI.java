@@ -104,6 +104,9 @@ public class HostGUI extends Application {
 		seatParty.relocate(300, 550);
 		queuePane.setPrefWidth(600);
 
+
+
+
 		seatParty.setOnAction(e -> {
 			//Button for seat party on HostGUI
 			System.out.println("Populating list of avaliable tables on seatParty screen.");
