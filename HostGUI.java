@@ -426,7 +426,7 @@ public class HostGUI extends Application {
 			totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
 
 			
-			int tableNumber = (int) (tableChoice.getSelectionModel().getSelectedItem()) + 1;
+			int tableNumber = (int) (tableChoice.getSelectionModel().getSelectedItem());
 			
 			int selectedPartyIndex = queue.getSelectionModel().getSelectedIndex();
 			System.out.println("selectedPartyIndex = " + selectedPartyIndex);
@@ -686,6 +686,12 @@ System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
 		serverGUI.setOnAction(e -> {
 			ServerGUI serverObject = new ServerGUI();
 			serverObject.GUI(primaryStage, register);
+			
+			
+			serverObject.seatedTablesList.clear();
+			serverObject.seatedTablesList.addAll(Register.getSeatedTables());
+			serverObject.tableList.setItems(serverObject.seatedTablesList);
+			
 		});
 		POSButton clockIn = new POSButton(50, 150, "Clock In");
 		clockIn.setStyle("-fx-font-size: 16px");
