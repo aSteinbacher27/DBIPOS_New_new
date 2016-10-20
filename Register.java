@@ -27,6 +27,8 @@ public class Register {
 	static ArrayList<String> drinkItemPrices = new ArrayList<String>();
 	static ArrayList<String> dessertItemPrices = new ArrayList<String>();
 	
+	static int[] table = new int[32];
+	
 	//Array lists of Employees and Items
 	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
 	static ArrayList<Item> items = new ArrayList<Item>();
@@ -46,7 +48,7 @@ public class Register {
 
 	static double currentCash;
 	
-	Register() {
+	Register(){
 		//populate employees and items
 		popItems(itemFileString);
 		popEmployees(employeeFileString);
@@ -60,6 +62,11 @@ public class Register {
 		activeParties.add(testParty);
 		
 		this.currentCash = 200.0; //generic starting cash amount. figure out in sprint 2
+		
+		for(int i : table) {
+			i = 0;
+		}
+		//System.out.println(Arrays.toString(table));
 	}
 	
 	/**
