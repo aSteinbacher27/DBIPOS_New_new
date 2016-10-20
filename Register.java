@@ -66,7 +66,11 @@ public class Register {
 		for(int i : table) {
 			i = 0;
 		}
-		//System.out.println(Arrays.toString(table));
+		
+		//TESTING
+		table[10] = 2;
+		table[11] = 2;
+		System.out.println(Arrays.toString(table));
 	}
 	
 	/**
@@ -201,14 +205,26 @@ public class Register {
 	
 	public static ArrayList<Integer> getAvailableTables(){
 		ArrayList<Integer> availableTables = new ArrayList<Integer>();
-		for(int i =0; i < table.length; i++){
+		for(int i = 0; i < table.length; i++){
 			if(table[i] == 0){
 				availableTables.add(i+1);
 			}
 		}
-		
 		return availableTables;
 	}
-		
+	
+	public static ArrayList<Integer> getSeatedTables(){
+		ArrayList<Integer> seatedTables = new ArrayList<Integer>();
+		for(int i = 0; i < table.length; i++){
+			if(table[i] == 2){
+				seatedTables.add(i+1);
+			}
+		}
+		return seatedTables;
+	}
+	
+	public static void seatParty(int tableNumber) {
+		table[tableNumber - 1] = 2;
+	}
 	
 }
