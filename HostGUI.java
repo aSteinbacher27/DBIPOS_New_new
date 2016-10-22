@@ -31,7 +31,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
-
 /**
  * @author Brian Jaury
  * @author Spencer Mowrey
@@ -41,7 +40,8 @@ import java.util.ArrayList;
  * 
  * @version 1.0
  * 
- * The HostGUI class creates tables and a party list along with several other buttons
+ *          The HostGUI class creates tables and a party list along with several
+ *          other buttons
  */
 public class HostGUI extends Application {
 
@@ -92,25 +92,27 @@ public class HostGUI extends Application {
 		waitingLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
 		Label totalWaitingLabel = new Label("Total Parties Waiting: 0");
 		totalWaitingLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+
 		POSButton createNewParty = new POSButton(50, 150, "Create New Party");
-		createNewParty.setStyle("-fx-font-size: 16px");
+		createNewParty.setStyle("-fx-font-size: 14px");
+
 		POSButton seatParty = new POSButton(50, 150, "Seat Party");
 		seatParty.setStyle("-fx-font-size: 16px");
+
+		POSButton deleteParty = new POSButton(50, 150, "Delete Party");
+		deleteParty.setStyle("-fx-font-size: 16px");
+
 		waitingLabel.relocate(150, 0);
 		totalWaitingLabel.relocate(260, 510);
 		queue.relocate(150, 25);
 		queue.setPrefHeight(475);
 		queue.setPrefWidth(300);
-		createNewParty.relocate(150, 550);
-		seatParty.relocate(300, 550);
+		createNewParty.relocate(75, 550);
+		seatParty.relocate(225, 550);
+		deleteParty.relocate(375, 550);
 		queuePane.setPrefWidth(600);
 
-
-
-
-	
-
-		queuePane.getChildren().addAll(queue, createNewParty, seatParty, waitingLabel, totalWaitingLabel,
+		queuePane.getChildren().addAll(queue, createNewParty, seatParty, deleteParty, waitingLabel, totalWaitingLabel,
 				mainMenuClock);
 
 		/*
@@ -320,14 +322,12 @@ public class HostGUI extends Application {
 						}
 						break;
 					}
-					
-					
 
 				}
-				
-				//TESTING
-				//Register.waitingParties.get(0).getCheck().finalize();
-				
+
+				// TESTING
+				// Register.waitingParties.get(0).getCheck().finalize();
+
 				// add new party to waiting list
 				waitingParties.clear();
 				for (int i = 0; i < Register.waitingParties.size(); i++) {
@@ -413,75 +413,67 @@ public class HostGUI extends Application {
 		seatButton.setLayoutX(20);
 		seatButton.setLayoutY(160);
 
-
-		//Seating party inside pop-up: Transfers party from waiting to seated.
-		seatButton.setOnAction(e ->{
+		// Seating party inside pop-up: Transfers party from waiting to seated.
+		seatButton.setOnAction(e -> {
 
 			System.out.println("Seating party");
-			
-			
-			//Adding Party from waiting party to active party
+
+			// Adding Party from waiting party to active party
 			Register.activeParties.add(Register.waitingParties.get(queue.getSelectionModel().getSelectedIndex()));
-	
-			
 
 			totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
 
-			
 			int tableNumber = (int) (tableChoice.getSelectionModel().getSelectedItem());
-			
+
 			int selectedPartyIndex = queue.getSelectionModel().getSelectedIndex();
 			int selectedServerIndex = serverChoice.getSelectionModel().getSelectedIndex();
 			System.out.println("selectedPartyIndex = " + selectedPartyIndex);
-			System.out.println("taleNumber = " +tableNumber);
+			System.out.println("taleNumber = " + tableNumber);
 			Register.waitingParties.get(selectedPartyIndex).setTable(tableNumber);
 
+			System.out.println("Value: " + tableChoice.getSelectionModel().getSelectedItem());
 
-System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
-
-			//System.out.println("Table Number: "+ tableNumber);
+			// System.out.println("Table Number: "+ tableNumber);
 
 			seatPartyStage.close();
-			
-			//Removing Party from waiting party
+
+			// Removing Party from waiting party
 			Register.waitingParties.remove(queue.getSelectionModel().getSelectedIndex());
 			System.out.println("Removed party from waiting parties");
-			
+
 			Register.seatParty(tableNumber);
-			
-			//Getting id for Employee
-			Register.activeParties.get(Register.activeParties.size()-1).setServerID(Register.employees.get(selectedServerIndex).getID());
 
-			
-			
-			//Refreshing List:
-			//add new party to waiting list
+			// Getting id for Employee
+			Register.activeParties.get(Register.activeParties.size() - 1)
+					.setServerID(Register.employees.get(selectedServerIndex).getID());
+
+			// Refreshing List:
+			// add new party to waiting list
 			waitingParties.clear();
-			for(int i = 0; i < Register.waitingParties.size(); i++){
-					waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t" + Register.waitingParties.get(i).getPartyName());
-					System.out.println(waitingParties);
-				}
+			for (int i = 0; i < Register.waitingParties.size(); i++) {
+				waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t"
+						+ Register.waitingParties.get(i).getPartyName());
+				System.out.println(waitingParties);
+			}
 
-			
-				parties.clear();
-				parties.addAll(waitingParties);
-				queue.setItems(parties);	
+			parties.clear();
+			parties.addAll(waitingParties);
+			queue.setItems(parties);
 
-			// 	for(Party p: Register.activeParties){
-			// 	System.out.println("Server ID:" + p.getServerID());
+			// for(Party p: Register.activeParties){
+			// System.out.println("Server ID:" + p.getServerID());
 			// }
 
-			System.out.println("Server ID is: " + Register.activeParties.get(Register.activeParties.size() -1).getServerID());			
-				
+			System.out.println(
+					"Server ID is: " + Register.activeParties.get(Register.activeParties.size() - 1).getServerID());
 
-//End of Refreshing
+			// End of Refreshing
 
 		});
 
 		// add everything to pane
 		seatPartyPane.getChildren().addAll(seatButton, seatPartyLabel, seatPartyServerLabel, seatPartyTableLabel,
 				serverChoice, tableChoice);
-
 
 		/*
 		 * When create new party, or seat party button is pushed, show pop-up
@@ -491,15 +483,80 @@ System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
 			newPartyStage.show();
 		});
 
-		
 		seatParty.setOnAction(e -> {
-			//Button for seat party on HostGUI
+			// Button for seat party on HostGUI
 			System.out.println("Populating list of avaliable tables on seatParty screen.");
 			tableChoiceItems.clear();
 			tableChoiceItems.addAll(Register.getAvailableTables());
 			tableChoice.setItems(tableChoiceItems);
 			seatPartyStage.show();
 		});
+
+		/*
+		 * Delete Party from Pop-up Waiting List
+		 */
+		Stage deletePartyStage = new Stage();
+		Pane deletePartyPane = new Pane();
+		Scene deletePartyScene = new Scene(deletePartyPane, 375, 130);
+		deletePartyStage.setScene(deletePartyScene);
+
+		Label deletePartyLabel = new Label("Delete Party");
+		deletePartyLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold");
+		deletePartyLabel.setLayoutX(5);
+		deletePartyLabel.setLayoutY(5);
+
+		Label deletePartyMsgLabel = new Label();
+		deletePartyMsgLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold");
+		deletePartyMsgLabel.setLayoutX(10);
+		deletePartyMsgLabel.setLayoutY(35);
+		deletePartyMsgLabel.setWrapText(true);
+
+		POSButton cancelDeletePartyButton = new POSButton(40, 100, "Cancel");
+		cancelDeletePartyButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		cancelDeletePartyButton.setLayoutX(40);
+		cancelDeletePartyButton.setLayoutY(70);
+
+		POSButton confirmDeletePartyButton = new POSButton(40, 100, "Delete");
+		confirmDeletePartyButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		confirmDeletePartyButton.setLayoutX(230);
+		confirmDeletePartyButton.setLayoutY(70);
+
+		deleteParty.setOnAction(e -> {
+			deletePartyStage.show();
+			String deletePartyName = Register.waitingParties.get(queue.getSelectionModel().getSelectedIndex())
+					.getPartyName();
+			deletePartyMsgLabel.setText("Are you sure you would like to delete the " + deletePartyName + " party?");
+
+		});
+
+		cancelDeletePartyButton.setOnAction(e -> {
+			deletePartyStage.close();
+		});
+
+		confirmDeletePartyButton.setOnAction(e -> {
+
+			Register.waitingParties.remove(queue.getSelectionModel().getSelectedIndex());
+
+			// Refreshing List:
+			// add new party to waiting list
+			waitingParties.clear();
+			for (int i = 0; i < Register.waitingParties.size(); i++) {
+				waitingParties.add(Register.waitingParties.get(i).getPartySize() + "\t\t\t"
+						+ Register.waitingParties.get(i).getPartyName());
+				System.out.println(waitingParties);
+			}
+
+			// update number of parties waiting
+			totalWaitingLabel.setText("Total Parties Waiting: " + Register.waitingParties.size());
+
+			parties.clear();
+			parties.addAll(waitingParties);
+			queue.setItems(parties);
+			deletePartyStage.close();
+		});
+
+		deletePartyPane.getChildren().addAll(deletePartyLabel, deletePartyMsgLabel, cancelDeletePartyButton,
+				confirmDeletePartyButton);
 
 		/*
 		 * Keypad stuff
@@ -699,12 +756,11 @@ System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
 		serverGUI.setOnAction(e -> {
 			ServerGUI serverObject = new ServerGUI();
 			serverObject.GUI(primaryStage, register);
-			
-			
+
 			serverObject.seatedTablesList.clear();
 			serverObject.seatedTablesList.addAll(Register.getSeatedTables());
 			serverObject.tableList.setItems(serverObject.seatedTablesList);
-			
+
 		});
 		POSButton clockIn = new POSButton(50, 150, "Clock In");
 		clockIn.setStyle("-fx-font-size: 16px");
