@@ -33,6 +33,11 @@ public class Employee{
 	public String getName(){
 		return this.name;
 	}
+
+	public int getID(){
+	
+		return ID;
+	}
 	
 
 }

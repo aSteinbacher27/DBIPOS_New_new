@@ -82,6 +82,16 @@ public class Party {
 	public void setTable(int tableNumber) {
 		this.table = tableNumber;
 	}
+
+	public void setServerID(int serverID){
+		
+		this.serverID = serverID;
+	}
+
+	public int getServerID(){
+
+		return serverID;
+	}
 	
 	
 	public int getTableNumber() {

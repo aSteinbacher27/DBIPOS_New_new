@@ -30,7 +30,9 @@ public class Register {
 	static int[] table = new int[32];
 	
 	//Array lists of Employees and Items
-	//ArrayList<Employee> employees = new ArrayList<Employee>(); class not created yet
+	static ArrayList<Employee> employees = new ArrayList<Employee>();
+	
+
 	static ArrayList<Item> items = new ArrayList<Item>();
 	
 	
@@ -67,6 +69,19 @@ public class Register {
 			i = 0;
 		}
 		
+
+
+		//TESTING
+		table[10] = 2;
+		table[11] = 2;
+		System.out.println(Arrays.toString(table));
+
+			
+	//Test Employees
+	employees.add(new Employee("Brian", 212323, 100.60, 555555, "Address", "email", 8394949, 222));
+	employees.add(new Employee("Gilbert", 435643, 100.60, 55555, "Address", "email", 8394949, 222));
+
+
 	}
 	
 	/**
@@ -222,5 +237,15 @@ public class Register {
 	public static void seatParty(int tableNumber) {
 		table[tableNumber - 1] = 2;
 	}
+
+	public static ArrayList<String> getEmployeeNames(){
+		ArrayList<String> employeeNames = new ArrayList<String>();
+
+		for(Employee e: employees)
+		employeeNames.add(e.getName());
+
+		return employeeNames;
+	}
+
 	
 }

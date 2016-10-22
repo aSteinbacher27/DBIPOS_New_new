@@ -31,6 +31,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
+
 /**
  * @author Brian Jaury
  * @author Spencer Mowrey
@@ -392,7 +393,8 @@ public class HostGUI extends Application {
 		seatPartyServerLabel.setLayoutX(20);
 		seatPartyServerLabel.setLayoutY(30);
 		ComboBox serverChoice = new ComboBox();
-		serverChoice.setItems(FXCollections.observableArrayList("Kayla", "Anissa", "Spencer"));
+		ObservableList<String> serverChoiceItems = FXCollections.observableArrayList(Register.getEmployeeNames());
+		serverChoice.setItems(serverChoiceItems);
 		serverChoice.setStyle("-fx-font-size: 16px");
 		serverChoice.setLayoutX(20);
 		serverChoice.setLayoutY(50);
@@ -429,6 +431,7 @@ public class HostGUI extends Application {
 			int tableNumber = (int) (tableChoice.getSelectionModel().getSelectedItem());
 			
 			int selectedPartyIndex = queue.getSelectionModel().getSelectedIndex();
+			int selectedServerIndex = serverChoice.getSelectionModel().getSelectedIndex();
 			System.out.println("selectedPartyIndex = " + selectedPartyIndex);
 			System.out.println("taleNumber = " +tableNumber);
 			Register.waitingParties.get(selectedPartyIndex).setTable(tableNumber);
@@ -446,6 +449,11 @@ System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
 			
 			Register.seatParty(tableNumber);
 			
+			//Getting id for Employee
+			Register.activeParties.get(Register.activeParties.size()-1).setServerID(Register.employees.get(selectedServerIndex).getID());
+
+			
+			
 			//Refreshing List:
 			//add new party to waiting list
 			waitingParties.clear();
@@ -458,9 +466,14 @@ System.out.println("Value: "+tableChoice.getSelectionModel().getSelectedItem());
 				parties.clear();
 				parties.addAll(waitingParties);
 				queue.setItems(parties);	
-				for(Party p: Register.activeParties){
-				System.out.println("Party Name:" + p.getPartyName());
-			}
+
+			// 	for(Party p: Register.activeParties){
+			// 	System.out.println("Server ID:" + p.getServerID());
+			// }
+
+			System.out.println("Server ID is: " + Register.activeParties.get(Register.activeParties.size() -1).getServerID());			
+				
+
 //End of Refreshing
 
 		});
