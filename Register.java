@@ -1,14 +1,3 @@
-/********************************************************************************
-File Name: Register.java
-
-Attributes List:
-	
-	
-Methods List:
-	
-	
-********************************************************************************/
-
 import java.util.ArrayList;
 import java.io.*;
 import java.math.*;
@@ -18,38 +7,96 @@ import java.util.Scanner;
 public class Register {
 
 	
+	/**
+	 * names of items with menu classification
+	 */
 	static ArrayList<String> menuItemNames = new ArrayList<String>();
+	
+	/**
+	 * names of items with gift classification
+	 */
 	static ArrayList<String> giftItemNames = new ArrayList<String>();
+	
+	/**
+	 * names of items with drink classification
+	 */
 	static ArrayList<String> drinkItemNames = new ArrayList<String>();
+	
+	/**
+	 * names of items with desert classification
+	 */
 	static ArrayList<String> dessertItemNames = new ArrayList<String>();
+	
+	/**
+	 * prices of items with menu classification as strings
+	 */
 	static ArrayList<String> menuItemPrices = new ArrayList<String>();
+	
+	/**
+	 * prices of items with menu gift as strings
+	 */
 	static ArrayList<String> giftItemPrices = new ArrayList<String>();
+	
+	/**
+	 * prices of items with drink classification as strings
+	 */
 	static ArrayList<String> drinkItemPrices = new ArrayList<String>();
+	
+	/**
+	 * prices of items with desert classification as strings
+	 */
 	static ArrayList<String> dessertItemPrices = new ArrayList<String>();
 	
+	
+	/**
+	 * array with indicies corresponding to table status
+	 */
 	static int[] table = new int[32];
 	
-	//Array lists of Employees and Items
+	/**
+	 * arraylist of employee objects
+	 * (NONFUNCTIONAL FOR SPRINT 1)
+	 */
 	static ArrayList<Employee> employees = new ArrayList<Employee>();
 	
-
+	/**
+	 * arraylist of item objects
+	 */
 	static ArrayList<Item> items = new ArrayList<Item>();
 	
 	
-	//Party Array lists
+	/**
+	 * array list of party objects that have not yet been seated
+	 */
 	static ArrayList<Party> waitingParties = new ArrayList<Party>();
+	
+	/**
+	 * array list of party objects that have been seated 
+	 */
 	static ArrayList<Party> activeParties = new ArrayList<Party>();
 	
 	
 	//Payroll (not yet)
 	
-	//finding the Employee and Items files
+	/**
+	 * name of the items file to populate the items array list
+	 */
 	String itemFileString = new String("items.txt");
+	
+	/**
+	 * name of the employees file to populate the employee array list
+	 */
 	String employeeFileString = new String("employees.txt");
 	
-
+	/**
+	 * double value representing the cash currently in the register. updated with check finalize method.
+	 */
 	static double currentCash;
 	
+	/**
+	 * constructor for register.
+	 * populates item array list and employee array list and initializes table array
+	 */
 	Register(){
 		//populate employees and items
 		popItems(itemFileString);
@@ -96,13 +143,22 @@ public class Register {
 		
 	}
 	
+	/**
+	 * gets name of desired item with index 
+	 *
+	 * @param id  index of desired item in items array list
+	 * @return name  name of the item
+	 */
 	static public String getItemName(int id){
 		String name = items.get(id).getName();
 		return name;
-	}
+	} 
 	
-	
-	//method to populate the Items array. 
+	/**
+	 * This method populates the items array using fileIO and populates the name and price arrays for the different categories of item
+	 *
+	 * @param fileName  name of the CSV text file with the items
+	 */
 	private void popItems(String fileName) {
 
 		// set up file and scanner
@@ -189,7 +245,12 @@ public class Register {
 
 	}
 	
-	//populating the employee array. non-functional but compile-able for sprint 1
+	/**
+	 * This method populates the employees array using fileIO
+	 * (NON/MINIMALLY FUNCTIONAL FOR SPRINT 1)
+	 *
+	 * @param fileName  name of the CSV text file with the employees
+	 */
 	private void popEmployees(String fileName){
 		try{
 			//set up file and scanner
@@ -199,7 +260,7 @@ public class Register {
 			//read file until empty
 			while(input.hasNextLine()) {
 				
-				//somehow pops Employee objects
+				//pop employees
 			}
 			
 			
@@ -209,11 +270,20 @@ public class Register {
 		}
 		
 	}
-	
+	/**
+	 * updates the current cash in the register. Called with a check object.
+	 *
+	 * @param difference
+	 */
 	public static void updateCash(double difference) {
 		currentCash += difference;
 	}
 	
+	/**
+	 * This method searches the table array for 0s and keeps the number (index + 1) of those tables in an array list
+	 *
+	 * @return availableTables  array list of the indexes of 0s in the table array
+	 */
 	public static ArrayList<Integer> getAvailableTables(){
 		ArrayList<Integer> availableTables = new ArrayList<Integer>();
 		for(int i = 0; i < table.length; i++){
@@ -224,6 +294,11 @@ public class Register {
 		return availableTables;
 	}
 	
+	/**
+	 * This method searches the table array for 2s and keeps the number (index + 1) of those tables in an array list
+	 *
+	 * @return seatedTables  array list of the indexes of 2s in the table array
+	 */
 	public static ArrayList<Integer> getSeatedTables(){
 		ArrayList<Integer> seatedTables = new ArrayList<Integer>();
 		for(int i = 0; i < table.length; i++){
@@ -234,10 +309,20 @@ public class Register {
 		return seatedTables;
 	}
 	
+	/**
+	 * sets the index of tableNumber - 1 to 2 to mark it as "seated"
+	 *
+	 * @param tableNumber
+	 */
 	public static void seatParty(int tableNumber) {
 		table[tableNumber - 1] = 2;
 	}
 
+	/**
+	 * This method creates and returns an arraylist of employeeNames
+	 *
+	 * @return employeeNames
+	 */
 	public static ArrayList<String> getEmployeeNames(){
 		ArrayList<String> employeeNames = new ArrayList<String>();
 
