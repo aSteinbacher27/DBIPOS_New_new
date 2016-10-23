@@ -12,16 +12,40 @@ import java.text.SimpleDateFormat;
 
 public class Check {
 
+	/**
+	 * String array list of check Item names
+	 */
 	ArrayList<String> checkItems = new ArrayList<String>();
+	
+	/**
+	 * String array list of check item prices
+	 */
 	ArrayList<String> checkPricesString = new ArrayList<String>();
+	
+	/**
+	 * Double array list of check item prices
+	 */
 	ArrayList<Double> checkPrices = new ArrayList<Double>();
 	
-	
+	/**
+	 * pre-tax total of the check
+	 */
 	private double subtotal;
-	private double tax = 0.0675; //NC standard (??)
+	
+	/**
+	 * tax percentage multiplier
+	 */
+	private double tax = 0.0675; //percent sales tax for the Inn
+	
+	/**
+	 * total for the check (including tax)
+	 */
 	private double total;
 	
-	//Check constructor
+	/**
+	 * Check constructor.
+	 * Does not take input or run methods
+	 */
 	public Check() {
 		//System.out.println("party made a check");
 		
@@ -35,7 +59,13 @@ public class Check {
 	}
 	
 	
-	//adding an item to the index array list
+	/**
+	 * Adds an item to the check by updating checkItems, checkPriceString, & checkPrices
+	 * Updates totals by running calcTotal()
+	 * 
+	 * @param name  the name of the check item as a string
+	 * @param priceS  the price of the check item as a String
+	 */
 	public void addItem(String name, String priceS) {
 		checkItems.add(name);
 		checkPricesString.add(priceS);
@@ -55,7 +85,11 @@ public class Check {
 	
 	
 	
-	
+	/**
+	 * Updates total and subtotal by looping through checkPrices
+	 * 
+	 * @return total  returns the total value of the check if needed
+	 */
 	private double calcTotal() {
 		double subtotal = 0.0;
 		double total = 0.0;
@@ -77,6 +111,14 @@ public class Check {
 		return total;
 	}
 	
+	/**
+	 * Removes an item from the check by updating checkItems, checkPriceString, & checkPrices
+	 * based on the first instance of the string name of the item to be removed
+	 *
+	 * Updates totals by running calcTotal()
+	 * 
+	 * @param name  the name of the check item as a string
+	 */
 	public void deleteItem(String name) {
 		int removeable = checkItems.indexOf(name);
 		checkItems.remove(removeable);
@@ -87,6 +129,10 @@ public class Check {
 	
 	}
 	
+	/**
+	 * For use with the finalize feature of the casier/server client.
+	 * Updates total values, generates a receipt, and updates the current cash kept in the register
+	 */
 	public void finalize() {
 		calcTotal();
 		receipt();
@@ -96,6 +142,10 @@ public class Check {
 	private void getItemsInfo() {
 	}
 	
+	/**
+	 * Generates a receipt and prints it to a file with the name of RddMMyyyy_hhmmss.txt to avoid as much write over as possible
+	 * 
+	 */
 	private void receipt(){
 		int i; //counter var
 		
@@ -153,19 +203,39 @@ public class Check {
 		System.out.println("receipt made");		
 	}
 	
+	/**
+	 * Adds an item to the check by updating checkItems, checkPriceString, & checkPrices
+	 * Updates totals by running calcTotal()
+	 * 
+	 * @param difference  double value of the difference to update the register cash value through its updateCash method
+	 */
 	private void updateCash(double difference) {
 		Register.updateCash(difference);
 	}
 	
-	
+	/**
+	 * Getter for subtotal
+	 * 
+	 * @return subtotal 
+	 */
 	public double getSubtotal() {
 		return this.subtotal;
 	}
 	
+	/**
+	 * Getter for total
+	 * 
+	 * @return total
+	 */
 	public double getTotal() {
 		return this.total;
 	}
-	
+
+	/**
+	 * Getter for tax
+	 * 
+	 * @return tax
+	 */
 	public double getTax() {
 		return this.tax;
 	}
