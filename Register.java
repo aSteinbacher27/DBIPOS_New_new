@@ -119,8 +119,8 @@ public class Register {
 
 
 		//TESTING
-		table[10] = 2;
-		table[11] = 2;
+		//table[10] = 2;
+		//table[11] = 2;
 		System.out.println(Arrays.toString(table));
 
 			
