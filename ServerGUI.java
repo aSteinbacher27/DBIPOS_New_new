@@ -397,6 +397,11 @@ public class ServerGUI extends Application {
 		});
 	}
 	
+	/**
+	 * updates the subtotal, tax, and total labels for a given party
+	 * 
+	 * @param partyIndex index of the party 
+	 */
 	private static void updateTotalLabels(int partyIndex) {
 		DecimalFormat formatter = new DecimalFormat("#0.00");
 		
