@@ -50,8 +50,6 @@ import java.util.ArrayList;
  *          
  */
 public class HostGUI extends Application {
-	
-	//Making a change to test git
 
 	public static void main(String[] args) {
 		Application.launch(args);
