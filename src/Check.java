@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 public class Check {
+	
+	//Testing to make sure git changes are properly pushed
 
 	/**
 	 * String array list of check Item names
