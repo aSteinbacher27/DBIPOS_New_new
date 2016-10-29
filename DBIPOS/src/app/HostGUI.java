@@ -68,6 +68,7 @@ public class HostGUI extends Application {
 		/*
 		 * Throw your panes down here home slizzle
 		 */
+		//Adding a comment
 		BorderPane rootPane = new BorderPane();
 		Pane diningRoomOverviewPane = new Pane();
 		Pane porchMapPane = new Pane();
