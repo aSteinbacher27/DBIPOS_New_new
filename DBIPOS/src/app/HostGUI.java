@@ -46,6 +46,9 @@ import java.util.ArrayList;
  *          The HostGUI class creates tables and a party list along with several
  *          other buttons and finalizes stuff
  *          
+ *          //Alex Steinbacher was here 4:28 10/29/2016
+ *          //Changes Changes Changes
+ *          
  */
 public class HostGUI extends Application {
 
