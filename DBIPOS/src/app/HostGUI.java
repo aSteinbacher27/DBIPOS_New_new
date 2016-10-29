@@ -44,7 +44,10 @@ import java.util.ArrayList;
  * @version 1.0
  * 
  *          The HostGUI class creates tables and a party list along with several
- *          other buttons
+ *          other buttons and finalizes stuff
+ *          
+ *          //Alex Steinbacher was here 4:28 10/29/2016
+ *          //Changes Changes Changes
  *          
  */
 public class HostGUI extends Application {
@@ -65,6 +68,7 @@ public class HostGUI extends Application {
 		/*
 		 * Throw your panes down here home slizzle
 		 */
+		//Adding a comment
 		BorderPane rootPane = new BorderPane();
 		Pane diningRoomOverviewPane = new Pane();
 		Pane porchMapPane = new Pane();
