@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  * viewing/editing items on a parties check, calculating totals, and printing a
  * receipt.
  *
- *Brian added a comment
+ *
  */
 
 public class ServerGUI extends Application {
