@@ -42,6 +42,9 @@ import java.util.ArrayList;
  * 
  *          The HostGUI class creates tables and a party list along with several
  *          other buttons
+ *          
+ *          //change change change
+ *          
  */
 public class HostGUI extends Application {
 
@@ -1199,5 +1202,4 @@ public class HostGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
 }
