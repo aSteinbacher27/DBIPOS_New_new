@@ -1,8 +1,10 @@
+package app;
 import java.awt.Font;
 import java.io.BufferedWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.*;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 /**
@@ -41,12 +44,10 @@ import java.util.ArrayList;
  * @version 1.0
  * 
  *          The HostGUI class creates tables and a party list along with several
- *          other buttons
+ *          other buttons and finalizes stuff
  *          
- *          //change change change
- *          // Alex Steinbacher changed this file 4:17 10/29/2016
- *          //more changes changes changes
- *          //I don't know what I am doing.
+ *          //Alex Steinbacher was here 4:28 10/29/2016
+ *          //Changes Changes Changes
  *          
  */
 public class HostGUI extends Application {
@@ -67,6 +68,7 @@ public class HostGUI extends Application {
 		/*
 		 * Throw your panes down here home slizzle
 		 */
+		//Adding a comment
 		BorderPane rootPane = new BorderPane();
 		Pane diningRoomOverviewPane = new Pane();
 		Pane porchMapPane = new Pane();
@@ -1204,5 +1206,243 @@ public class HostGUI extends Application {
 		primaryStage.setTitle("DBIPOS");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		/*
+		 * ----------------------------------------------------------------------
+		 * Edit item pop-up
+		 */
+
+		Stage editItemStage = new Stage();
+		editItemStage.setTitle("Edit Items");
+		Pane editItemPane = new Pane();
+		Scene editItemScene = new Scene(editItemPane, 400, 420);
+		editItemStage.setScene(editItemScene);
+
+		ListView<String> itemsListView = new ListView<String>();
+		ObservableList<String> ListItems = FXCollections.observableArrayList(
+				"Display Items", "Register.items");
+		itemsListView.setStyle("-fx-font-size: 16px");
+		itemsListView.setItems(ListItems);
+		itemsListView.setLayoutX(100);
+		itemsListView.setLayoutY(35);
+		itemsListView.setPrefWidth(200);
+		itemsListView.setPrefHeight(250);
+
+		Label editItemLabel = new Label("Select an item:");
+		editItemLabel.setStyle("-fx-font-size: 16px");
+		editItemLabel.relocate(10, 5);
+
+		POSButton addItemButton = new POSButton(40, 140, "Add New Item");
+		addItemButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		addItemButton.relocate(130, 360);
+
+		POSButton editItemButton = new POSButton(40, 110, "Edit Item");
+		editItemButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		editItemButton.relocate(80, 300);
+
+		POSButton deleteItemButton = new POSButton(40, 110, "Delete Item");
+		deleteItemButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		deleteItemButton.relocate(210, 300);
+
+		editItemPane.getChildren().addAll(editItemLabel, itemsListView,
+				addItemButton, editItemButton, deleteItemButton);
+		//editItemStage.show();
+
+		/*
+		 * ------------------------------------------------------------ Add item
+		 * / edit item pop-up For add item: text fields would be blank For edit
+		 * item: text fields would populate with the selected item's info
+		 */
+
+		Stage addItemStage = new Stage();
+		addItemStage.setTitle("Add/Edit Item");
+		Pane addItemPane = new Pane();
+		Scene addItemScene = new Scene(addItemPane, 400, 250);
+		addItemStage.setScene(addItemScene);
+
+		Label ItemNameLabel = new Label("Name:");
+		ItemNameLabel.setStyle("-fx-font-size: 16px");
+		ItemNameLabel.relocate(10, 15);
+
+		TextField ItemName = new TextField();
+		ItemName.setStyle("-fx-font-size: 16px");
+		ItemName.relocate(100, 15);
+
+		Label ItemPriceLabel = new Label("Price:");
+		ItemPriceLabel.setStyle("-fx-font-size: 16px");
+		ItemPriceLabel.relocate(10, 65);
+
+		TextField ItemPrice = new TextField();
+		ItemPrice.setPromptText("xx.xx");
+		ItemPrice.setStyle("-fx-font-size: 16px");
+		ItemPrice.relocate(100, 65);
+
+		Label ItemCategoryLabel = new Label("Category:");
+		ItemCategoryLabel.setStyle("-fx-font-size: 16px");
+		ItemCategoryLabel.relocate(10, 115);
+
+		ComboBox ItemCategory = new ComboBox();
+		ObservableList<String> ItemCategoryItems = FXCollections
+				.observableArrayList("Menu", "Drinks", "Dessert", "Gift Shop");
+		ItemCategory.setItems(ItemCategoryItems);
+		ItemCategory.setStyle("-fx-font-size: 16px");
+		ItemCategory.relocate(100, 115);
+
+		POSButton ItemAddButton = new POSButton(40, 150, "Add Item");
+		ItemAddButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		ItemAddButton.relocate(125, 185);
+
+		addItemPane.getChildren().addAll(ItemNameLabel, ItemName,
+				ItemPriceLabel, ItemPrice, ItemCategoryLabel, ItemCategory,
+				ItemAddButton);
+		//addItemStage.show();
+
+		/*
+		 * -----------------------------------------------------------------
+		 * Edit employee pop-up
+		 */
+
+		Stage editEmployeeStage = new Stage();
+		editEmployeeStage.setTitle("Edit Employees");
+		Pane editEmployeePane = new Pane();
+		Scene editEmployeeScene = new Scene(editEmployeePane, 400, 420);
+		editEmployeeStage.setScene(editEmployeeScene);
+
+		ListView<String> employeesListView = new ListView<String>();
+		ObservableList<String> ListEmployees = FXCollections
+				.observableArrayList("Display Employees", "Register.employees");
+		employeesListView.setStyle("-fx-font-size: 16px");
+		employeesListView.setItems(ListEmployees);
+		employeesListView.setLayoutX(100);
+		employeesListView.setLayoutY(35);
+		employeesListView.setPrefWidth(200);
+		employeesListView.setPrefHeight(250);
+
+		Label editEmployeeLabel = new Label("Select an employee:");
+		editEmployeeLabel.setStyle("-fx-font-size: 16px");
+		editEmployeeLabel.relocate(10, 5);
+
+		POSButton addEmployeeButton = new POSButton(40, 180, "Add New Employee");
+		addEmployeeButton
+				.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		addEmployeeButton.relocate(110, 360);
+
+		POSButton editEmployeeButton = new POSButton(40, 160, "Edit Employee");
+		editEmployeeButton
+				.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		editEmployeeButton.relocate(40, 300);
+
+		POSButton deleteEmployeeButton = new POSButton(40, 160,
+				"Delete Employee");
+		deleteEmployeeButton
+				.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		deleteEmployeeButton.relocate(210, 300);
+
+		editEmployeePane.getChildren().addAll(editEmployeeLabel,
+				employeesListView, addEmployeeButton, editEmployeeButton,
+				deleteEmployeeButton);
+		// editEmployeeStage.show();
+
+		/*
+		 * ---------------------------------------------- Add employee / edit
+		 * employee pop-up For add employee: text fields would be blank For edit
+		 * employee: text fields would populate with the selected employees info
+		 */
+
+		Stage addEmployeeStage = new Stage();
+		addEmployeeStage.setTitle("Add/Edit Employee");
+		Pane addEmployeePane = new Pane();
+		Scene addEmployeeScene = new Scene(addEmployeePane, 400, 500);
+		addEmployeeStage.setScene(addEmployeeScene);
+
+		Label EmpNameLabel = new Label("Name:");
+		EmpNameLabel.setStyle("-fx-font-size: 16px");
+		EmpNameLabel.relocate(10, 15);
+
+		TextField EmpName = new TextField();
+		EmpName.setPromptText("First MI Last");
+		EmpName.setStyle("-fx-font-size: 16px");
+		EmpName.relocate(100, 15);
+
+		Label EmpSSNLabel = new Label("SSN:");
+		EmpSSNLabel.setStyle("-fx-font-size: 16px");
+		EmpSSNLabel.relocate(10, 65);
+
+		TextField EmpSSN = new TextField();
+		EmpSSN.setPromptText("xxx-xx-xxxx");
+		EmpSSN.setStyle("-fx-font-size: 16px");
+		EmpSSN.relocate(100, 65);
+
+		Label EmpPhoneLabel = new Label("Phone:");
+		EmpPhoneLabel.setStyle("-fx-font-size: 16px");
+		EmpPhoneLabel.relocate(10, 115);
+
+		TextField EmpPhone = new TextField();
+		EmpPhone.setPromptText("xxx-xxx-xxxx");
+		EmpPhone.setStyle("-fx-font-size: 16px");
+		EmpPhone.relocate(100, 115);
+
+		Label EmpEmailLabel = new Label("E-mail:");
+		EmpEmailLabel.setStyle("-fx-font-size: 16px");
+		EmpEmailLabel.relocate(10, 165);
+
+		TextField EmpEmail = new TextField();
+		EmpEmail.setPromptText("address@email.com");
+		EmpEmail.setStyle("-fx-font-size: 16px");
+		EmpEmail.relocate(100, 165);
+
+		Label EmpAddressLabel = new Label("Address:");
+		EmpAddressLabel.setStyle("-fx-font-size: 16px");
+		EmpAddressLabel.relocate(10, 215);
+
+		TextField EmpAddress = new TextField();
+		EmpAddress.setStyle("-fx-font-size: 16px");
+		EmpAddress.relocate(100, 215);
+
+		Label EmpRoleLabel = new Label("Role:");
+		EmpRoleLabel.setStyle("-fx-font-size: 16px");
+		EmpRoleLabel.relocate(10, 265);
+
+		ComboBox EmpRole = new ComboBox();
+		ObservableList<String> EmpRoleItems = FXCollections
+				.observableArrayList("Host", "Server", "Manager", "Cashier",
+						"Crew");
+		EmpRole.setItems(EmpRoleItems);
+		EmpRole.setStyle("-fx-font-size: 16px");
+		EmpRole.relocate(100, 265);
+
+		Label EmpWageLabel = new Label("Wage:");
+		EmpWageLabel.setStyle("-fx-font-size: 16px");
+		EmpWageLabel.relocate(10, 315);
+
+		TextField EmpWage = new TextField();
+		EmpWage.setPromptText("xx.xx");
+		EmpWage.setStyle("-fx-font-size: 16px");
+		EmpWage.relocate(100, 315);
+
+		Label EmpClearanceLabel = new Label("Clearance:");
+		EmpClearanceLabel.setStyle("-fx-font-size: 16px");
+		EmpClearanceLabel.relocate(10, 365);
+
+		ComboBox EmpClearance = new ComboBox();
+		ObservableList<String> EmpClearanceItems = FXCollections
+				.observableArrayList("0 - No POS", "1 - Host",
+						"2 - Host & Server", "3 - Manager", "4 - Kitchen");
+		EmpClearance.setItems(EmpClearanceItems);
+		EmpClearance.setStyle("-fx-font-size: 16px");
+		EmpClearance.relocate(100, 365);
+
+		POSButton EmpAddButton = new POSButton(40, 150, "Add Employee");
+		EmpAddButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		EmpAddButton.relocate(125, 455);
+
+		addEmployeePane.getChildren().addAll(EmpNameLabel, EmpName,
+				EmpSSNLabel, EmpSSN, EmpPhoneLabel, EmpPhone, EmpEmailLabel,
+				EmpEmail, EmpAddressLabel, EmpAddress, EmpRoleLabel, EmpRole,
+				EmpWageLabel, EmpWage, EmpAddButton, EmpClearanceLabel,
+				EmpClearance);
+		// addEmployeeStage.show();
+
 	}
+
 }
