@@ -47,6 +47,7 @@ import java.util.ArrayList;
  *          other buttons and finalizes stuff
  *          
  *          //Alex Steinbacher was here 4:28 10/29/2016
+ *          //I'm going to murder someone
  *          
  */
 public class HostGUI extends Application {
