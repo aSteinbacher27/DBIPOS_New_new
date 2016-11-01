@@ -9,6 +9,11 @@ public class Register {
 
 	
 	/**
+	 * names of ALL items 
+	 */
+	static ArrayList<String> stringItems = new ArrayList<String>();
+	
+	/**
 	 * names of items with menu classification
 	 */
 	static ArrayList<String> menuItemNames = new ArrayList<String>();
@@ -213,6 +218,8 @@ public class Register {
 					dessertItemPrices.add(priceString);
 					break;
 				}
+				
+				stringItems.add(name);
 				
 				//System.out.println(giftItemNames);
 				//System.out.println(name);

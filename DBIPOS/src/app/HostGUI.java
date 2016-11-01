@@ -1220,7 +1220,7 @@ public class HostGUI extends Application {
 
 		ListView<String> itemsListView = new ListView<String>();
 		ObservableList<String> ListItems = FXCollections.observableArrayList(
-				"Display Items", "Register.items");
+				Register.stringItems);
 		itemsListView.setStyle("-fx-font-size: 16px");
 		itemsListView.setItems(ListItems);
 		itemsListView.setLayoutX(100);
@@ -1246,7 +1246,7 @@ public class HostGUI extends Application {
 
 		editItemPane.getChildren().addAll(editItemLabel, itemsListView,
 				addItemButton, editItemButton, deleteItemButton);
-		//editItemStage.show();
+		editItemStage.show();
 
 		/*
 		 * ------------------------------------------------------------ 
