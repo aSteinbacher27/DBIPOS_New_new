@@ -11,15 +11,15 @@ public class Employee{
 	double price;
 	int ID;
 	double wage;
-	int phone;
+	String phone;
 	String address;
 	String email;
-	int SSN;
+	String SSN;
 	int clearance;
 	double shiftHours;
 	
 	//constructor
-	Employee(String name, int ID, double wage, int phone, String address, String email, int SSN, int clearance) {
+	Employee(String name, int ID, double wage, String phone, String address, String email, String SSN, int clearance) {
 		this.name = name;
 		this.ID = ID;
 		this.wage = wage;

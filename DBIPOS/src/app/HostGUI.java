@@ -1248,7 +1248,8 @@ public class HostGUI extends Application {
 		//editItemStage.show();
 
 		/*
-		 * ------------------------------------------------------------ Add item
+		 * ------------------------------------------------------------ 
+		 * Add item
 		 * / edit item pop-up For add item: text fields would be blank For edit
 		 * item: text fields would populate with the selected item's info
 		 */
@@ -1343,7 +1344,8 @@ public class HostGUI extends Application {
 		// editEmployeeStage.show();
 
 		/*
-		 * ---------------------------------------------- Add employee / edit
+		 * ---------------------------------------------- 
+		 * Add employee / edit
 		 * employee pop-up For add employee: text fields would be blank For edit
 		 * employee: text fields would populate with the selected employees info
 		 */
@@ -1441,6 +1443,42 @@ public class HostGUI extends Application {
 				EmpWageLabel, EmpWage, EmpAddButton, EmpClearanceLabel,
 				EmpClearance);
 		// addEmployeeStage.show();
+		
+		/*
+		 * -----------------------------------------------------------------
+		 * View Payroll pop-up
+		 */
+
+		Stage viewPayrollStage = new Stage();
+		viewPayrollStage.setTitle("View Payroll");
+		Pane viewPayrollPane = new Pane();
+		Scene viewPayrollScene = new Scene(viewPayrollPane, 400, 370);
+		viewPayrollStage.setScene(viewPayrollScene);
+
+		ListView<String> PayrollListView = new ListView<String>();
+		ObservableList<String> PayrollEmpList = FXCollections
+				.observableArrayList("Display Employees", "Register.employees");
+		PayrollListView.setStyle("-fx-font-size: 16px");
+		PayrollListView.setItems(PayrollEmpList);
+		PayrollListView.setLayoutX(100);
+		PayrollListView.setLayoutY(35);
+		PayrollListView.setPrefWidth(200);
+		PayrollListView.setPrefHeight(250);
+
+		Label viewPayrollLabel = new Label("Select an employee:");
+		viewPayrollLabel.setStyle("-fx-font-size: 16px");
+		viewPayrollLabel.relocate(10, 5);
+
+		POSButton viewButton = new POSButton(40, 180, "View Payroll");
+		viewButton
+				.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
+		viewButton.relocate(110, 310);
+
+
+		viewPayrollPane.getChildren().addAll(PayrollListView,
+				viewPayrollLabel, viewButton);
+		//viewPayrollStage.show();
+
 
 	}
 
