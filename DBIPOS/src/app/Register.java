@@ -126,8 +126,8 @@ public class Register {
 
 			
 	//Test Employees
-	employees.add(new Employee("Brian", 212323, 100.60, 555555, "Address", "email", 8394949, 222));
-	employees.add(new Employee("Gilbert", 435643, 100.60, 55555, "Address", "email", 8394949, 222));
+	employees.add(new Employee("Brian", 123456, 100.60, "212-323-5555", "Address", "email", "839-49-149", 222));
+	employees.add(new Employee("Gilbert", 987654, 100.60, "212-323-5555", "Address", "email", "839-49-349", 222));
 
 
 	}
