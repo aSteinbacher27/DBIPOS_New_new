@@ -1448,6 +1448,7 @@ public class HostGUI extends Application {
 		/*
 		 * -----------------------------------------------------------------
 		 * View Payroll pop-up
+		 * --
 		 */
 
 		Stage viewPayrollStage = new Stage();
