@@ -1,1 +1,3 @@
-name,123,8.05,phone,address,email,SSN,4
+Brad Williams,123456,10.60,212-323-5555,123 E Road,brad@email.com,839-49-149,0
+Gilbert Brown,258258,8.10,555-325-5555,123 N Street,gilbert@email.com,601-49-149,3
+Sarah Jones,963852,15.80,585-232-5555,1212 E Road,sarah@email.com,969-49-363,2

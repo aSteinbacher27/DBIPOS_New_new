@@ -137,10 +137,10 @@ public class Register {
 
 			
 	//Test Employees
-	employees.add(new Employee("Brad", 123456, 10.60, "212-323-5555", "123 E Road", "brad@email.com",  "839-49-149", 0));
-	employeeNames.add("Brad");
-	employees.add(new Employee("Gilbert", 987654, 8.80, "212-323-5555", "456 N. Street", "gilbert@email.com", "839-49-349", 2));
-	employeeNames.add("Gilbert");
+	//employees.add(new Employee("Brad", 123456, 10.60, "212-323-5555", "123 E Road", "brad@email.com",  "839-49-149", 0));
+	//employeeNames.add("Brad");
+	//employees.add(new Employee("Gilbert", 987654, 8.80, "212-323-5555", "456 N. Street", "gilbert@email.com", "839-49-349", 2));
+	//employeeNames.add("Gilbert");
 
 
 	}
@@ -318,6 +318,7 @@ public class Register {
 				Employee newEmployee = new Employee(name, ID, wage, phone, address, email, SSN, clearance);
 				
 				this.employees.add(newEmployee);
+				employeeNames.add(name);
 				
 			}
 			
