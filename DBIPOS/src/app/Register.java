@@ -268,19 +268,61 @@ public class Register {
 	 * @param fileName  name of the CSV text file with the employees
 	 */
 	private void popEmployees(String fileName){
-		try{
-			//set up file and scanner
-			File itemFile = new File(fileName);
-			Scanner input = new Scanner(itemFile);
-			
-			//read file until empty
-			while(input.hasNextLine()) {
+		//set up file and scanner
+		File itemFile = new File(fileName);
+
+		String[] toSplit = new String[8];
+
+		BufferedReader br = null;
+		String line = new String("");
+		String cvsSplitBy = ",";
+
+		try {
+			br = new BufferedReader(new FileReader(fileName));
+			while ((line = br.readLine()) != null) {
 				
-				//pop employees
+				// use comma as separator and populate toString
+				toSplit = line.split(cvsSplitBy);
+				
+				//preps temp variables for object creation
+				String IDS;
+				String wageS;
+				String clearanceS;
+				
+				//preps usable object variables
+				String name;
+				int ID;
+				double wage;
+				String phone;
+				String address;
+				String email;
+				String SSN;
+				int clearance;
+				
+				//splits string into appropriate temp variables
+				name = toSplit[0];
+				IDS = toSplit[1];
+				wageS = toSplit[2];
+				phone = toSplit[3];
+				address = toSplit[4];
+				email = toSplit[5];
+				SSN = toSplit[6];
+				clearanceS = toSplit[7];
+				
+				//converts attributes as needed
+				ID = Integer.parseInt(IDS);
+				wage = Double.parseDouble(wageS);
+				clearance = Integer.parseInt(clearanceS);
+				
+				//creates new employee object
+				Employee newEmployee = new Employee(name, ID, wage, phone, address, email, SSN, clearance);
+				
+				this.employees.add(newEmployee);
+				
 			}
 			
 			
-		} catch(IOException e) {
+			}catch(IOException e) {
 			//fail case
 			System.out.println("popEmployees has horribly failed with file IO");
 		}
