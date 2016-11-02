@@ -1296,7 +1296,6 @@ public class HostGUI extends Application {
 		addItemPane.getChildren().addAll(ItemNameLabel, ItemName,
 				ItemPriceLabel, ItemPrice, ItemCategoryLabel, ItemCategory,
 				ItemAddButton);
-		//addItemStage.show();
 
 		/*
 		 * -----------------------------------------------------------------
@@ -1311,7 +1310,7 @@ public class HostGUI extends Application {
 
 		ListView<String> employeesListView = new ListView<String>();
 		ObservableList<String> ListEmployees = FXCollections
-				.observableArrayList("Display Employees", "Register.employees");
+				.observableArrayList(Register.employeeNames);
 		employeesListView.setStyle("-fx-font-size: 16px");
 		employeesListView.setItems(ListEmployees);
 		employeesListView.setLayoutX(100);
@@ -1342,7 +1341,7 @@ public class HostGUI extends Application {
 		editEmployeePane.getChildren().addAll(editEmployeeLabel,
 				employeesListView, addEmployeeButton, editEmployeeButton,
 				deleteEmployeeButton);
-		// editEmployeeStage.show();
+		 editEmployeeStage.show();
 
 		/*
 		 * ---------------------------------------------- 
@@ -1443,7 +1442,7 @@ public class HostGUI extends Application {
 				EmpEmail, EmpAddressLabel, EmpAddress, EmpRoleLabel, EmpRole,
 				EmpWageLabel, EmpWage, EmpAddButton, EmpClearanceLabel,
 				EmpClearance);
-		// addEmployeeStage.show();
+		
 		
 		/*
 		 * -----------------------------------------------------------------
@@ -1459,7 +1458,7 @@ public class HostGUI extends Application {
 
 		ListView<String> PayrollListView = new ListView<String>();
 		ObservableList<String> PayrollEmpList = FXCollections
-				.observableArrayList("Display Employees", "Register.employees");
+				.observableArrayList(Register.employeeNames);
 		PayrollListView.setStyle("-fx-font-size: 16px");
 		PayrollListView.setItems(PayrollEmpList);
 		PayrollListView.setLayoutX(100);
@@ -1479,9 +1478,101 @@ public class HostGUI extends Application {
 
 		viewPayrollPane.getChildren().addAll(PayrollListView,
 				viewPayrollLabel, viewButton);
-		//viewPayrollStage.show();
+		viewPayrollStage.show();
 
 
+		/*
+		 * ---------------------------
+		 * Button Actions
+		 * ---------------------------
+		 */
+		
+		//add item
+		addItemButton.setOnAction(e -> {
+			editItemStage.close();
+			ItemAddButton.setText("Add Item");
+			addItemStage.show();
+		});
+		
+		//edit item
+		editItemButton.setOnAction(e -> {
+			editItemStage.close();
+			ItemAddButton.setText("Save Changes");
+			
+			int itemIndex=-1;
+			for (int i = 0; i < Register.items.size(); i++) {
+
+				if ((Register.items.get(i)
+						.getName() == itemsListView.getSelectionModel().getSelectedItem())) 
+				{
+					itemIndex = i;
+				}
+			}
+			
+			ItemName.setText(Register.items.get(itemIndex).getName());
+			ItemPrice.setText(String.valueOf(Register.items.get(itemIndex).getPrice()));
+			String type = Register.items.get(itemIndex).getType();
+			switch (type) {
+			case "meal":
+				ItemCategory.getSelectionModel().clearAndSelect(0);
+				break;
+			case "gift":
+				ItemCategory.getSelectionModel().clearAndSelect(3);
+				break;
+			case "drink":
+				ItemCategory.getSelectionModel().clearAndSelect(1);
+				break;
+			case "dessert":
+				ItemCategory.getSelectionModel().clearAndSelect(2);
+				break;
+				
+			}
+			
+			addItemStage.show();
+		});
+		
+		//add employee
+		addEmployeeButton.setOnAction(e -> {
+			editEmployeeStage.close();
+			EmpAddButton.setText("Add Employee");
+			addEmployeeStage.show();
+		});
+		
+		//edit employee
+		editEmployeeButton.setOnAction(e -> {
+			editEmployeeStage.close();
+			EmpAddButton.setText("Save Changes");
+			int EmployeeIndex=-1;
+			for (int i = 0; i < Register.employees.size(); i++) {
+
+				if ((Register.employees.get(i)
+						.getName() == employeesListView.getSelectionModel().getSelectedItem())) 
+				{
+					EmployeeIndex = i;
+				}
+			}
+			
+			EmpName.setText(Register.employees.get(EmployeeIndex).getName());
+			EmpSSN.setText(Register.employees.get(EmployeeIndex).getSSN());
+			EmpPhone.setText(Register.employees.get(EmployeeIndex).getPhone());
+			EmpEmail.setText(Register.employees.get(EmployeeIndex).getEmail());
+			EmpAddress.setText(Register.employees.get(EmployeeIndex).getAddress());
+			EmpWage.setText(String.valueOf(Register.employees.get(EmployeeIndex).getWage()));
+			EmpRole.getSelectionModel().clearAndSelect(Register.employees.get(EmployeeIndex).getClearance());
+			EmpClearance.getSelectionModel().clearAndSelect(Register.employees.get(EmployeeIndex).getClearance());
+			
+			addEmployeeStage.show();
+		});
+		
+		//view payroll
+		viewButton.setOnAction(e -> {
+			viewPayrollStage.close();
+			//show stage that displays the payroll info for the selected employee
+		});
+		
+		
+		
+		
 	}
 
 }

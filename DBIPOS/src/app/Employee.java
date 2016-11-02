@@ -8,7 +8,6 @@ package app;
  */
 public class Employee{
 	String name;
-	double price;
 	int ID;
 	double wage;
 	String phone;
@@ -34,6 +33,35 @@ public class Employee{
 	public String getName(){
 		return this.name;
 	}
+	
+	public String getSSN(){
+		return this.SSN;
+	}
+	
+	public double getWage(){
+		return this.wage;
+	}
+	
+	public String getPhone(){
+		return this.phone;
+	}
+	
+	public String getAddress(){
+		return this.address;
+	}
+	
+	public String getEmail(){
+		return this.email;
+	}
+	
+	public int getClearance(){
+		return this.clearance;
+	}
+
+
+
+
+
 
 	public int getID(){
 	
