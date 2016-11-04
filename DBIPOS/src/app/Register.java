@@ -406,17 +406,17 @@ public class Register {
 		try {
 			File itemsFile = new File("items.txt");
 			
-			FileWriter fw = new FileWriter(itemsFile.getAbsoluteFile());
+			FileWriter fw = new FileWriter(itemsFile.getName(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter out = new PrintWriter(bw);
 			
 			String toAdd = new String();
-			
-			
-			toAdd.concat(newItem.getName() + "," + newItem.getType() + "," + Double.toString(newItem.getPrice()) + ",");
+			//toAdd.concat(newItem.getName() + "," + newItem.getType() + "," + Double.toString(newItem.getPrice()) + ",");
 
-			out.println(toAdd);
-			out.close();
+			toAdd = newItem.getName() + "," + newItem.getType() + "," + Double.toString(newItem.getPrice()) + ",";
+		
+			bw.newLine();
+			bw.write(toAdd);
+			bw.flush();
 			bw.close();
 			
 			System.out.println(toAdd);
