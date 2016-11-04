@@ -390,6 +390,63 @@ public class Register {
 
 		return employeeNames;
 	}
+	
+	public static void updateItems(){
+		//kills everything and remakes
+	}
+	
+	public static void addToItems(Item newItem){
+		//adds to end of file and seperate arrays
+		
+		//adds item object to items array
+		items.add(newItem);
+		generateReferenceArrays();
+	
+	}
+	
+	public static void generateReferenceArrays() {
+		int i;
+		//wipe reference arrays
+		giftItemNames.clear();
+		giftItemPrices.clear();
+		menuItemNames.clear();
+		menuItemPrices.clear();
+		drinkItemNames.clear();
+		drinkItemPrices.clear();
+		dessertItemNames.clear();
+		dessertItemPrices.clear();
+		
+		for(i = 0; i < items.size(); i++) {
+			String type = new String(items.get(i).getType());
+			String name = new String(items.get(i).getName());
+			String priceString = new String(Double.toString(items.get(i).getPrice()));
+			
+			switch (type) {
+			case "gift":
+				giftItemNames.add(name);
+				giftItemPrices.add(priceString);
+				break;
+
+			case "meal":
+				menuItemNames.add(name);
+				menuItemPrices.add(priceString);
+				break;
+
+			case "drink":
+				drinkItemNames.add(name);
+				drinkItemPrices.add(priceString);
+				break;
+
+			case "dessert":
+				dessertItemNames.add(name);
+				dessertItemPrices.add(priceString);
+				break;
+			}
+			
+			stringItems.add(name);
+			
+		}
+	}
 
 	
 }
