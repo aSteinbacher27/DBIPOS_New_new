@@ -1538,6 +1538,33 @@ public class HostGUI extends Application {
 			addEmployeeStage.show();
 		});
 		
+		//create new item
+		ItemAddButton.setOnAction(e -> {
+			addItemStage.close();
+			String newItemName = ItemName.getText();
+			double newItemPrice = Double.parseDouble(ItemPrice.getText());
+			String newItemType = "Error";
+			int newItemTypeIndex = ItemCategory.getSelectionModel().getSelectedIndex();
+			switch (newItemTypeIndex) {
+			case 0:
+				newItemType = "meal";
+				break;
+			case 3:
+				newItemType = "gift";
+				break;
+			case 1:
+				newItemType = "drink";
+				break;
+			case 2:
+				newItemType = "dessert";
+				break;
+			}
+			
+			Item newItem = new Item(newItemName, newItemType, newItemPrice);
+			Register.addToItems(newItem);
+			
+		});
+		
 		//edit employee
 		editEmployeeButton.setOnAction(e -> {
 			editEmployeeStage.close();
