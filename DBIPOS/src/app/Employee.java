@@ -59,10 +59,6 @@ public class Employee{
 	}
 
 
-
-
-
-
 	public int getID(){
 	
 		return ID;

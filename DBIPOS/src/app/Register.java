@@ -401,7 +401,31 @@ public class Register {
 		//adds item object to items array
 		items.add(newItem);
 		generateReferenceArrays();
-	
+		
+		//adds to file
+		try {
+			File itemsFile = new File("items.txt");
+			
+			FileWriter fw = new FileWriter(itemsFile.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter out = new PrintWriter(bw);
+			
+			String toAdd = new String();
+			
+			
+			toAdd.concat(newItem.getName() + "," + newItem.getType() + "," + Double.toString(newItem.getPrice()) + ",");
+
+			out.println(toAdd);
+			out.close();
+			bw.close();
+			
+			System.out.println(toAdd);
+			
+		} catch(IOException e) {
+			System.out.println("item added failed");
+		}
+		
+		System.out.println("item added");
 	}
 	
 	public static void generateReferenceArrays() {
